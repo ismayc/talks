@@ -1,0 +1,42 @@
+---
+title: Creating the `fivethirtyeight` <br> R package
+subtitle: Portland R User Group
+author: "Chester Ismay (With Jennifer Chunn and Albert Y. Kim) <br> GitHub: [`ismayc`](https://github.com/ismayc) <br> Twitter:  [`@old_man_chester`](https://twitter.com/old_man_chester)"
+date: 2017-05-30 <br><br> Slides available at <http://bit.ly/pdx538> <br> Running HTML document at <http://bit.ly/pdx538html>
+output: 
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      highlightLanguage: r
+    countIncrementalSlides: false
+    css: example.css
+---
+
+---
+
+layout: true
+
+.footer[ [Table of Contents](#toc) &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; Slides available at http://bit.ly/pdx538]
+
+---
+
+layout: false
+class: middle
+
+# Thanks for attending!
+
+- Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
+- Running HTML document created via the R package [rmarkdown](http://rmarkdown.rstudio.com/) by RStudio
+- Slides available at <http://bit.ly/pdx538>
+- Source code for these slides at <https://github.com/ismayc/talks/pdx538>
+
+---
+
+layout: false
+name: toc
+
+### Table of Contents
+
+- [Header 1](#header1)

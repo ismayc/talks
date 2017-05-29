@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>thesisdown</title>
+    <meta charset="utf-8">
+    <meta name="author" content="  Chester Ismay (cismay@reed.edu)   Twitter: @old_man_chester" />
+    <link rel="stylesheet" href="example.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# <small><code>thesisdown</code></small>
+## Using the R Markdown Senior Thesis Template <br><br> Paideia 2017
+### <br> Chester Ismay (<a href="mailto:cismay@reed.edu">cismay@reed.edu</a>) <br> Twitter: <span class="citation">@old_man_chester</span>
+### 2017/01/19 <br><br> Slides available at <a href="http://bit.ly/thesisdown17" class="uri">http://bit.ly/thesisdown17</a>
+
+---
+
+
+## Traditional approach to writing a senior thesis &lt;br&gt; involving statistical analysis
+
+***
+
+.footnote[&lt;center&gt;These slides available at &lt;http://bit.ly/thesisdown17&gt;&lt;/center&gt;]
+--
+
+### - Import data set into statistical software package
+
+--
+
+### - Run the procedure to get results
+--
+
+### - Copy &amp; paste appropriate pieces from the analysis into editor
+--
+ 
+### - Add descriptions
+--
+
+### - Finish/submit report
+
+
+
+---
+
+## Disadvantages of this process
+
+***
+
+.footnote[&lt;center&gt;These slides available at &lt;http://bit.ly/thesisdown17&gt;&lt;/center&gt;]
+--
+
+### - Lots of manual work (prone to make errors)
+--
+
+### - Tedious (who likes to carefully copy-and-paste?)
+--
+
+### - Likely not recordable (did you write down all the steps you followed to get your analysis?)
+--
+
+### - What if you made an error at the beginning of your analysis?  If your data had an error?
+
+---
+
+class: center, middle
+
+# Reproducible research
+
+---
+
+class: center, middle
+
+### "**Reproducible research** is the idea that data analyses, and more generally, scientific claims, are published with their data and software code so that others may verify the findings and build upon them."
+
+### - Roger Peng, Johns Hopkins
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.footnote[&lt;center&gt;These slides available at &lt;http://bit.ly/thesisdown17&gt;&lt;/center&gt;]
+
+---
+
+## Why would reproducible research be of value with senior theses?
+
+***
+
+--
+
+### - Updating your code at the very beginning has little impact on all of your analysis throughout the rest of the document
+--
+
+### - Documents how you performed your analysis for use YEARS later
+--
+
+### - Prepares you for submitting articles that may require revisions
+--
+
+### - Assists in others building off/from your work
+--
+
+### - Tech companies are moving more and more towards reproducible research/analysis to help with employee turnover
+
+---
+
+class: center, middle
+
+### "Let us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to humans what we want the computer to do." 
+
+### - Donald Knuth, _Literate Programming_ (1984)
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.footnote[&lt;center&gt;These slides available at &lt;http://bit.ly/thesisdown17&gt;&lt;/center&gt;]
+
+
+---
+
+## What is Markdown?
+
+***
+
+.footnote[&lt;center&gt;These slides available at &lt;http://bit.ly/thesisdown17&gt;&lt;/center&gt;]
+--
+
+### - A "plaintext formatting syntax"
+--
+
+### - Type in plain text, render to more complex formats
+--
+
+### - One step beyond writing a &lt;small&gt;`txt`&lt;/small&gt; file
+--
+
+### - Render to HTML, PDF, etc.
+
+
+---
+
+## What does it look like?
+
+***
+
+.left-column[
+```
+  # Header 1
+  
+  
+  ## Header 2
+  
+  
+  Normal paragraphs of text go here.
+  
+  
+  **I'm bold**
+  
+  [links!](http://rstudio.com)
+  
+   * Unordered
+   * Lists   
+   
+  And  Tables
+  ---- -------
+  Like This
+  
+```
+]
+
+.right-column[
+  &lt;img src="figure/markdown.png" alt="markdown" style="width: 350px;"/&gt;
+]
+
+---
+
+## What is R Markdown?
+  
+***  
+  
+- "Literate programming"
+- Embed R code in a Markdown document
+- Renders textual output along with graphics
+
+.left-column[
+
+```
+```{r}
+x &lt;- rnorm(100)
+length(x)
+qplot(x, 
+      color = I("white"),
+      bins = 10)
+```
+```
+]
+
+.right-column[
+
+```
+## [1] 100
+```
+
+![](slides_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
+]
+
+---
+
+class: center, middle
+
+## But then I have to learn R...
+
+---
+
+## Tools to make working with R friendly
+***
+
+### - RStudio is a powerful user interface that helps you get better control of your analysis.
+--
+
+### - Like R, it is also completely free.
+--
+
+### - You can write your entire paper/report (text, code, analysis, graphics, etc.) all in R Markdown.
+--
+
+### - If you need to update any of your code, R Markdown will automatically update your plots and output of your analysis and will create an updated PDF file.
+
+
+---
+
+class: center, middle
+
+# `thesisdown` &lt;br&gt;&lt;br&gt; The Reed College &lt;br&gt; R Markdown &lt;br&gt; Senior Thesis Template
+
+---
+
+## Using predefined templates
+
+***
+
+### - The PDF made via R Markdown uses the existing `\(\LaTeX\,\)` template
+- This is to keep the formatting to match what has been approved
+
+--
+
+### - You don't need to know any `\(\LaTeX\,\)` to write your thesis now
+- Except for entering equations like `\(Y = mX + b\)` which requires you to use the dollar signs
+- For example, `$Y = mX + b$`
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.footnote[&lt;center&gt;These slides available at &lt;http://bit.ly/thesisdown17&gt;&lt;/center&gt;]
+
+
+---
+
+class: center, middle
+
+# Demo of getting &lt;br&gt; the template &lt;br&gt; up-and-running
+
+(Following along with blogs [here](http://blogs.reed.edu/ed-tech/2016/09/updated-r-markdown-thesis-template/) and from last year [here](http://blogs.reed.edu/ed-tech/2015/11/r-markdown-senior-thesis-template/))
+
+---
+
+# Resources
+
+***
+
+### - It's my job!  
+--
+
+### - [Getting Used to R, RStudio, and R Markdown](https://ismayc.github.io/rbasics-book/)
+--
+
+### - [A MODERN DIVE into Data with R](http://www.moderndive.com)
+--
+
+### - [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet), [R Markdown Reference Guide](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
+
+### - [RStudio Cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
+--
+
+### - [My &lt;small&gt;`thesisdown`&lt;/small&gt; package](https://github.com/ismayc/thesisdown/), [An example thesis webpage](https://ismayc.github.io/thesisdown_book/)
+
+---
+
+# Thanks! 
+
+### - Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan) by Yihui Xie.
+
+### - Email me at cismay@reed.edu
+
+### - These slides available at &lt;http://bit.ly/thesisdown17&gt;
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('showSlide', function (slide) {setTimeout(function() {window.dispatchEvent(new Event('resize'));}, 100)});</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

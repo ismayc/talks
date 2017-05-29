@@ -1,0 +1,26 @@
+---
+title: "Untitled"
+author: "Chester Ismay"
+date: "1/23/2017"
+output: html_document
+---
+
+1st week - Quick assignment on Friday
+  - Write one page thought piece
+  - All text from articles
+  - Rmd's 
+  - Title, author, date
+  - GitHub and R Markdown to produce a report
+  - Headers
+  - bold/italics
+End of workshop - Github Classroom assignment
+  - Accept assignment
+  - Clone repository into their account as private repository
+  - Pull down
+  - Commit throughout
+  - Push to their repo
+  - Links to all student repositories
+  - 
+  
+2nd week - Markdown report
+

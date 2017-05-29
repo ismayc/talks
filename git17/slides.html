@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Slack/git/GitHub</title>
+    <meta charset="utf-8">
+    <meta name="author" content="  Chester Ismay   Email: cismay@reed.edu   Office: ETC 223" />
+    <link rel="stylesheet" href="example.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Slack/git/GitHub
+## Reed College Math 241 - Spring 2017
+### <br> Chester Ismay <br> Email: <a href="mailto:cismay@reed.edu">cismay@reed.edu</a> <br> Office: ETC 223
+### 2017/01/26 <br><br> Slides available at <font style="text-transform: lowercase;"><a href="http://bit.ly/reed-git17" class="uri">http://bit.ly/reed-git17</a></font>
+
+---
+
+
+layout: true
+
+.footer[These slides available at &lt;http://bit.ly/reed-git17&gt;]
+
+---
+
+class: center, middle
+
+&lt;img src="img/slack.jpg" width="275"/&gt; &lt;img src="img/git.jpg" width="200"/&gt; &lt;img src="img/github.jpg" width="200"/&gt; 
+
+???
+
+Who can tell me something about any one of these three?
+
+---
+
+&lt;img src="img/slack.jpg" width="275"/&gt;
+
+- "An instant messaging and collaboration system on steroids"
+
+- [Slack video tour](https://slack.com/is)
+
+- [What is Slack and How Do I Use It for My Team?](https://smallbiztrends.com/2015/12/slack-use-team.html)
+
+???
+
+Watch video
+
+---
+
+&lt;img src="img/slack.jpg" width="275"/&gt;
+
+
+&lt;center&gt;&lt;H1&gt;Exploration/DEMO&lt;/H1&gt;&lt;/center&gt;
+
+???
+Make sure to go over inline code and block of code.
+
+---
+
+class: middle
+
+&lt;img src="img/git.jpg" width="250"/&gt;
+
+- Most widely used version control system in the world
+- Developed by Linus Torvalds in 2005
+- [Why Git?](http://happygitwithr.com/big-picture.html)
+
+
+---
+
+# Getting on the same page
+
+### Make sure that you've
+
+  1. [Downloaded and installed git on your machine](http://happygitwithr.com/install-git.html)
+  2. Created a GitHub account at &lt;http://github.com&gt;
+  3. [Downloaded and installed R and RStudio Desktop](http://happygitwithr.com/install-r-rstudio.html) 
+  4. Entered your [GitHub information](https://goo.gl/forms/ryaJCgjiLOxSFcr53) so Andrew can add you to GitHub Classroom
+
+- For a description of the different commands and arguments in &lt;small&gt;`git`&lt;/small&gt;, check [this](https://www.kernel.org/pub/software/scm/git/docs/git.html) out 
+---
+
+## Introduce yourself to Git
+
+- [Open the shell](http://happygitwithr.com/shell.html#shell)
+
+    * One way: In RStudio, go to Tools &gt; Shell
+    
+--
+
+- Enter the following replacing my name &amp; email with yours
+
+    * Your email needs to be the same as the one you signed up on GitHub with
+
+
+```bash
+git config --global user.name 'Chester Ismay'
+git config --global user.email 'cismay@reed.edu'
+```
+
+---
+
+## Initialize repository
+
+- Determine what folder you are currently at in the shell
+
+
+```bash
+pwd
+```
+
+- Set a folder to correspond to a `git` repository
+
+
+
+```bash
+git init
+```
+
+???
+
+Start drawing on the board here
+
+---
+
+## Create and add a file to repo
+
+- Create a text file called &lt;small&gt;`git_workshop.txt`&lt;/small&gt;
+
+    * Save it in the same folder as the repo
+--
+
+- To add this file to the repository to be tracked, run
+
+
+```bash
+git add git_workshop.txt
+```
+
+???
+
+Can also add folders and all of their files if inside this folder
+
+--
+
+- Can add all files in the folder using `.` 
+
+
+```bash
+git add .
+```
+
+
+???
+
+Git works great with text files, CSVs, etc.  Since R Markdown is plain text, it works great but it works
+with many of other plain text files too.
+
+Step away from the shell... Create text file in RStudio
+
+---
+
+## Check the status / Make commit
+
+- To see that the file has been added, use
+
+
+```bash
+git status
+```
+--
+
+- To record the changes to the repository, use
+
+```bash
+git commit -m "Add blank file"
+```
+
+--
+
+- Creating a good commit message is not fun, but it can save you in the long run
+
+???
+
+Current tense is preferred on your commit message
+
+---
+
+## Check the status / Make changes
+
+- To see that changes to the repository have been recorded, use 
+
+
+```bash
+git log --oneline
+```
+--
+
+- Make a change to the text file by adding "gitting it together" and save your file
+--
+
+- Check that the file has been modified
+
+
+```bash
+git status
+```
+
+---
+
+## Add the file &amp; commit
+
+
+```bash
+git add .
+git commit -m "Add line of text"
+git log --oneline
+```
+
+---
+
+## Fixing my typo
+
+- You can go back to a previous commit using
+  - Use with caution!
+
+
+```bash
+git reset --hard [commit]
+```
+
+???
+
+Pass out cheat sheets
+
+Complete diagram
+
+---
+
+&lt;img src="img/github.jpg" width="200"/&gt;
+
+- Like Dropbox on steroids (You determine the backups)
+--
+
+- You can collaborate with others...uh... easily
+--
+
+- You can back up your code to the cloud
+--
+
+- No more awkward file names like &lt;small&gt;`final_analysis_for_real_FINAL_07a.Rmd`&lt;/small&gt;
+
+---
+
+class: center, middle
+
+&lt;img src="img/github.jpg" width="300"/&gt; &lt;img src="img/plus.jpg" width="100"/&gt; &lt;img src="img/rstudio.png" width="320"/&gt;
+
+---
+
+# Linking GitHub and RStudio via SSH
+
+- This allows for you to not have to enter your username/password over and over again
+- Adds security
+- How to:
+  - In RStudio, go to Tools &gt; Global Options &gt; Git/SVN
+  - Make sure **Enable version control interface for RStudio projects** is checked
+  - Press the **Create RSA Key...** button
+  - Enter passphrase (that you can remember!)
+
+???
+
+- Fork homework repo from GitHub Classroom
+
+- &lt;small&gt;`clone`&lt;/small&gt; repository from your GitHub account in RStudio as RStudio project
+
+- Make changes to files / update analyses
+
+- Check the box next to the files to &lt;small&gt;`add`&lt;/small&gt;
+
+- Commit the changes
+
+- &lt;small&gt;`push`&lt;/small&gt; the changes to GitHub
+    - First time, need to run &lt;small&gt;git push -u origin master&lt;/small&gt; in shell
+
+- Go to GitHub and check that files have been updated
+
+- **Every time you start over you should Pull!**
+
+
+---
+
+# Linking GitHub and RStudio via SSH
+
+- Go to the path specified as the location of the key
+- Open the &lt;small&gt;`id_rsa.pub`&lt;/small&gt; file
+- Copy the contents
+- Go to &lt;https://github.com/settings/keys&gt;
+    - Press New SSH key
+    - Give it a title and paste into **Key**
+    - Press **Add SSH Key** button
+
+---
+
+class: center, middle
+
+&lt;img src="img/github.jpg" width="200"/&gt; &lt;img src="img/plus.jpg" width="100"/&gt; &lt;img src="img/rstudio.png" width="230"/&gt;
+
+***
+
+# DEMO
+
+---
+
+
+# Recap working with GitHub and RStudio
+
+- Click Accept assignment link in email to get barebones homework repo from GitHub Classroom into your GitHub
+--
+
+- &lt;small&gt;`clone`&lt;/small&gt; repository from your GitHub account in RStudio as RStudio project
+--
+
+- Make changes to files / update analyses
+--
+
+- Check box next to the files to &lt;small&gt;`add`&lt;/small&gt; &amp; &lt;small&gt;`commit`&lt;/small&gt; changes
+--
+
+- &lt;small&gt;`push`&lt;/small&gt; the changes to GitHub in the shell via 
+
+
+```bash
+git push -u origin master
+```
+
+(Only the first time, you can just press the **Push** button subsequently)
+--
+
+- Go to GitHub and check that files have been updated
+
+
+???
+
+Create new diagram for GitHub / RStudio workflow
+
+---
+
+## Good Habit
+
+- **Every time you start over in your work, you should Pull!**
+
+---
+
+# Resources
+
+- Excellent resource:  [Happy Git and GitHub for the useR](http://happygitwithr.com/)
+- A [section](http://r-pkgs.had.co.nz/git.html) in Hadley's R Packages book
+- [Git Cheat Sheet from GitHub.com](https://services.github.com/on-demand/downloads/github-git-cheat-sheet.pdf)
+- [Git For People Who Think Git is Hard](https://web-crunch.com/git-people-think-git-hard/])
+
+### More advanced
+
+- [Git command help](https://www.kernel.org/pub/software/scm/git/docs/git.html)
+- [Pro Git book](https://git-scm.com/book/en/v2)
+
+---
+
+# Thanks!
+
+- Slides created via the R package [&lt;small&gt;`xaringan`&lt;/small&gt;](https://github.com/yihui/xaringan) by Yihui Xie.
+
+- Email me at &lt;cismay@reed.edu&gt;
+
+- Office: ETC 223
+
+- Source code for these slides is on [GitHub](https://github.com/ismayc/ismayc.github.io/tree/master/talks/git17)
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "monokai",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('showSlide', function (slide) {setTimeout(function() {window.dispatchEvent(new Event('resize'));}, 100)});</script>
+
+  </body>
+</html>

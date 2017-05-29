@@ -1,0 +1,149 @@
+---
+title: "Effective Data Stories via Visualization"
+subtitle: "Paideia 2017"
+author: "Chester Ismay <br> Twitter: @old_man_chester"
+date: "2017/01/19 <br><br> Slides available at http://bit.ly/paideia-viz17"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+    css: example.css
+---
+
+class: center, middle
+
+# The Importance of Data Visualization
+
+---
+
+# What do you see when analyzing the summary information?
+
+```{r setup, include=FALSE}
+library(knitr)
+library(tidyverse)
+```
+
+
+```{r anscombe, echo=FALSE, warning=FALSE, message=FALSE}
+anscombe <- as.data.frame(anscombe)
+anscombereorder <- anscombe[, c(1, 5, 2, 6, 3, 7, 4, 8)]
+```
+
+
+```{r echo=FALSE}
+anscombelong <- data.frame(x = unlist(anscombe[, 1:4]), y = unlist(anscombe[, 
+    5:8]), datasource = rep(1:4, each = 11))
+kable(anscombelong %>% group_by(datasource) %>% summarise(`x-mean` = mean(x), 
+    `y-mean` = mean(y), `x-stdev` = sd(x), `y-stdev` = sd(y), `correlation-xy` = cor(x, 
+        y)), table.attr = "cellpadding=\"3\"", format = "html", row.names = FALSE)
+```
+
+--
+
+- What do you think the plots of `x` versus `y` look like for the four datasets?
+
+---
+
+### Visualizing this data
+
+```{r anscombeviz, echo=FALSE, warning=FALSE, fig.width=11, fig.height=6.5}
+# http://stackoverflow.com/questions/7549694/ggplot2-adding-regression-line-equation-and-r2-on-graph 
+lm_eqn <- function(m){
+  l <- list(a = format(coef(m)[1], digits = 2),
+    b = format(abs(coef(m)[2]), digits = 2),
+    r2 = format(summary(m)$r.squared, digits = 3));
+  
+  if (coef(m)[2] >= 0){
+    eq <- substitute(italic(y) == a + b %.%
+        italic(x)*","~~italic(r)^2~"="~r2, l)
+  }else{
+    eq <- substitute(italic(y) == a - b %.%
+        italic(x)*","~~italic(r)^2~"="~r2, l)    
+  }
+  
+  as.character(as.expression(eq));                 
+}
+
+anscombelong %>% ggplot(aes(x = x,y = y)) +
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE) + 
+  annotate("text", x = 12, y = 4, 
+    label = lm_eqn(lm(y ~ x, anscombelong)), color="black",  
+    parse = TRUE, size = 5) + 
+  ylim(3, 13) + 
+  xlim(4, 19) + 
+  facet_wrap(~datasource) + 
+  theme(legend.position="none") + 
+  theme_bw()
+```
+--
+
+- What have you learned from visualizing the data?
+
+
+---
+
+## The raw Anscombe's Quartet data
+
+Data is in pairs (`x1` goes with `y1`, `x2` goes with `y2`, etc.)
+
+```{r echo=FALSE}
+kable(anscombereorder, format = "html")
+```
+
+---
+
+countIncrementalSlides: false
+
+## Why are graphics a valuable way to understand data?
+
+### - Spreadsheets (raw data) are hard to visualize
+--
+
+### - Humans have an incredible ability to detect patterns <br> through visual observation 
+--
+
+### - Outliers can be spotted easily and looked into further
+--
+
+### - Pictures can more easily create stories than raw data
+
+---
+
+## Examples of stories using data visualization
+
+### - 538 - [The Dollar-And-Cents Case Against Hollywood’s Exclusion of Women](https://fivethirtyeight.com/features/the-dollar-and-cents-case-against-hollywoods-exclusion-of-women/)
+
+### - The Upshot - [Some Colleges Have More Students From the Top 1 Percent Than the Bottom 60. Find Yours.](https://www.nytimes.com/interactive/2017/01/18/upshot/some-colleges-have-more-students-from-the-top-1-percent-than-the-bottom-60.html)
+
+### - The Upshot - [Republican Men Say It’s a Better Time to Be a Woman Than a Man](https://www.nytimes.com/2017/01/17/upshot/republican-men-say-its-a-better-time-to-be-a-woman-than-a-man.html)
+
+### - The Upshot - [Where Are the Hardest Places to Live in the U.S.?](https://www.nytimes.com/2014/06/26/upshot/where-are-the-hardest-places-to-live-in-the-us.html?_r=0)
+
+### - [Mapping Police Violence](https://mappingpoliceviolence.org/)
+
+---
+
+# Resources
+
+### - <http://www.datavizcatalogue.com/>
+
+### - [Journalism in the Age of Data from Stanford](http://datajournalism.stanford.edu/)
+
+### - <http://flowingdata.com/>
+
+### - [datablog from The Guardian](https://www.theguardian.com/data)
+
+### - [Data Viz Mind Map](https://coggle.it/diagram/V_G2gzukTDoQ-aZt)
+
+---
+
+# Thanks!
+
+### - Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan) by Yihui Xie.
+
+### - Email me at <cismay@reed.edu>
+
+### - These slides available at <http://bit.ly/paideia-viz17>

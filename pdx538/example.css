@@ -1,0 +1,180 @@
+@import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700);
+
+body { 
+  font-family: 'Droid Serif', 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif; 
+}
+p {
+  font-family: 'Yanone Kaffeesatz';
+  font-size: 40px;
+  margin: 0;
+  padding: 0;
+}
+h1, h2, h3 {
+  font-family: 'Yanone Kaffeesatz';
+  font-weight: normal;
+}
+a, a > code {
+  color: #0094C1;
+  text-decoration: none;
+}
+
+.remark-code, .remark-inline-code { font-family: 'Source Code Pro', 'Lucida Console', Monaco, monospace;
+  font-size: 0.8em;
+}
+.remark-code-line-highlighted     { background-color: #ffff88; }
+
+.inverse {
+  background-color: #272822;
+  color: #777872;
+  text-shadow: 0 0 20px #333;
+}
+.inverse h1, .inverse h2, .inverse h3 {
+  color: #f3f3f3;
+  line-height: 1.0em;
+}
+/* Two-column layout */
+.left-column {
+  width: 57%;
+  height: 100%;
+  float: left;
+}
+/*.left-column h2:last-of-type, .left-column h3:last-child {
+  color: #000;
+} */
+.right-column {
+  width: 41%;
+  float: right;
+}
+.pull-left {
+  float: left;
+  width: 47%;
+}
+.pull-right {
+  float: right;
+  width: 47%;
+}
+.pull-right ~ * {
+  clear: both;
+}
+img {
+  max-width: 100%;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+    margin: 0 auto; 
+}
+
+th, td {
+    padding: 3px;
+    text-align: left;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2}
+tr:hover {background-color: skyblue}
+
+  /* I'm cheating here. The ioslides pipeline wants to treat every h1 and h2
+     in a special way, so I can't demo what they look like as a part of a page.
+     I'm just emulating it here.*/
+  #faux-h1 {
+    font-size: 1.5em; margin: .67em 0;
+  }
+  
+  #faux-h2 {
+    font-size: 1.2em; margin: .75em 0;
+  }
+  
+  #questions {
+    text-align: center;
+    font-size: 2em;
+    padding-top: 1em;
+    padding-bottom: 2em;
+  }
+
+.footer {
+    color: gray;
+    position: fixed;
+    top: 90%;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    font-size: 26px;
+}
+
+.nearfooter {
+    color: black;
+    position: fixed;
+    top: 90%;
+    left: 10;
+ #   text-align: center;
+    width: 100%;
+    font-size: 22px;
+}
+
+.remark-slide-number {
+  opacity: 0; /* default: 0.5 */
+}
+
+ul{
+    font-family: 'Yanone Kaffeesatz';
+    font-weight: normal;
+    font-size: 38px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0px 0px 0px 60px;
+}
+
+ol{
+    font-family: 'Yanone Kaffeesatz';
+    font-weight: normal;
+    font-size: 38px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding: 0px 0px 0px 60px;
+}
+
+.videoWrapper {
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 */
+	padding-top: 25px;
+	height: 0;
+}
+.videoWrapper iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.column:first-of-type {float:left}
+.column:last-of-type {float:right}
+
+.split-50 .column:first-of-type {width: 50%}
+.split-50 .column:last-of-type {width: 50%}
+
+/* unvisited link */
+a:link {
+    color: #0094C1;
+}
+
+/* visited link */
+a:visited {
+    color: gray;
+}
+
+/* mouse over link */
+a:hover {
+    color: hotpink;
+}
+
+/* selected link */
+a:active {
+    color: red;
+}
