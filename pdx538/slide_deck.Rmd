@@ -39,6 +39,16 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE, fig.width=10.5, fig.height=4
 theme_set(theme_gray(base_size = 24))
 ```
 
+# Packages to install to follow along today
+
+- `devtools`
+- `fivethirtyeight`
+- `tidyverse`
+- `rmarkdown`
+- Sorry, I forgot to add `roxygen2`
+
+---
+
 
 # Motivating the idea
 
