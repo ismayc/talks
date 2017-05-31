@@ -46,6 +46,7 @@ theme_set(theme_gray(base_size = 24))
 - `tidyverse`
 - `rmarkdown`
 - Sorry, I forgot to add `roxygen2`
+- Also, download the CSV file at <http://ismayc.github.io/periodic-table-data.csv>
 
 ---
 
