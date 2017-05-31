@@ -13,7 +13,7 @@ class: center, middle, inverse, title-slide
 # Creating the <code>fivethirtyeight</code> <br> R package
 ## Portland R User Group
 ### Chester Ismay (With Jennifer Chunn and Albert Y. Kim) <br> GitHub: <a href="https://github.com/ismayc">ismayc</a> <br> Twitter: <a href="https://twitter.com/old_man_chester">@</a><a href="https://twitter.com/old_man_chester">old_man_chester</a>
-### 2017-05-30 <br><br> Slides available at <a href="http://bit.ly/pdx538" class="uri">http://bit.ly/pdx538</a> <br> Running HTML document at <a href="http://bit.ly/pdx538html" class="uri">http://bit.ly/pdx538html</a>
+### 2017-05-30 <br><br> Slides available at <a href="http://bit.ly/pdx538" class="uri">http://bit.ly/pdx538</a>
 
 ---
 
@@ -24,8 +24,292 @@ layout: true
 
 ---
 
+
+
+
+# Motivating the idea
+
+You can only look at this so many times:
+
+--
+
+
+```r
+library(tidyverse)
+ggplot(data = iris, 
+       mapping = aes(x = Sepal.Width, y = Sepal.Length, color = Species)) + 
+  geom_point()
+```
+
+![](slide_deck_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+
+
+---
+
+## Motivating the idea
+
+And this too...  I mean this is data on 1974 cars...
+
+
+```r
+ggplot(data = mtcars, 
+       mapping = aes(x = factor(am), y = mpg)) + 
+  geom_boxplot() +
+  geom_point(alpha = 0.5, color = "blue") +
+  coord_flip()
+```
+
+![](slide_deck_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+
+---
+
+## Motivating the idea
+
+&lt;center&gt;
+&lt;a href="http://gph.is/1VD6OCF"&gt; 
+&lt;img src="figure/homer-idea.gif" width="600px"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
 &lt;!-- I will discuss the motivation behind creating a data package using the data from the stories produced by FiveThirtyEight.  I’ll also walk through the process of creating a data package in R and some of the vignettes for the package that have been created by my students and others from throughout the world.  Lastly, I’ll discuss some ideas (that I’d love to work with others on) for other data packages in R that can better serve the R community by helping novice and intermediate R users work with and tidy 'messy' data. --&gt;
 
+---
+
+## Finding great, interesting, accessible data sets is hard
+
+&lt;center&gt;
+&lt;a href="http://giphy.com/gifs/justin-g-angry-better-call-saul-exasperation-26tnnpcYVRNJGlHy0"&gt; 
+&lt;img src="figure/saul.gif" style="width: 500px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+## Ah ha!
+
+&lt;center&gt;
+&lt;a href="https://github.com/fivethirtyeight"&gt; 
+&lt;img src="figure/538ss.png" style="width: 500px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+## Ah ha!
+
+&lt;center&gt;
+&lt;a href="https://github.com/fivethirtyeight/data/blob/master/police-locals/police-locals.csv"&gt; 
+&lt;img src="figure/police-locals.png" style="width: 750px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+## Hmmmf...
+
+
+```r
+police_locals &lt;- read_csv("https://raw.githubusercontent.com/fivethirtyeight/data/master/police-locals/police-locals.csv")
+police_locals
+```
+
+```
+# A tibble: 75 x 8
+           city police_force_size       all      white `non-white`
+          &lt;chr&gt;             &lt;int&gt;     &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;
+ 1     New York             32300 0.6179567 0.44638656   0.7644189
+ 2      Chicago             12120 0.8750000 0.87196262   0.8774003
+ 3  Los Angeles             10100 0.2282178 0.15277778   0.2638484
+ 4   Washington              9340 0.1156317 0.05677419   0.1573651
+ 5      Houston              7700 0.2922078 0.17373461   0.3992583
+ 6 Philadelphia              6045 0.8354012 0.77689873   0.8994801
+ 7      Phoenix              4475 0.3117318 0.27080182   0.4273504
+ 8    San Diego              4460 0.3621076 0.37298387   0.3484848
+ 9       Dallas              3605 0.1914008 0.17150396   0.2134503
+10      Detroit              3265 0.3705972 0.08196721   0.5427873
+# ... with 65 more rows, and 3 more variables: black &lt;chr&gt;,
+#   hispanic &lt;chr&gt;, asian &lt;chr&gt;
+```
+
+---
+
+## We want to be able to do this!
+
+
+```r
+library(fivethirtyeight)
+police_locals
+```
+
+
+```
+# A tibble: 75 x 8
+           city force_size       all      white non_white     black
+          &lt;chr&gt;      &lt;int&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+ 1     New York      32300 0.6179567 0.44638656 0.7644189 0.7708914
+ 2      Chicago      12120 0.8750000 0.87196262 0.8774003 0.8974057
+ 3  Los Angeles      10100 0.2282178 0.15277778 0.2638484 0.3873874
+ 4   Washington       9340 0.1156317 0.05677419 0.1573651 0.1701891
+ 5      Houston       7700 0.2922078 0.17373461 0.3992583 0.3663793
+ 6 Philadelphia       6045 0.8354012 0.77689873 0.8994801 0.9246575
+ 7      Phoenix       4475 0.3117318 0.27080182 0.4273504 0.5217391
+ 8    San Diego       4460 0.3621076 0.37298387 0.3484848 0.5384615
+ 9       Dallas       3605 0.1914008 0.17150396 0.2134503 0.2146341
+10      Detroit       3265 0.3705972 0.08196721 0.5427873 0.5680000
+# ... with 65 more rows, and 2 more variables: hispanic &lt;dbl&gt;, asian &lt;dbl&gt;
+```
+
+---
+
+class: center, middle
+
+&lt;a href="http://gph.is/1FFoxxM"&gt; 
+&lt;img src="figure/done.gif" style="width: 750px;"/&gt;
+&lt;/a&gt;
+
+---
+
+## Email to FiveThirtyEight
+
+&lt;a href="https://fivethirtyeight.com/contributors/andrew-flowers/"&gt; 
+&lt;img src="figure/flowers.png" style="width: 750px;"/&gt;
+&lt;/a&gt;
+
+---
+
+## Permission granted!
+
+&lt;a href="https://www.rstudio.com/resources/videos/finding-and-telling-stories-with-r/"&gt; 
+&lt;img src="figure/flowers-conf.png" style="width: 750px;"/&gt;
+&lt;/a&gt;
+
+---
+
+class: inverse, middle
+
+# But how did we do it!?
+
+- [`data` repo on `fivethirtyeight` GitHub](https://github.com/fivethirtyeight/data)
+
+- [`data-raw` folder in `fivethirtyeight` package](https://github.com/rudeboybert/fivethirtyeight/tree/master/data-raw)
+
+---
+
+## But how did we do it!?
+
+
+- R script files for cleaning and importing into package
+    - [Albert's](https://github.com/rudeboybert/fivethirtyeight/blob/master/data-raw/process_data_sets_albert.R)
+    - [Jennifer's](https://github.com/rudeboybert/fivethirtyeight/blob/master/data-raw/process_data_sets_jen.R)
+    - [Chester's](https://github.com/rudeboybert/fivethirtyeight/blob/master/data-raw/process_data_sets_chester.R)
+
+- Standardized documentation for each data set
+    - [Albert's](https://github.com/rudeboybert/fivethirtyeight/blob/master/R/data_albert.R)
+    - [Jennifer's](https://github.com/rudeboybert/fivethirtyeight/blob/master/R/data_jen.R)
+    - [Chester's](https://github.com/rudeboybert/fivethirtyeight/blob/master/R/data_chester.R)
+
+---
+
+## Built vignettes
+
+- `fivethirtyeight` package vignette
+  - [R Markdown file](https://github.com/rudeboybert/fivethirtyeight/edit/master/vignettes/fivethirtyeight.Rmd)
+  - [HTML vignette via `pkgdown`](https://rudeboybert.github.io/fivethirtyeight/articles/fivethirtyeight.html)
+  - [HTML vignette on CRAN](https://cran.r-project.org/web/packages/fivethirtyeight/vignettes/fivethirtyeight.html)
+- `bechdel` `tidyverse` analysis vignette
+  - [R Markdown file](https://raw.githubusercontent.com/rudeboybert/fivethirtyeight/master/vignettes/bechdel.Rmd)
+  - [HTML vignette on CRAN](https://cran.r-project.org/web/packages/fivethirtyeight/vignettes/bechdel.html)
+
+---
+
+## Requested crowd-sourced vignettes
+
+- [NBA player predictions](https://cran.r-project.org/web/packages/fivethirtyeight/vignettes/NBA.html) from [G. Elliott Morris](http://www.thecrosstab.com/)
+
+- [Trump Twitter analysis](https://cran.r-project.org/web/packages/fivethirtyeight/vignettes/trump_twitter.html) from [Adam Spannbauer](https://adamspannbauer.github.io/post/2017-03-25-about/)
+
+- [Other vignettes on CRAN](https://CRAN.R-project.org/package=fivethirtyeight)
+
+--
+
+### Assigned my Pacific University Social Statistics students for their group projects to create `fivethirtyeight` package vignettes 
+  - [R Markdown Source code](https://github.com/ismayc/soc301_s2017/tree/master/docs/group_projects)
+  - [All Knitted HTML documents](https://ismayc.github.io/soc301_s2017/group-projects/index.html)
+
+---
+
+class: inverse, center, middle
+
+# Call to Action
+
+---
+
+&gt; New (and relatively new) R users deserve interesting, relevant, current, easy-to-manage data sets in a package crowdsource developed by R users who remember what it was like to have to endure example after example of `mtcars`, `iris`, and `diamonds`.
+
+--
+
+- Basic principles put forth in [`rawdata` package](https://github.com/ismayc/rawdata)
+
+- Hoping to explore [`awesome-public-datasets`](https://github.com/caesar0301/awesome-public-datasets) and documenting license type
+
+--
+
+&lt;br&gt;
+
+- Will you join me in improving the experience for new useRs?
+
+
+---
+
+class: center, middle, inverse
+
+# Building an R data package
+
+---
+
+## Let's build an R data package from close to scratch
+
+- [RStudio Package Development Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/06/devtools-cheatsheet.pdf)
+
+--
+
+- As an example, we can use data on the periodic table of elements as a CSV file from [here](http://ismayc.github.io/periodic-table-data.csv).
+
+---
+
+### Building an R data package in RStudio (Part 1)
+
+1. Open RStudio
+2. Navigate to the directory when you'd like to store your package and `setwd()`
+3. Run `devtools::create("peRiodic")` to create a new project for the `peRiodic` package
+4. Open the `peRiodic.Rproj` file to open the project
+4. Run `devtools::use_data_raw()` in the R Console
+5. Move the `periodic-table-data.csv` you downloaded into the `data-raw` folder
+
+---
+
+### Building an R data package in RStudio (Part 2)
+
+6. Create an R script file in the `data-raw` folder called, say, `process_data.R`
+    - Write (and run) the code to read in this file as a data frame with name `periodic_table`
+    - Also, convert the `block` variable to a factor with appropriate levels
+7.   Enter (and run) as the last line of `process_data.R`:
+    ```
+    devtools::use_data(periodic_table, 
+            overwrite = TRUE)
+    ```
+
+---
+
+### Building an R data package in RStudio (Part 3)
+
+- Documentation
+
+1. Check out the formatting of the [`data.R`](https://raw.githubusercontent.com/ismayc/chemistr/master/R/data.R) file
+  - Copy-and-paste this into a `data.R` file in the `R` folder of `peRiodic`
+2. Press `Ctrl/Cmd + Shift + D` to document `periodic_table`
+3. Press **Build &amp; Reload** in the **Build** tab in RStudio near **History**
+4. Run `?periodic_table` in your R Console to check the package is done.
 
 ---
 
@@ -34,20 +318,14 @@ class: middle
 
 # Thanks for attending!
 
-- Special thanks to [Andrew Flowers](https://www.linkedin.com/in/andrew-flowers-1319934)
+- Special thanks to 
+    - [Andrew Flowers](https://www.linkedin.com/in/andrew-flowers-1319934)
+    - [Albert Y. Kim](https://twitter.com/rudeboybert)
+    - [Jennifer Chunn](https://twitter.com/jchunn206)
 - Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
 - Running HTML document created via the R package [rmarkdown](http://rmarkdown.rstudio.com/) by RStudio
 - Slides available at &lt;http://bit.ly/pdx538&gt;
 - Source code for these slides at &lt;https://github.com/ismayc/talks/pdx538&gt;
-
----
-
-layout: false
-name: toc
-
-### Table of Contents
-
-- [Header 1](#header1)
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({

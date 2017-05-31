@@ -1,0 +1,1 @@
+rmarkdown::render("pdx538/slide_deck.Rmd", output_format = "all")
