@@ -27,7 +27,7 @@ output:
 
 layout: true
 
-.footer[ [Table of Contents](#toc) &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; Slides available at http://bit.ly/pdx538]
+.footer[Slides available at http://bit.ly/pdx538]
 
 ---
 
