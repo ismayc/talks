@@ -19,8 +19,8 @@ name: toc
 
 - <small>Rasmus Bååth - [The current state of naming conventions in R](#rasmus)</small>
 - <small>Henning Bumann - [An Introduction to the r2anki-package](#henning)</small>
-- <small>Mark Padgham - [Maps are data, so why plot data on a map](#map)</small>
-- <small>Lucy D'Agostino McGowan - [papr: Tinder for pre-prints, a Shiny Application for collecting gut-reactions to pre-prints from the scientific community](#tidy)</small>
+- <small>Mark Padgham - [Maps are data, so why plot data on a map](#mark)</small>
+- <small>Lucy D'Agostino McGowan - [papr: Tinder for pre-prints, a Shiny Application for collecting gut-reactions to pre-prints from the scientific community](#lucy)</small>
 
 
 ---
