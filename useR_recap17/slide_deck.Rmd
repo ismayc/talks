@@ -1,7 +1,7 @@
 ---
 title: useR!2017 Highlights
 author: "Chester Ismay <br> Curriculum Lead at DataCamp <br><br> GitHub: [`ismayc`](https://github.com/ismayc) <br> Twitter:  [`@old_man_chester`](https://twitter.com/old_man_chester)"
-date: 2017-08-23<br><br> Slides available at <http://bit.ly/user2017-ismay>
+date: 2017-08-23<br><br> Slides available at <http://bit.ly/ismay-user2017>
 output: 
   xaringan::moon_reader:
     lib_dir: libs
