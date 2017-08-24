@@ -185,7 +185,7 @@ name: lucy
 
 class: center, middle
 
-![](img/history.png)
+<img src="img/history.png" width="500" alt="history">
 
 <!--
 Links with social media to see which articles people you follow have liked
