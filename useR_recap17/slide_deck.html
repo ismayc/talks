@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>useR!2017 Highlights</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Chester Ismay   Curriculum Lead at DataCamp    GitHub: ismayc   Twitter: @old_man_chester" />
+    <link rel="stylesheet" href="example.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# useR!2017 Highlights
+### Chester Ismay <br> Curriculum Lead at DataCamp <br><br> GitHub: <a href="https://github.com/ismayc"><code>ismayc</code></a> <br> Twitter: <a href="https://twitter.com/old_man_chester"><code>@old_man_chester</code></a>
+### 2017-08-23<br><br> Slides available at <a href="http://bit.ly/user2017-ismay" class="uri">http://bit.ly/user2017-ismay</a>
+
+---
+
+
+name: toc
+
+# Overview
+
+- &lt;small&gt;Rasmus Bååth - [The current state of naming conventions in R](#rasmus)&lt;/small&gt;
+- &lt;small&gt;Henning Bumann - [An Introduction to the r2anki-package](#henning)&lt;/small&gt;
+- &lt;small&gt;Mark Padgham - [Maps are data, so why plot data on a map](#map)&lt;/small&gt;
+- &lt;small&gt;Lucy D'Agostino McGowan - [papr: Tinder for pre-prints, a Shiny Application for collecting gut-reactions to pre-prints from the scientific community](#tidy)&lt;/small&gt;
+
+
+---
+
+class: center, middle
+name: rasmus
+
+# [Rasmus Bååth](https://user2017.sched.com/event/AxrG/the-current-state-of-naming-conventions-in-r?iframe=no)
+
+[![](https://pbs.twimg.com/profile_images/690549092100018176/2XVFSqwi_400x400.jpg)](https://twitter.com/rabaath)
+
+[Video - Starting at 10:40](https://channel9.msdn.com/Events/useR-international-R-User-conferences/useR-International-R-User-2017-Conference/Room-302-Lightning-Talks)
+
+
+---
+
+class: center, middle
+
+![](img/question.png)
+
+
+---
+
+class: center, middle
+
+![](img/answer.png)
+
+---
+
+class: center, middle
+
+## Function name trends
+
+![](img/to2012.png)
+
+---
+
+class: center, middle
+
+## Trends have changed...
+
+![](img/trend.png)
+
+---
+
+class: center, middle
+name: henning
+
+# [Henning Bumann](https://user2017.sched.com/event/AxrM/an-introduction-to-the-r2anki-package?iframe=no)
+
+[&lt;img src="https://pbs.twimg.com/profile_images/760089025604640768/OTu-z7uu.jpg" width="400" alt="Henning"&gt;](https://twitter.com/henningsway)
+
+[Video - Starting at 16:00](https://channel9.msdn.com/Events/useR-international-R-User-conferences/useR-International-R-User-2017-Conference/Room-302-Lightning-Talks)
+
+---
+
+class: center, middle
+
+![](img/anki.png)
+
+
+---
+
+class: center, middle
+
+![](img/r2anki.png)
+
+
+---
+
+class: center, middle
+
+## [Sidebar:  Plug for DataCamp practice mode](https://www.datacamp.com/community/blog/introducing-daily-practice-mode#gs.3dTwcqE)
+
+&lt;img src="img/practice_mode.png" width="550" alt="practice_mode.png"&gt;
+
+---
+
+class: center, middle
+name: mark
+
+# [Mark Padgham](https://user2017.sched.com/event/AxpD/maps-are-data-so-why-plot-data-on-a-map)
+
+[&lt;img src="https://avatars3.githubusercontent.com/u/6697851?v=4&amp;s=400" width="350" alt="mark1"&gt; &lt;img src="img/mark2.png" width="300" alt="mark2"&gt;](https://twitter.com/bikesRdata)
+
+
+[Video](https://channel9.msdn.com/events/useR-international-R-User-conferences/useR-International-R-User-2017-Conference/Maps-are-data-so-why-plot-data-on-a-map?term=padgham)
+---
+
+class: center, middle
+
+# Why should you use OpenStreetMap?
+--
+
+## What's the least mapped country on the planet?
+
+---
+
+## Google Maps (Anju, North Korea)
+
+[![](img/anju_gm.png)](https://www.google.com/maps/@39.6193725,125.6450556,14z)
+
+
+---
+
+## OpenStreetMap (Anju, North Korea)
+
+[![](img/anju_osm.png)](http://www.openstreetmap.org/#map=14/39.6205/125.6565)
+
+---
+
+
+```r
+library(osmdata)
+library(tidyverse)
+# Get list of spatial data (opq - overpass query)
+anju_bldgs &lt;- opq("anju north korea") %&gt;% 
+  add_osm_feature(key = "building") %&gt;% 
+  osmdata_sf()
+```
+--
+
+
+```r
+names(anju_bldgs)
+```
+
+```
+## [1] "bbox"              "overpass_call"     "timestamp"        
+## [4] "osm_points"        "osm_lines"         "osm_polygons"     
+## [7] "osm_multilines"    "osm_multipolygons"
+```
+--
+
+
+```r
+# Base R bananas
+table(anju_bldgs$osm_polygons$tourism)
+```
+
+```
+## 
+##    museum viewpoint 
+##         1         1
+```
+
+
+---
+
+# Mapping Forest Grove, Oregon
+
+
+```r
+bb &lt;- osmdata::getbb("forest grove oregon")
+highways &lt;- bb %&gt;% osmplotr::extract_osm_objects(key = "highway")
+map &lt;- osmplotr::osm_basemap(bbox = bb, bg = "gray20") %&gt;%
+  osmplotr::add_osm_objects(highways, col = "yellow")
+osmplotr::print_osm_map(map)
+```
+
+---
+
+![](img/fg.png)
+
+---
+
+class: center, middle
+name: lucy
+
+# [Lucy D'Agostino McGowan](https://user2017.sched.com/event/AxsQ/papr-tinder-for-pre-prints-a-shiny-application-for-collecting-gut-reactions-to-pre-prints-from-the-scientific-community)
+
+[&lt;img src="img/lucy.jpg" width="400" alt="lucy"&gt;](https://twitter.com/LucyStats)
+
+
+[Video](https://channel9.msdn.com/events/useR-international-R-User-conferences/useR-International-R-User-2017-Conference/papr-Tinder-for-pre-prints-a-Shiny-Application-for-collecting-gut-reactions-to-pre-prints-from-the-s?term=lucy)
+
+---
+
+class: center, middle
+
+![](img/history.png)
+
+&lt;!--
+Links with social media to see which articles people you follow have liked
+--&gt;
+
+
+---
+
+class: center, middle
+
+[![](img/papr.png)](https://jhubiostatistics.shinyapps.io/papr/)
+
+---
+
+class: middle
+
+# Thanks for attending!
+
+- Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
+- Source code for these slides (useR_recap17) at &lt;https://github.com/ismayc/talks&gt;
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"highlightLanguage": "r"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {window.dispatchEvent(new Event('resize'));});
+(function() {var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler"); if (!r) return; s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }"; d.head.appendChild(s);})();</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
