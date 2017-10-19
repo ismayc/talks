@@ -271,8 +271,13 @@ library(infer)
 - Implement all of the intro stats inference examples in the `infer` package
   - Generalize functions so it is useful to practioners as well as students
 - Rewrite the inference part of the ModernDive book
+- Extend the modeling part of the book ([work in progress](https://ismayc.github.io/moderndiver-book/6-regression.html))
 - Embed more interactivity using our [free DataCamp course](https://www.datacamp.com/courses/effective-data-storytelling-using-the-tidyverse) into the book for more student practice
-- Lead more workshops on using the `infer` package to extend student knowledge of the `tidyverse`, R, and statistics
+- Lead more workshops on using the `infer` package to extend knowledge of the `tidyverse`, R, and statistics
+
+---
+
+## `infer` example
 
 ---
 
