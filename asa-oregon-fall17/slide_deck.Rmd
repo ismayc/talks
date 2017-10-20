@@ -2,7 +2,7 @@
 title: Something old, something new, <br> something borrowed, something <font color="blue">blue</font>
 subtitle: Ways to teach data science (and learn it too!)
 author: "Dr. Chester Ismay <br> Data Science Curriculum Lead at DataCamp <br> GitHub: [ismayc](https://github.com/ismayc) <br> Twitter:  [@](https://twitter.com/old_man_chester)[old_man_chester](https://twitter.com/old_man_chester)"
-date: 2017-10-18 (ASA Oregon Chapter Fall 2017 meeting) <br><br> Slides available at <http://bit.ly/asa-ismay17> <br> Free Reproducible Textbook at <http://ModernDive.com>
+date: 2017-10-19 (ASA Oregon Chapter Fall 2017 meeting) <br><br> Slides available at <http://bit.ly/asa-ismay17> <br> Free Reproducible Textbook at <http://ModernDive.com>
 output: 
   xaringan::moon_reader:
     lib_dir: libs
