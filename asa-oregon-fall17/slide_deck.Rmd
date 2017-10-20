@@ -128,7 +128,7 @@ class: center, middle
 
 <center>
 <a href="https://giphy.com/gifs/3oEjI105rmEC22CJFK"> 
-<img src="figure/iverson.gif" style="width: 480px;"/>
+<img src="figure/iverson.gif" style="width: 400px;"/>
 </a>
 </center>
 
