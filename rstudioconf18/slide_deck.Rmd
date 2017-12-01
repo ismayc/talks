@@ -1,0 +1,52 @@
+---
+title: Something old, something new, <br> something borrowed, something <font color="deepskyblue">blue</font>
+subtitle: Ways to teach data science (and learn it too!)
+author: "Dr. Chester Ismay <br> Data Science Curriculum Lead at DataCamp <br> GitHub: [ismayc](https://github.com/ismayc) <br> Twitter:  [@](https://twitter.com/old_man_chester)[old_man_chester](https://twitter.com/old_man_chester)"
+date: rstudio::conf 2018  <br><br> Slides available at <http://bit.ly/rstudioconf18> <br> Free Reproducible Textbook at <http://ModernDive.com>
+output: 
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      highlightLanguage: r
+    countIncrementalSlides: false
+    css: example.css
+  # html_document:
+  #     toc: true
+  #     toc_float: true
+  #     toc_depth: 1
+  #     theme: cosmo
+  #     highlight: tango
+  #     df_print: paged
+  #     code_download: true
+  #     pandoc_args: [
+  #       "--output=slide_document.html"
+  #     ]  
+---
+
+layout: true
+
+.footer[Slides available at http://bit.ly/rstudioconf18]
+
+---
+
+```{r include=FALSE}
+library(ggplot2)
+filter <- dplyr::filter
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, fig.width=10.5, fig.height=4, 
+  comment=NA, rows.print=16)
+theme_set(theme_gray(base_size = 24))
+```
+
+# More to come soon!
+
+<center>
+<a href="https://giphy.com/gifs/bold-nKFXQkxLRiEhy"> 
+<img src="figure/bold.gif" style="width: 600px;"/>
+</a>
+</center>
+
+
+---
+
