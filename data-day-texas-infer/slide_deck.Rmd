@@ -1,5 +1,5 @@
 ---
-title: infer
+title: <code>infer</code>
 subtitle: An R package for tidy statistical inference <br><br>
 author: "Dr. Chester Ismay <br> Data Science Curriculum Lead at DataCamp <br> GitHub: [ismayc](https://github.com/ismayc) <br> Twitter:  [@](https://twitter.com/old_man_chester)[old_man_chester](https://twitter.com/old_man_chester)"
 date: 2018-01-27 (R User Day at Data Day Texas) <br><br> Slides available at <http://bit.ly/infer-austin> <br> Package webpage at <https://infer.netlify.com>
@@ -47,7 +47,10 @@ theme_set(theme_gray(base_size = 24))
 - Who uses the `tidyverse` at least once a week?
 --
 
-- Who has heard of permutation testing? Randomization-based methods? Resampling methods? Bootstrap methods?
+- Who has heard of permutation testing? 
+  - Randomization-based methods? 
+  - Resampling methods? 
+  - Bootstrap methods?
 
 ---
 
@@ -56,7 +59,8 @@ theme_set(theme_gray(base_size = 24))
 - Some experience with statistical inference (hypothesis testing / confidence intervals)
 --
 
-- A ~~admiration~~, ~~abundance of love~~, ~~won't do anything without it~~ respect for the `tidyverse` and its power to get more users into doing data analysis/visualization quickly (The pit of success)
+- A ~~admiration~~, ~~abundance of love~~, ~~won't do anything without it~~ respect for the `tidyverse` and its power to get more users into doing data analysis/visualization quickly 
+  - The pit of success
 --
 
 - ~~Ability~~ Desire to think differently about statistical inference using computational methods as the driver
@@ -74,7 +78,7 @@ class: center
 
 class: middle
 
-<small>Students at Virginia Tech studied which vehicles come to a complete stop at an intersection with four-way stop signs, selecting at random the cars to observe. <!--They looked at several factors to see which (if any) were associated with coming to a complete stop. (They defined a complete stop as “the speed of the vehicle will become zero at least for an [instant]”). Some of these variables included the age of the driver, how many passengers were in the vehicle, and type of vehicle.--> The explanatory variable used here is the arrival position of vehicles approaching an intersection all traveling in the same direction. They classified this arrival pattern into three groups: whether the vehicle arrives alone, is the lead in a group of vehicles, or is a follower in a group of vehicles. Is there an association between arrival pattern and whether or not a complete stop was made?</small> <!--The students studied one specific intersection in Northern Virginia at a variety of different times. Because random assignment was not used, this is an observational study. Also note that no vehicle from one group is paired with a vehicle from another group.-->
+<small>Students at Virginia Tech studied which vehicles come to a complete stop at an intersection with four-way stop signs, selecting at random the cars to observe. <!--They looked at several factors to see which (if any) were associated with coming to a complete stop. (They defined a complete stop as “the speed of the vehicle will become zero at least for an [instant]”). Some of these variables included the age of the driver, how many passengers were in the vehicle, and type of vehicle.--> The <font color="purple">explanatory</font> variable used here is the arrival position of vehicles approaching an intersection all traveling in the same direction. They classified this arrival pattern into three groups: whether the vehicle arrives alone (<font color="purple"><code>single</code></font>), is the <font color="purple"><code>lead</code></font> in a group of vehicles, or is a <font color="purple"><code>follow</code></font>er in a group of vehicles. Is there an association between <font color="purple">arrival pattern</font> and whether a <font color="darkgreen"><code>complete</code></font> stop or <font color="darkgreen"><code>not_complete</code></font> was made?</small> <!--The students studied one specific intersection in Northern Virginia at a variety of different times. Because random assignment was not used, this is an observational study. Also note that no vehicle from one group is paired with a vehicle from another group.-->
 
 <br>
 
@@ -82,16 +86,15 @@ class: middle
 "Introduction to Statistical Investigations"
 </a> by Tintle et al.</tiny>
 
-
 ---
 
 class: middle
 
 Which type of hypothesis test should we conduct here?
 
-- A. Independent means t-test
+- A. Independent samples t-test
 - B. One proportion test
-- C. Chi-Square Test of Independence
+- C. Chi-Square test of independence
 - D. ANOVA
 
 ---
@@ -308,14 +311,10 @@ addmargins(new_table)
 
 ## Test statistic
 
-[Chi-square test statistic](https://en.wikipedia.org/wiki/Pearson%27s_chi-squared_test)
-  - A measure of how far what we observed in our sample is from what we would expect if the null hypothesis was true
+- Chi-square test statistic ([Wikipedia](https://en.wikipedia.org/wiki/Pearson%27s_chi-squared_test))
+  - Measure of how far what we observed in our sample is from what we would expect if the null hypothesis was true
 
 --
-
-```{r}
-chisq.test(car_stop$stop_type, car_stop$vehicle_type)
-```
 
 ```{r}
 chisq.test(car_stop$stop_type, car_stop$vehicle_type)$statistic
@@ -515,7 +514,7 @@ car_stop %>%
 
 - https://infer.netlify.com
   - Many examples under Articles there with more to come
-  - Plans to be implemented in <http://www.ModernDive.com> by this summer
+  - Plans to be implemented in [www.ModernDive.com](www.ModernDive.com) by this summer
       - [Sign up](http://eepurl.com/cBkItf) for the ModernDive mailing list for details
 - Two DataCamp courses currently launched that use `infer`
   - [Inference for Numerical Data](https://www.datacamp.com/courses/inference-for-numerical-data) by Mine Cetinkaya-Rundel
