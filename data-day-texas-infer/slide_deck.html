@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>infer</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Dr. Chester Ismay   Data Science Curriculum Lead at DataCamp   GitHub: ismayc   Twitter: @old_man_chester" />
+    <link rel="stylesheet" href="example.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# infer
+## An R package for tidy statistical inference <br><br>
+### Dr. Chester Ismay <br> Data Science Curriculum Lead at DataCamp <br> GitHub: <a href="https://github.com/ismayc">ismayc</a> <br> Twitter: <a href="https://twitter.com/old_man_chester">@</a><a href="https://twitter.com/old_man_chester">old_man_chester</a>
+### 2018-01-27 (R User Day at Data Day Texas) <br><br> Slides available at <a href="http://bit.ly/infer-austin" class="uri">http://bit.ly/infer-austin</a> <br> Package webpage at <a href="https://infer.netlify.com" class="uri">https://infer.netlify.com</a>
+
+---
+
+
+layout: true
+
+.footer[Slides available at &lt;http://bit.ly/infer-austin&gt; &lt;br&gt; Package webpage at &lt;https://infer.netlify.com&gt;]
+
+---
+
+
+
+## Understanding who you are
+
+- Who uses hypothesis testing/confidence intervals at least once a week?
+--
+
+- Who uses the `tidyverse` at least once a week?
+--
+
+- Who has heard of permutation testing? Randomization-based methods? Resampling methods? Bootstrap methods?
+
+---
+
+## Pre-requisites for this talk
+
+- Some experience with statistical inference (hypothesis testing / confidence intervals)
+--
+
+- A ~~admiration~~, ~~abundance of love~~, ~~won't do anything without it~~ respect for the `tidyverse` and its power to get more users into doing data analysis/visualization quickly (The pit of success)
+--
+
+- ~~Ability~~ Desire to think differently about statistical inference using computational methods as the driver
+
+---
+
+class: center
+
+### Is this statistical inference to you?
+
+
+[![flowchart](testing_diagram2.png)](https://i.pinimg.com/originals/e5/ea/32/e5ea322d61bd36a5062080b1b5fe6daa.gif)
+
+---
+
+class: middle
+
+Students at Virginia Tech studied which vehicles come to a complete stop at an intersection with four-way stop signs, selecting at random the cars to observe. &lt;!--They looked at several factors to see which (if any) were associated with coming to a complete stop. (They defined a complete stop as “the speed of the vehicle will become zero at least for an [instant]”). Some of these variables included the age of the driver, how many passengers were in the vehicle, and type of vehicle.--&gt; The explanatory variable used here is the arrival position of vehicles approaching an intersection all traveling in the same direction. They classified this arrival pattern into three groups: whether the vehicle arrives alone, is the lead in a group of vehicles, or is a follower in a group of vehicles. Is there an association between arrival pattern and whether or not a complete stop was made? &lt;!--The students studied one specific intersection in Northern Virginia at a variety of different times. Because random assignment was not used, this is an observational study. Also note that no vehicle from one group is paired with a vehicle from another group.--&gt;
+
+---
+
+class: middle
+
+Which type of hypothesis test should we conduct here?
+
+- A. Independent means t-test
+- B. One proportion test
+- C. Chi-Square Test of Independence
+- D. ANOVA
+
+---
+
+## The data
+
+
+
+
+```r
+library(tidyverse)
+set.seed(2)
+#car_stop &lt;- read_rds("https://ismayc.github.io/talks/data-day-texas-infer/car_stop.rds")
+car_stop %&gt;% sample_n(12)
+```
+
+```
+# A tibble: 12 x 2
+   stop_type    vehicle_type
+   &lt;chr&gt;        &lt;chr&gt;       
+ 1 complete     single      
+ 2 complete     follow      
+ 3 complete     lead        
+ 4 complete     single      
+ 5 not_complete follow      
+ 6 not_complete lead        
+ 7 complete     single      
+ 8 complete     follow      
+ 9 complete     single      
+10 complete     lead        
+11 not_complete follow      
+12 complete     single      
+```
+
+---
+
+class: middle
+
+Which type of hypothesis test should we conduct here?
+
+- A. Independent means t-test
+- B. One proportion test
+- C. Chi-Square Test of Independence
+- D. ANOVA
+
+--
+
+&lt;br&gt;
+
+**C. Chi-Square Test of Independence**
+
+---
+
+class: middle
+
+- Using a `data` argument
+
+
+```r
+chisq.test(data = car_stop, x = stop_type, y = vehicle_type)
+```
+
+```
+Error in chisq.test(data = car_stop, x = stop_type, y = vehicle_type): unused argument (data = car_stop)
+```
+
+--
+
+- Using a formula
+
+
+```r
+chisq.test(data = car_stop, formula = vehicle_type ~ stop_type)
+```
+
+```
+Error in chisq.test(data = car_stop, formula = vehicle_type ~ stop_type): unused arguments (data = car_stop, formula = vehicle_type ~ stop_type)
+```
+
+
+---
+
+
+## Finally
+
+
+```r
+chisq.test(car_stop$stop_type, car_stop$vehicle_type)
+```
+
+```
+
+	Pearson's Chi-squared test
+
+data:  car_stop$stop_type and car_stop$vehicle_type
+X-squared = 3.9476, df = 2, p-value = 0.1389
+```
+
+---
+
+## 
+
+
+```r
+?chisq.test()
+```
+
+[![Chisq test image](chisq.png)](https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/chisq.test)
+
+---
+
+![](slide_deck_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+
+
+---
+
+Is there an association between arrival pattern and whether or not a complete stop was made?
+
+## The null hypothesis
+--
+
+&gt; No association exists between the arrival vehicle's position and whether
+or not it makes a complete stop.
+
+## The alternative hypothesis
+--
+
+&gt; An association exists between the arrival vehicle's position and
+whether or not it makes a complete stop.
+
+
+---
+
+## How can computation help us to understand what is going on here?
+
+--
+
+[![Only One Test](downey.png)](http://allendowney.blogspot.com/2016/06/there-is-still-only-one-test.html)
+
+
+---
+
+## The tricky step
+
+--
+
+- Modeling the null hypothesis
+  - How do we simulate data assuming the null hypothesis is true in our problem (there is no association between the variables)?
+--
+
+  - What might the sample data look like if the null was true?
+
+
+---
+
+## Properties of the original sample collected
+
+
+```r
+car_stop %&gt;% count(stop_type, vehicle_type)
+```
+
+```
+# A tibble: 6 x 3
+  stop_type    vehicle_type     n
+  &lt;chr&gt;        &lt;chr&gt;        &lt;int&gt;
+1 complete     follow          76
+2 complete     lead            38
+3 complete     single         151
+4 not_complete follow          22
+5 not_complete lead             5
+6 not_complete single          25
+```
+
+--
+
+
+```r
+( orig_table &lt;- table(car_stop$stop_type, car_stop$vehicle_type) )
+```
+
+```
+              
+               follow lead single
+  complete         76   38    151
+  not_complete     22    5     25
+```
+
+
+---
+
+### Permute the sample data
+
+
+```
+# A tibble: 317 x 2
+   stop_type    vehicle_type
+   &lt;fct&gt;        &lt;fct&gt;       
+ 1 complete     follow      
+ 2 not_complete follow      
+ 3 complete     follow      
+ 4 not_complete single      
+ 5 complete     single      
+ 6 not_complete follow      
+ 7 not_complete single      
+ 8 complete     follow      
+ 9 not_complete lead        
+10 complete     lead        
+# ... with 307 more rows
+```
+--
+
+
+```
+              
+               follow lead single
+  complete         79   35    151
+  not_complete     19    8     25
+```
+
+
+---
+
+## Comparing the original and permuted sample
+
+
+```r
+addmargins(orig_table)
+```
+
+```
+              
+               follow lead single Sum
+  complete         76   38    151 265
+  not_complete     22    5     25  52
+  Sum              98   43    176 317
+```
+
+```r
+addmargins(new_table)
+```
+
+```
+              
+               follow lead single Sum
+  complete         79   35    151 265
+  not_complete     19    8     25  52
+  Sum              98   43    176 317
+```
+
+---
+
+## Where are we?
+
+[![Only One Test](downey.png)](http://allendowney.blogspot.com/2016/06/there-is-still-only-one-test.html)
+
+---
+
+## Test statistic
+
+[Chi-square test statistic](https://en.wikipedia.org/wiki/Pearson%27s_chi-squared_test)
+  - A measure of how far what we observed in our sample is from what we would expect if the null hypothesis was true
+
+--
+
+
+```r
+chisq.test(car_stop$stop_type, car_stop$vehicle_type)
+```
+
+```
+
+	Pearson's Chi-squared test
+
+data:  car_stop$stop_type and car_stop$vehicle_type
+X-squared = 3.9476, df = 2, p-value = 0.1389
+```
+
+
+```r
+chisq.test(car_stop$stop_type, car_stop$vehicle_type)$statistic
+```
+
+```
+X-squared 
+ 3.947648 
+```
+
+---
+
+## For the permuted data
+
+
+```r
+chisq.test(perm1$stop_type, perm1$vehicle_type)$statistic
+```
+
+```
+X-squared 
+ 1.408986 
+```
+
+--
+
+- Another permutation
+
+
+
+
+```r
+chisq.test(perm2$stop_type, perm2$vehicle_type)$statistic
+```
+
+```
+X-squared 
+0.3604528 
+```
+
+---
+
+## What does the distribution of multiple repetitions of the permuted data look like?
+
+
+```
+# A tibble: 1,000 x 2
+   replicate  stat
+   &lt;fct&gt;     &lt;dbl&gt;
+ 1 1         1.05 
+ 2 2         7.24 
+ 3 3         0.253
+ 4 4         2.16 
+ 5 5         1.60 
+ 6 6         3.95 
+ 7 7         1.94 
+ 8 8         1.68 
+ 9 9         0.242
+10 10        3.26 
+# ... with 990 more rows
+```
+
+---
+
+&lt;small&gt;The distribution of multiple repetitions of the permuted data&lt;/small&gt;
+--
+
+![](slide_deck_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+
+--
+
+&lt;small&gt;Recall the traditional method using the Chi-square distribution &lt;/small&gt;
+
+![](slide_deck_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+
+
+---
+
+&lt;!-- So how did I generate this code to permute? --&gt;
+
+## Objectives of `infer`
+
+- Implement common classical inferential techniques in a `tidyverse`-friendly framework that is expressive of the underlying procedure. 
+--
+
+  - Dataframe in, dataframe out
+  - Compose tests and intervals with pipes
+  - Unite computational and approximation methods
+  - Reading a chain of `infer` code should describe the inferential procedure
+
+---
+
+class: inverse, center, middle
+
+# The `infer` verbs
+
+
+---
+
+![](infer.073.jpeg)
+
+
+---
+
+![](infer.074.jpeg)
+
+
+---
+
+![](infer.075.jpeg)
+
+
+---
+
+![](infer.076.jpeg)
+
+
+---
+
+![](infer.077.jpeg)
+
+
+---
+
+![](infer.078.jpeg)
+
+
+---
+
+![](infer.079.jpeg)
+
+
+---
+
+![](infer.080.jpeg)
+
+
+---
+
+![](infer.081.jpeg)
+
+
+---
+
+![](infer.082.jpeg)
+
+
+---
+
+![](infer.084.jpeg)
+
+---
+
+## Back to the example
+
+
+```r
+car_stop %&gt;% 
+  specify(stop_type ~ vehicle_type) %&gt;% 
+  hypothesize(null = "independence") %&gt;% 
+  generate(reps = 1000, type = "permute") %&gt;% 
+  calculate(stat = "Chisq")
+```
+
+```
+# A tibble: 1,000 x 2
+   replicate  stat
+   &lt;fct&gt;     &lt;dbl&gt;
+ 1 1         0.509
+ 2 2         0.760
+ 3 3         1.79 
+ 4 4         1.83 
+ 5 5         0.525
+ 6 6         4.74 
+ 7 7         1.11 
+ 8 8         2.51 
+ 9 9         1.11 
+10 10        0.421
+# ... with 990 more rows
+```
+
+
+---
+
+## Back to the example
+
+
+```r
+car_stop %&gt;% 
+  specify(stop_type ~ vehicle_type) %&gt;% 
+  hypothesize(null = "independence") %&gt;% 
+  generate(reps = 1000, type = "permute") %&gt;% 
+  calculate(stat = "Chisq") %&gt;% 
+  visualize()
+```
+
+![](slide_deck_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+
+---
+
+## What's to come
+
+
+- Wrapper functions: `t_test`, `chisq_test`, etc.
+- Generalized input to `calculate()`
+  - For example, `calculate(trimmed_mean)`
+  - Support for more advanced regression models
+- Adding features to `visualize()`
+  - Show both traditional and computation methods
+- Implement list-columns in the `generate()` step
+
+---
+
+## Tips and tricks for package development
+
+- Use [GitHub](https://github.com/andrewpbray/infer/) and pull requests to the `master` branch
+- [Create useful vignettes](https://cran.r-project.org/web/packages/infer/vignettes/flights_examples.html) so others know how your pkg works
+- Write tests and assertions for your code
+  - [Buy Richie's *Testing R Code* book](https://www.crcpress.com/Testing-R-Code/Cotton/p/book/9781498763653)
+- Let [travis-ci](https://travis-ci.org/andrewpbray/infer) do [the work](https://github.com/andrewpbray/infer/blob/master/.travis.yml) for you
+- Use Hadley's [`pkgdown` package](https://github.com/r-lib/pkgdown) to build a pkg website
+  - Host it on Netlify.com to be super cool
+
+
+---
+
+## More info
+
+- https://infer.netlify.com
+  - Many examples under Articles there with more to come
+  - Plans to be implemented in &lt;http://www.ModernDive.com&gt; by this summer
+      - [Sign up](http://eepurl.com/cBkItf) for the ModernDive mailing list for details
+- Two DataCamp courses currently launched that use `infer`
+  - [Inference for Numerical Data](https://www.datacamp.com/courses/inference-for-numerical-data) by Mine Cetinkaya-Rundel
+  - [Inference for Regression](https://www.datacamp.com/courses/inference-for-linear-regression) by Jo Hardin
+- Two more DataCamp courses to be launched
+---
+
+layout: false
+class: middle
+
+
+- Special thanks to [Andrew Bray](https://andrewpbray.github.io) and the other pkg contributors
+- Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
+- Slides available at &lt;http://bit.ly/infer-austin&gt;
+- Source code for these slides at &lt;https://github.com/ismayc/talks/data-day-texas-infer&gt;
+
+&lt;br&gt;
+
+&lt;center&gt;
+&lt;a href="https://giphy.com/gifs/wMY3LjQQMqo5W?utm_source=media-link&amp;utm_medium=landing&amp;utm_campaign=Media%20Links&amp;utm_term="&gt; 
+&lt;img src="peele.gif" style="width: 550px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"highlightLanguage": "r"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {window.dispatchEvent(new Event('resize'));});
+(function() {var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler"); if (!r) return; s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }"; d.head.appendChild(s);})();</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
