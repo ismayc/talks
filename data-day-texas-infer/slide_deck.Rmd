@@ -74,7 +74,14 @@ class: center
 
 class: middle
 
-Students at Virginia Tech studied which vehicles come to a complete stop at an intersection with four-way stop signs, selecting at random the cars to observe. <!--They looked at several factors to see which (if any) were associated with coming to a complete stop. (They defined a complete stop as “the speed of the vehicle will become zero at least for an [instant]”). Some of these variables included the age of the driver, how many passengers were in the vehicle, and type of vehicle.--> The explanatory variable used here is the arrival position of vehicles approaching an intersection all traveling in the same direction. They classified this arrival pattern into three groups: whether the vehicle arrives alone, is the lead in a group of vehicles, or is a follower in a group of vehicles. Is there an association between arrival pattern and whether or not a complete stop was made? <!--The students studied one specific intersection in Northern Virginia at a variety of different times. Because random assignment was not used, this is an observational study. Also note that no vehicle from one group is paired with a vehicle from another group.-->
+<small>Students at Virginia Tech studied which vehicles come to a complete stop at an intersection with four-way stop signs, selecting at random the cars to observe. <!--They looked at several factors to see which (if any) were associated with coming to a complete stop. (They defined a complete stop as “the speed of the vehicle will become zero at least for an [instant]”). Some of these variables included the age of the driver, how many passengers were in the vehicle, and type of vehicle.--> The explanatory variable used here is the arrival position of vehicles approaching an intersection all traveling in the same direction. They classified this arrival pattern into three groups: whether the vehicle arrives alone, is the lead in a group of vehicles, or is a follower in a group of vehicles. Is there an association between arrival pattern and whether or not a complete stop was made?</small> <!--The students studied one specific intersection in Northern Virginia at a variety of different times. Because random assignment was not used, this is an observational study. Also note that no vehicle from one group is paired with a vehicle from another group.-->
+
+<br>
+
+<tiny>- From <a href="http://math.hope.edu/isi/"> 
+"Introduction to Statistical Investigations"
+</a> by Tintle et al.</tiny>
+
 
 ---
 
@@ -89,7 +96,7 @@ Which type of hypothesis test should we conduct here?
 
 ---
 
-## The data
+### The data
 
 ```{r echo=FALSE}
 library(tidyverse)
@@ -100,12 +107,24 @@ car_stop <- data_frame(stop_type, vehicle_type)
 write_rds(car_stop, "car_stop.rds")
 ```
 
-```{r}
+```{r eval=FALSE}
 library(tidyverse)
 set.seed(2)
-#car_stop <- read_rds("https://ismayc.github.io/talks/data-day-texas-infer/car_stop.rds")
-car_stop %>% sample_n(12)
+# https://ismayc.github.io/talks/data-day-texas-infer/car_stop.rds
+download.file("http://bit.ly/car_stop_rds", destfile = "car_stop.rds")
+car_stop <- read_rds("car_stop.rds")
+car_stop %>% sample_n(10)
 ```
+
+```{r echo=FALSE}
+library(tidyverse)
+set.seed(2)
+# https://ismayc.github.io/talks/data-day-texas-infer/car_stop.rds
+# download.file("http://bit.ly/car_stop_rds", destfile = "car_stop.rds")
+car_stop <- read_rds("car_stop.rds")
+car_stop %>% sample_n(10)
+```
+
 
 ---
 
@@ -122,26 +141,44 @@ Which type of hypothesis test should we conduct here?
 
 <br>
 
-**C. Chi-Square Test of Independence**
+***
+
+## Answer:
+
+ - **C. Chi-Square Test of Independence**
 
 ---
 
 class: middle
 
+## Let's do this in R
+
 - Using a `data` argument
 
-```{r error=TRUE}
+```{r eval=FALSE}
 chisq.test(data = car_stop, x = stop_type, y = vehicle_type)
 ```
 
 --
 
+```
+Error in chisq.test(data = car_stop, x = stop_type, y = vehicle_type) : 
+  unused argument (data = car_stop)
+```  
+
+--
+
 - Using a formula
 
-```{r error=TRUE}
+```{r eval=FALSE}
 chisq.test(data = car_stop, formula = vehicle_type ~ stop_type)
 ```
+--
 
+```
+Error in chisq.test(data = car_stop, formula = vehicle_type ~ stop_type) : 
+  unused arguments (data = car_stop, formula = vehicle_type ~ stop_type)
+```
 
 ---
 
@@ -164,7 +201,7 @@ chisq.test(car_stop$stop_type, car_stop$vehicle_type)
 
 ---
 
-```{r echo=FALSE, fig.height=7.5}
+```{r echo=FALSE, fig.height=7}
 deg_freedom <- 2
 chisq_dist <- ggplot(data.frame(x = c(qchisq(0.001, deg_freedom), qchisq(0.999, deg_freedom))), aes(x)) + 
     stat_function(fun = dchisq, args = list(df = deg_freedom), color = "black") +
@@ -175,7 +212,7 @@ chisq_dist +
   ggtitle("Chi-square distribution with 2 degrees of freedom")   
 ```
 
-
+P-value is `r round(chisq.test(car_stop$stop_type, car_stop$vehicle_type)$p.value, 4)`.
 ---
 
 Is there an association between arrival pattern and whether or not a complete stop was made?
@@ -294,7 +331,7 @@ chisq.test(perm1$stop_type, perm1$vehicle_type)$statistic
 
 --
 
-- Another permutation
+## Another permutation
 
 ```{r include=FALSE}
 (perm2 <- car_stop %>% 
@@ -344,7 +381,6 @@ ggplot(data = car_chisq, mapping = aes(x = stat)) +
 ```{r echo=FALSE, fig.height=3.5}
 chisq_dist
 ```
-
 
 ---
 
@@ -467,7 +503,7 @@ car_stop %>%
 - Use [GitHub](https://github.com/andrewpbray/infer/) and pull requests to the `master` branch
 - [Create useful vignettes](https://cran.r-project.org/web/packages/infer/vignettes/flights_examples.html) so others know how your pkg works
 - Write tests and assertions for your code
-  - [Buy Richie's *Testing R Code* book](https://www.crcpress.com/Testing-R-Code/Cotton/p/book/9781498763653)
+  - [Buy and read Richie's *Testing R Code* book](https://www.crcpress.com/Testing-R-Code/Cotton/p/book/9781498763653)
 - Let [travis-ci](https://travis-ci.org/andrewpbray/infer) do [the work](https://github.com/andrewpbray/infer/blob/master/.travis.yml) for you
 - Use Hadley's [`pkgdown` package](https://github.com/r-lib/pkgdown) to build a pkg website
   - Host it on Netlify.com to be super cool
@@ -494,7 +530,7 @@ class: middle
 - Special thanks to [Andrew Bray](https://andrewpbray.github.io) and the other pkg contributors
 - Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
 - Slides available at <http://bit.ly/infer-austin>
-- Source code for these slides at <https://github.com/ismayc/talks/data-day-texas-infer>
+- Source code for these slides at <https://github.com/ismayc/talks/tree/master/data-day-texas-infer>
 
 <br>
 

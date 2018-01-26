@@ -17,13 +17,13 @@ h1, h2, h3 {
 }
 a, a > code {
   color: #0094C1;
-  text-decoration: none;
+  text-decoration: none; 
 }
 
 .remark-code, .remark-inline-code { font-family: 'Source Code Pro', 'Lucida Console', Monaco, monospace;
   font-size: 0.8em;
 }
-.remark-code-line-highlighted     { background-color: #ffff88; }
+.remark-code-line-highlighted     { background-color: #ffffff; }
 
 .inverse {
   background-color: #272822;
