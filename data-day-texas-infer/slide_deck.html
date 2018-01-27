@@ -65,7 +65,7 @@ class: center
 
 class: middle
 
-&lt;small&gt;Students at Virginia Tech studied which vehicles come to a complete stop at an intersection with four-way stop signs, selecting at random the cars to observe. &lt;!--They looked at several factors to see which (if any) were associated with coming to a complete stop. (They defined a complete stop as “the speed of the vehicle will become zero at least for an [instant]”). Some of these variables included the age of the driver, how many passengers were in the vehicle, and type of vehicle.--&gt; The &lt;font color="purple"&gt;explanatory&lt;/font&gt; variable used here is the arrival position of vehicles approaching an intersection all traveling in the same direction. They classified this arrival pattern into three groups: whether the vehicle arrives alone (&lt;font color="purple"&gt;&lt;code&gt;single&lt;/code&gt;&lt;/font&gt;), is the &lt;font color="purple"&gt;&lt;code&gt;lead&lt;/code&gt;&lt;/font&gt; in a group of vehicles, or is a &lt;font color="purple"&gt;&lt;code&gt;follow&lt;/code&gt;&lt;/font&gt;er in a group of vehicles. Is there an association between &lt;font color="purple"&gt;arrival pattern&lt;/font&gt; and whether a &lt;font color="darkgreen"&gt;&lt;code&gt;complete&lt;/code&gt;&lt;/font&gt; stop or &lt;font color="darkgreen"&gt;&lt;code&gt;not_complete&lt;/code&gt;&lt;/font&gt; was made?&lt;/small&gt; &lt;!--The students studied one specific intersection in Northern Virginia at a variety of different times. Because random assignment was not used, this is an observational study. Also note that no vehicle from one group is paired with a vehicle from another group.--&gt;
+&lt;small&gt;Students at Virginia Tech studied which vehicles come to a complete stop at an intersection with four-way stop signs, selecting at random the cars to observe. &lt;!--They looked at several factors to see which (if any) were associated with coming to a complete stop. (They defined a complete stop as “the speed of the vehicle will become zero at least for an [instant]”). Some of these variables included the age of the driver, how many passengers were in the vehicle, and type of vehicle.--&gt; The &lt;font color="purple"&gt;explanatory&lt;/font&gt; variable used here is the arrival position of vehicles approaching an intersection all traveling in the same direction. They classified this arrival pattern into three groups: whether the vehicle arrives alone (&lt;font color="purple"&gt;&lt;code&gt;&lt;small&gt;single&lt;/small&gt;&lt;/code&gt;&lt;/font&gt;), is the &lt;font color="purple"&gt;&lt;code&gt;&lt;small&gt;lead&lt;/small&gt;&lt;/code&gt;&lt;/font&gt; in a group of vehicles, or is a &lt;font color="purple"&gt;&lt;code&gt;&lt;small&gt;follow&lt;/small&gt;&lt;/code&gt;&lt;/font&gt;er in a group of vehicles. Is there an association between &lt;font color="purple"&gt;arrival pattern&lt;/font&gt; and whether a &lt;font color="darkgreen"&gt;&lt;code&gt;&lt;small&gt;complete&lt;/small&gt;&lt;/code&gt;&lt;/font&gt; stop or &lt;font color="darkgreen"&gt;&lt;code&gt;&lt;small&gt;not_complete&lt;/small&gt;&lt;/code&gt;&lt;/font&gt; was made?&lt;/small&gt; &lt;!--The students studied one specific intersection in Northern Virginia at a variety of different times. Because random assignment was not used, this is an observational study. Also note that no vehicle from one group is paired with a vehicle from another group.--&gt;
 
 &lt;br&gt;
 
@@ -86,16 +86,14 @@ Which type of hypothesis test should we conduct here?
 
 ---
 
-### The data
-
 
 
 
 ```r
 library(tidyverse)
-set.seed(2)
 # https://ismayc.github.io/talks/data-day-texas-infer/car_stop.rds
-download.file("http://bit.ly/car_stop_rds", destfile = "car_stop.rds")
+download.file("http://bit.ly/car_stop_rds", 
+              destfile = "car_stop.rds")
 car_stop &lt;- read_rds("car_stop.rds")
 car_stop %&gt;% sample_n(10)
 ```
@@ -124,7 +122,7 @@ class: middle
 
 Which type of hypothesis test should we conduct here?
 
-- A. Independent means t-test
+- A. Independent samples t-test
 - B. One proportion test
 - C. Chi-Square Test of Independence
 - D. ANOVA
@@ -155,8 +153,8 @@ chisq.test(data = car_stop, x = stop_type, y = vehicle_type)
 --
 
 ```
-Error in chisq.test(data = car_stop, x = stop_type, y = vehicle_type) : 
-  unused argument (data = car_stop)
+Error in chisq.test(data = car_stop, x = stop_type, 
+  y = vehicle_type)
 ```  
 
 --
@@ -165,17 +163,18 @@ Error in chisq.test(data = car_stop, x = stop_type, y = vehicle_type) :
 
 
 ```r
-chisq.test(data = car_stop, formula = vehicle_type ~ stop_type)
+chisq.test(data = car_stop, 
+           formula = vehicle_type ~ stop_type)
 ```
 --
 
 ```
-Error in chisq.test(data = car_stop, formula = vehicle_type ~ stop_type) : 
-  unused arguments (data = car_stop, formula = vehicle_type ~ stop_type)
+Error in chisq.test(data = car_stop, 
+  formula = vehicle_type ~ stop_type)
 ```
 
+&lt;br&gt;
 ---
-
 
 ## Finally
 
@@ -205,7 +204,7 @@ X-squared = 3.9476, df = 2, p-value = 0.1389
 
 ---
 
-![](slide_deck_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+&lt;img src="slide_deck_files/figure-html/unnamed-chunk-9-1.png" width="1008" /&gt;
 
 P-value is 0.1389.
 ---
@@ -224,7 +223,6 @@ or not it makes a complete stop.
 &gt; An association exists between the arrival vehicle's position and
 whether or not it makes a complete stop.
 
-
 ---
 
 ## How can computation help us to understand what is going on here?
@@ -233,14 +231,13 @@ whether or not it makes a complete stop.
 
 [![Only One Test](downey.png)](http://allendowney.blogspot.com/2016/06/there-is-still-only-one-test.html)
 
-
 ---
 
 ## The tricky step
 
 --
 
-- Modeling the null hypothesis
+Modeling the null hypothesis
   - How do we simulate data assuming the null hypothesis is true in our problem (there is no association between the variables)?
 --
 
@@ -426,13 +423,13 @@ X-squared
 &lt;small&gt;The distribution of multiple repetitions of the permuted data&lt;/small&gt;
 --
 
-![](slide_deck_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+&lt;img src="slide_deck_files/figure-html/unnamed-chunk-20-1.png" width="1008" /&gt;
 
 --
 
 &lt;small&gt;Recall the traditional method using the Chi-square distribution &lt;/small&gt;
 
-![](slide_deck_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+&lt;img src="slide_deck_files/figure-html/unnamed-chunk-21-1.png" width="1008" /&gt;
 
 ---
 
@@ -511,8 +508,6 @@ class: inverse, center, middle
 
 ---
 
-## Back to the example
-
 
 ```r
 car_stop %&gt;% 
@@ -554,7 +549,7 @@ car_stop %&gt;%
   visualize()
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+&lt;img src="slide_deck_files/figure-html/unnamed-chunk-23-1.png" width="1008" /&gt;
 
 ---
 
@@ -615,9 +610,7 @@ class: middle
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-"highlightStyle": "github",
-"highlightLines": true,
-"highlightLanguage": "r"
+"highlightStyle": "dark"
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {window.dispatchEvent(new Event('resize'));});
 (function() {var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler"); if (!r) return; s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }"; d.head.appendChild(s);})();</script>

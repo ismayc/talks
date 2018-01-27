@@ -7,9 +7,9 @@ output: #ioslides_presentation
   xaringan::moon_reader:
    lib_dir: libs
    nature:
-     highlightStyle: github
-     highlightLines: true
-     highlightLanguage: r
+     highlightStyle: dark
+#     highlightLines: true
+#     highlightLanguage: r
    countIncrementalSlides: false
    css: example.css
   # html_document:
@@ -78,7 +78,7 @@ class: center
 
 class: middle
 
-<small>Students at Virginia Tech studied which vehicles come to a complete stop at an intersection with four-way stop signs, selecting at random the cars to observe. <!--They looked at several factors to see which (if any) were associated with coming to a complete stop. (They defined a complete stop as “the speed of the vehicle will become zero at least for an [instant]”). Some of these variables included the age of the driver, how many passengers were in the vehicle, and type of vehicle.--> The <font color="purple">explanatory</font> variable used here is the arrival position of vehicles approaching an intersection all traveling in the same direction. They classified this arrival pattern into three groups: whether the vehicle arrives alone (<font color="purple"><code>single</code></font>), is the <font color="purple"><code>lead</code></font> in a group of vehicles, or is a <font color="purple"><code>follow</code></font>er in a group of vehicles. Is there an association between <font color="purple">arrival pattern</font> and whether a <font color="darkgreen"><code>complete</code></font> stop or <font color="darkgreen"><code>not_complete</code></font> was made?</small> <!--The students studied one specific intersection in Northern Virginia at a variety of different times. Because random assignment was not used, this is an observational study. Also note that no vehicle from one group is paired with a vehicle from another group.-->
+<small>Students at Virginia Tech studied which vehicles come to a complete stop at an intersection with four-way stop signs, selecting at random the cars to observe. <!--They looked at several factors to see which (if any) were associated with coming to a complete stop. (They defined a complete stop as “the speed of the vehicle will become zero at least for an [instant]”). Some of these variables included the age of the driver, how many passengers were in the vehicle, and type of vehicle.--> The <font color="purple">explanatory</font> variable used here is the arrival position of vehicles approaching an intersection all traveling in the same direction. They classified this arrival pattern into three groups: whether the vehicle arrives alone (<font color="purple"><code><small>single</small></code></font>), is the <font color="purple"><code><small>lead</small></code></font> in a group of vehicles, or is a <font color="purple"><code><small>follow</small></code></font>er in a group of vehicles. Is there an association between <font color="purple">arrival pattern</font> and whether a <font color="darkgreen"><code><small>complete</small></code></font> stop or <font color="darkgreen"><code><small>not_complete</small></code></font> was made?</small> <!--The students studied one specific intersection in Northern Virginia at a variety of different times. Because random assignment was not used, this is an observational study. Also note that no vehicle from one group is paired with a vehicle from another group.-->
 
 <br>
 
@@ -99,8 +99,6 @@ Which type of hypothesis test should we conduct here?
 
 ---
 
-### The data
-
 ```{r echo=FALSE}
 library(tidyverse)
 stop_type <- c(rep("complete", 265), rep("not_complete", 52))
@@ -108,13 +106,14 @@ vehicle_type <- c(rep("single", 151), rep("lead", 38), rep("follow", 76),
   rep("single", 25), rep("lead", 5), rep("follow", 22))
 car_stop <- data_frame(stop_type, vehicle_type)
 write_rds(car_stop, "car_stop.rds")
+set.seed(2)
 ```
 
 ```{r eval=FALSE}
 library(tidyverse)
-set.seed(2)
 # https://ismayc.github.io/talks/data-day-texas-infer/car_stop.rds
-download.file("http://bit.ly/car_stop_rds", destfile = "car_stop.rds")
+download.file("http://bit.ly/car_stop_rds", 
+              destfile = "car_stop.rds")
 car_stop <- read_rds("car_stop.rds")
 car_stop %>% sample_n(10)
 ```
@@ -135,7 +134,7 @@ class: middle
 
 Which type of hypothesis test should we conduct here?
 
-- A. Independent means t-test
+- A. Independent samples t-test
 - B. One proportion test
 - C. Chi-Square Test of Independence
 - D. ANOVA
@@ -165,8 +164,8 @@ chisq.test(data = car_stop, x = stop_type, y = vehicle_type)
 --
 
 ```
-Error in chisq.test(data = car_stop, x = stop_type, y = vehicle_type) : 
-  unused argument (data = car_stop)
+Error in chisq.test(data = car_stop, x = stop_type, 
+  y = vehicle_type)
 ```  
 
 --
@@ -174,17 +173,18 @@ Error in chisq.test(data = car_stop, x = stop_type, y = vehicle_type) :
 - Using a formula
 
 ```{r eval=FALSE}
-chisq.test(data = car_stop, formula = vehicle_type ~ stop_type)
+chisq.test(data = car_stop, 
+           formula = vehicle_type ~ stop_type)
 ```
 --
 
 ```
-Error in chisq.test(data = car_stop, formula = vehicle_type ~ stop_type) : 
-  unused arguments (data = car_stop, formula = vehicle_type ~ stop_type)
+Error in chisq.test(data = car_stop, 
+  formula = vehicle_type ~ stop_type)
 ```
 
+<br>
 ---
-
 
 ## Finally
 
@@ -232,7 +232,6 @@ or not it makes a complete stop.
 > An association exists between the arrival vehicle's position and
 whether or not it makes a complete stop.
 
-
 ---
 
 ## How can computation help us to understand what is going on here?
@@ -241,14 +240,13 @@ whether or not it makes a complete stop.
 
 [![Only One Test](downey.png)](http://allendowney.blogspot.com/2016/06/there-is-still-only-one-test.html)
 
-
 ---
 
 ## The tricky step
 
 --
 
-- Modeling the null hypothesis
+Modeling the null hypothesis
   - How do we simulate data assuming the null hypothesis is true in our problem (there is no association between the variables)?
 --
 
@@ -458,8 +456,6 @@ class: inverse, center, middle
 
 ---
 
-## Back to the example
-
 ```{r}
 car_stop %>% 
   specify(stop_type ~ vehicle_type) %>% 
@@ -473,7 +469,7 @@ car_stop %>%
 
 ## Back to the example
 
-```{r}
+```{r fig.height=3.5}
 car_stop %>% 
   specify(stop_type ~ vehicle_type) %>% 
   hypothesize(null = "independence") %>% 
