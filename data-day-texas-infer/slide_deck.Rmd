@@ -255,7 +255,7 @@ Modeling the null hypothesis
 
 ---
 
-## Properties of the original sample collected
+### Properties of the original sample collected
 
 ```{r}
 car_stop %>% count(stop_type, vehicle_type)
@@ -264,7 +264,8 @@ car_stop %>% count(stop_type, vehicle_type)
 --
 
 ```{r}
-( orig_table <- table(car_stop$stop_type, car_stop$vehicle_type) )
+( orig_table <- car_stop %>% 
+    janitor::tabyl(stop_type, vehicle_type) )
 ```
 
 
@@ -286,7 +287,8 @@ set.seed(3)
 --
 
 ```{r echo=FALSE}
-( new_table <- table(perm1$stop_type, perm1$vehicle_type) )
+#( new_table <- table(perm1$stop_type, perm1$vehicle_type) )
+( new_table <- perm1 %>% janitor::tabyl(stop_type, vehicle_type) )
 ```
 
 
@@ -295,8 +297,8 @@ set.seed(3)
 ## Comparing the original and permuted sample
 
 ```{r}
-addmargins(orig_table)
-addmargins(new_table)
+orig_table %>% janitor::adorn_totals(where = c("row", "col"))
+new_table %>% janitor::adorn_totals(where = c("row", "col"))
 ```
 
 ---

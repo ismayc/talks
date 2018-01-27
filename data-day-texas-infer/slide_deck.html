@@ -246,7 +246,7 @@ Modeling the null hypothesis
 
 ---
 
-## Properties of the original sample collected
+### Properties of the original sample collected
 
 
 ```r
@@ -269,14 +269,14 @@ car_stop %&gt;% count(stop_type, vehicle_type)
 
 
 ```r
-( orig_table &lt;- table(car_stop$stop_type, car_stop$vehicle_type) )
+( orig_table &lt;- car_stop %&gt;% 
+    janitor::tabyl(stop_type, vehicle_type) )
 ```
 
 ```
-              
-               follow lead single
-  complete         76   38    151
-  not_complete     22    5     25
+    stop_type follow lead single
+     complete     76   38    151
+ not_complete     22    5     25
 ```
 
 
@@ -305,10 +305,9 @@ car_stop %&gt;% count(stop_type, vehicle_type)
 
 
 ```
-              
-               follow lead single
-  complete         79   35    151
-  not_complete     19    8     25
+    stop_type follow lead single
+     complete     79   35    151
+ not_complete     19    8     25
 ```
 
 
@@ -318,27 +317,25 @@ car_stop %&gt;% count(stop_type, vehicle_type)
 
 
 ```r
-addmargins(orig_table)
+orig_table %&gt;% janitor::adorn_totals(where = c("row", "col"))
 ```
 
 ```
-              
-               follow lead single Sum
-  complete         76   38    151 265
-  not_complete     22    5     25  52
-  Sum              98   43    176 317
+    stop_type follow lead single Total
+     complete     76   38    151   265
+ not_complete     22    5     25    52
+        Total     98   43    176   317
 ```
 
 ```r
-addmargins(new_table)
+new_table %&gt;% janitor::adorn_totals(where = c("row", "col"))
 ```
 
 ```
-              
-               follow lead single Sum
-  complete         79   35    151 265
-  not_complete     19    8     25  52
-  Sum              98   43    176 317
+    stop_type follow lead single Total
+     complete     79   35    151   265
+ not_complete     19    8     25    52
+        Total     98   43    176   317
 ```
 
 ---
