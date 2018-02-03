@@ -2,7 +2,7 @@
 title: Something old, something new, <br> something borrowed, something <font color="deepskyblue">blue</font>
 subtitle: Ways to teach data science (and learn it too!)
 author: "Dr. Chester Ismay <br> Data Science Curriculum Lead at DataCamp <br> GitHub: [ismayc](https://github.com/ismayc) <br> Twitter:  [@](https://twitter.com/old_man_chester)[old_man_chester](https://twitter.com/old_man_chester)"
-date: rstudio::conf 2018  <br><br> PDF slides -  <http://bit.ly/moderndive-slides-pdf> <br> Keynote slides -  <https://github.com/ismayc/talks/tree/master/rstudioconf18> <br> Free Reproducible Textbook at <http://ModernDive.com>
+date: rstudio::conf 2018  <br><br> PDF slides -  <http://bit.ly/moderndive-slides-pdf> <br> Keynote slides -  <http://bit.ly/moderndive-slides-keynote> <br> Free Reproducible Textbook at <http://ModernDive.com>
 output: 
   xaringan::moon_reader:
     lib_dir: libs
