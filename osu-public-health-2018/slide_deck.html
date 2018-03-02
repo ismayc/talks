@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Online Training in Data Science Using R</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Dr. Chester Ismay   Data Science Curriculum Lead at DataCamp      ismayc    @old_man_chester    chester@datacamp.com" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="example.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Online Training in Data Science Using R
+### Dr. Chester Ismay <br> Data Science Curriculum Lead at <a href="https://www.datacamp.com/">DataCamp</a> <br><br> <a href="http://github.com/ismayc"><i class="fa fa-github fa-fw"></i>  ismayc</a><br> <a href="http://twitter.com/old_man_chester"><i class="fa fa-twitter fa-fw"></i>  <span class="citation">@old_man_chester</span></a><br> <a href="mailto:chester@datacamp.com"><i class="fa fa-paper-plane fa-fw"></i>  chester@datacamp.com</a><br>
+### 2018-03-02 <br><br> Slides available at <a href="http://bit.ly/osu-ismay18" class="uri">http://bit.ly/osu-ismay18</a>
+
+---
+
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/osu-ismay18]
+
+---
+
+class: center
+
+
+
+
+# Suppose you were learning something new
+
+&lt;center&gt;
+&lt;a href="https://gph.is/Z08iEX"&gt;
+&lt;img src="img/utopia.gif" style = "width: 450px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+## What would you want to help you?
+
+---
+
+# Learning R and data science? 
+
+--
+## How can we have less of this?
+
+&lt;center&gt;
+&lt;a href="http://gph.is/Yp0AdE"&gt;
+&lt;img src="img/zachroll.gif" style = "width: 480px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+## And more of this?
+
+&lt;center&gt;
+&lt;a href="https://tenor.com/view/drake-hotlinebling-dance-gif-5915441"&gt;
+&lt;img src="img/zachslater.gif" style = "width: 580px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+## Some thoughts on what might help with learning R
+
+1. Interactivity in small bits
+--
+
+1. Ways to practice what you've learned
+--
+
+1. Clear documentation with examples
+--
+
+1. Use what you know to connect with the new
+
+---
+
+# Interactivity in small bits
+
+- Small lessons where you can test your understanding
+- Immediate (helpful) feedback on errors
+- Learn by doing
+- Led by practioners devoted to education
+- A team of reviewers checking for course quality
+
+--
+
+***
+
+Demo! &lt;center&gt;
+&lt;a href="https://www.datacamp.com/courses/introduction-to-the-tidyverse"&gt;
+&lt;img src="img/DataCamp_Horizontal_White.png" style = "width: 430px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+
+---
+
+# Ways to practice what you've learned
+
+- Should be available on multiple mediums
+- Short checks for knowledge growth
+- Ways to apply knowledge to new situations
+
+&lt;!-- Over 100 courses total with another 100 currently in development --&gt;
+
+---
+
+## DataCamp Practice
+
+&lt;center&gt;
+&lt;a href="https://challenges.datacamp.com/practice/376"&gt;
+&lt;img src="img/practice.png" style = "width: 600px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt; 
+
+---
+
+layout: false
+class: inverse
+
+## DataCamp Mobile
+
+&lt;center&gt;
+&lt;a href="https://www.datacamp.com/mobile"&gt;
+&lt;img src="img/mobile.jpeg" style = "width: 400px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/osu-ismay18]
+
+---
+
+## DataCamp Projects
+
+&lt;center&gt;
+&lt;a href="https://projects.datacamp.com/projects/74"&gt;
+&lt;img src="img/amber.png" style = "width: 650px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+# Getting started with DataCamp
+
+- Test out our free courses in [R](https://www.datacamp.com/courses/free-introduction-to-r), [SQL](https://www.datacamp.com/courses/intro-to-sql-for-data-science), [Python](https://www.datacamp.com/courses/intro-to-python-for-data-science), [Git](https://www.datacamp.com/courses/introduction-to-git-for-data-science), and [Shell](https://www.datacamp.com/courses/introduction-to-shell-for-data-science)
+- [DataCamp for Academics](https://www.datacamp.com/groups/education)
+- [Join a community](https://www.datacamp.com/pricing) of &gt; 2 million students of 190+ different nationalities
+
+---
+
+# Clear documentation with examples
+
+&lt;!-- One of the great perks of working at DataCamp as a Curriculum Lead is having time
+to work on my own projects during what we call community time. This means that 20% of my
+working hours should be spent working on interesting projects that help me interact
+with the data science community. --&gt;
+
+- Data sets should be interesting
+- Content should be written with the beginner in mind
+- Materials should be modern and kept up-to-date
+
+--
+
+&lt;br&gt;
+
+&lt;center&gt;
+&lt;a href="https://moderndive.com"&gt;
+&lt;img src="img/wide_format.png" style = "width: 650px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+--
+- Developmental version at &lt;https://moderndive.netlify.com&gt;
+
+---
+
+![](img/flowchart.png)
+
+---
+
+## Designed for the novice / Nice for the practioner
+
+&lt;center&gt;
+&lt;a href="http://moderndive.netlify.com/2-getting-started.html"&gt;
+&lt;img src="img/engine.png" style = "width: 600px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+## Designed for the novice / Nice for the practioner
+
+&lt;center&gt;
+&lt;a href="http://moderndive.netlify.com/2-getting-started.html"&gt;
+&lt;img src="img/appstore.png" style = "width: 600px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+# Use what you know to connect with new
+
+## Assume you understand how to create and read this
+
+
+```r
+library(gapminder)
+library(tidyverse)
+gapminder_2007 &lt;- gapminder %&gt;% filter(year == 2007)
+ggplot(data = gapminder_2007, 
+       mapping = aes(x = gdpPercap, y = lifeExp, 
+                     size = pop, color = continent)) +
+  geom_point()
+```
+
+---
+
+![](slide_deck_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+
+---
+
+layout: false
+class: inverse
+
+## Extending this knowledge to something new
+
+- How can we now learn about &lt;u&gt;sampling distributions&lt;/u&gt;?
+
+--
+
+&lt;center&gt;
+&lt;a href="http://moderndive.com/images/sampling_bowl.jpeg"&gt;
+&lt;img src="img/sampling_bowl.jpeg" style = "width: 400px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/osu-ismay18]
+
+---
+
+
+```r
+library(moderndive)
+bowl
+```
+
+```
+# A tibble: 2,400 x 2
+   ball_ID color
+     &lt;int&gt; &lt;chr&gt;
+ 1       1 white
+ 2       2 white
+ 3       3 white
+ 4       4 red  
+ 5       5 white
+ 6       6 white
+ 7       7 red  
+ 8       8 white
+ 9       9 red  
+10      10 white
+# ... with 2,390 more rows
+```
+
+---
+
+## One "virtual" scoop of 50 balls
+
+
+```r
+set.seed(1977)
+( bowl_sample &lt;- bowl %&gt;% sample_n(size = 50) )
+```
+
+```
+# A tibble: 50 x 2
+   ball_ID color
+     &lt;int&gt; &lt;chr&gt;
+ 1    1193 white
+ 2    1293 white
+ 3    1658 red  
+ 4     331 red  
+ 5    1020 white
+ 6    2224 red  
+ 7     887 white
+ 8    1008 red  
+ 9     514 white
+10     993 red  
+# ... with 40 more rows
+```
+
+---
+
+# Proportion that are red
+
+
+```r
+bowl_sample %&gt;% 
+  summarize(prop_red = mean(color == "red"))
+```
+
+```
+# A tibble: 1 x 1
+  prop_red
+     &lt;dbl&gt;
+1    0.360
+```
+
+--
+
+## Is this how many are in the full bowl?
+
+---
+
+## Sampling variability
+
+### What does &lt;small&gt;`rep_bowl_samples`&lt;/small&gt; look like?
+
+
+```r
+library(moderndive)
+rep_bowl_samples &lt;- bowl %&gt;% 
+  rep_sample_n(size = 50, reps = 10000)
+```
+
+--
+
+### How about &lt;small&gt;`bowl_props`&lt;/small&gt;?
+
+
+```r
+bowl_props &lt;- rep_bowl_samples %&gt;% 
+  group_by(replicate) %&gt;% 
+  summarize(prop_red = mean(color == "red"))
+```
+
+
+---
+
+## The sampling distribution
+
+
+```r
+ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
+  geom_histogram(binwidth = 0.02, color = "white")
+```
+
+![](slide_deck_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+
+---
+
+### Shifting focus
+
+### What about if all we had was the one sample of balls?
+
+
+```r
+bowl_sample %&gt;% count(color)
+```
+
+```
+# A tibble: 2 x 2
+  color     n
+  &lt;chr&gt; &lt;int&gt;
+1 red      18
+2 white    32
+```
+
+--
+
+## How could we use this sample to make a guess about the population?
+
+---
+
+layout: true
+class: inverse
+
+---
+
+# Building up to statistical inference!
+
+
+```r
+library(infer)
+bowl_sample %&gt;% 
+  specify(formula = color ~ NULL, success = "red")
+```
+
+```
+Response:  color 
+# A tibble: 50 x 1
+   color
+   &lt;fct&gt;
+ 1 white
+ 2 white
+ 3 red  
+ 4 red  
+ 5 white
+ 6 red  
+ 7 white
+ 8 red  
+ 9 white
+10 red  
+# ... with 40 more rows
+```
+
+---
+
+# Bootstrapping?
+
+
+```r
+library(infer)
+( bootstrap_samples &lt;- bowl_sample %&gt;% 
+  specify(formula = color ~ NULL, success = "red") %&gt;% 
+  generate(reps = 48, type = "bootstrap") )
+```
+
+```
+# A tibble: 2,400 x 2
+# Groups:   replicate [48]
+   replicate color
+       &lt;int&gt; &lt;fct&gt;
+ 1         1 red  
+ 2         1 red  
+ 3         1 white
+ 4         1 white
+ 5         1 red  
+ 6         1 white
+ 7         1 white
+ 8         1 white
+ 9         1 red  
+10         1 red  
+# ... with 2,390 more rows
+```
+
+---
+
+# What does &lt;small&gt;bootstrap_samples&lt;/small&gt; represent?
+
+## Remember we assumed that all we had was the original sample of 32 red and 18 white to start.
+--
+
+## Hope &lt;small&gt;bootstrap_samples&lt;/small&gt; is close to this:
+
+&lt;center&gt;
+&lt;a href="http://moderndive.netlify.com/images/sampling_bowl.jpeg"&gt;
+&lt;img src="img/big_sampling_bowl.jpeg" style = "width: 500px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+## Bootstrap statistics
+
+
+```r
+bowl_sample %&gt;% 
+  specify(formula = color ~ NULL, success = "red") %&gt;% 
+  generate(reps = 48, type = "bootstrap") %&gt;% 
+  calculate(stat = "prop")
+```
+
+```
+# A tibble: 48 x 2
+   replicate  stat
+       &lt;int&gt; &lt;dbl&gt;
+ 1         1 0.360
+ 2         2 0.280
+ 3         3 0.440
+ 4         4 0.240
+ 5         5 0.400
+ 6         6 0.300
+ 7         7 0.300
+ 8         8 0.400
+ 9         9 0.400
+10        10 0.360
+# ... with 38 more rows
+```
+
+---
+
+## Do 10,000 reps to get a better sense for variability
+
+### Just as we did with the sampling distribution
+
+
+```r
+bootstrap_stats &lt;- bowl_sample %&gt;% 
+  specify(formula = color ~ NULL, success = "red") %&gt;% 
+  generate(reps = 10000, type = "bootstrap") %&gt;% 
+  calculate(stat = "prop")
+```
+
+---
+
+### The bootstrap distribution
+
+![](slide_deck_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+
+### The sampling distribution
+
+![](slide_deck_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+
+---
+
+### `infer` verbs
+
+&lt;center&gt;
+&lt;a href="https://infer.netlify.com"&gt;
+&lt;img src="img/infer_ci.jpg" style = "width: 650px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+### `infer` verbs
+
+&lt;center&gt;
+&lt;a href="https://infer.netlify.com"&gt;
+&lt;img src="img/infer_ht.jpg" style = "width: 650px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/osu-ismay18]
+
+---
+
+## Future plans
+
+- Generalize `infer` functions so it is useful to practioners as well as students
+- Rewrite the inference part of the ModernDive book
+- Lead more workshops on using the `infer` package to extend knowledge of the `tidyverse`, R, and statistics like [this one](https://symposium.nestat.org/short-courses.html#infer)
+
+---
+
+layout: false
+class: middle, inverse
+
+&lt;center&gt;
+&lt;a href="https://www.datacamp.com"&gt;
+&lt;img src="img/DataCamp_Vertical_White.png" style="width: 250px;"/&gt;
+&lt;/a&gt;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&lt;a href="http://moderndive.netlify.com"&gt; 
+&lt;img src="img/dark_vert.png" style="width: 220px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+
+# Thanks for attending!
+
+- Special thanks to [Albert Y. Kim](https://twitter.com/rudeboybert) and [Andrew Bray](https://andrewpbray.github.io)
+- Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
+- Slides available at &lt;http://bit.ly/osu-ismay18&gt;
+- Source code for these slides at &lt;https://github.com/ismayc/talks/&gt;
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "tomorrow-night-bright",
+"highlightLines": true,
+"highlightLanguage": "r"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

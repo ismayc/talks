@@ -1,0 +1,462 @@
+---
+title: Online Training in Data Science Using R
+author: 'Dr. Chester Ismay <br> Data Science Curriculum Lead at <a href="https://www.datacamp.com/">DataCamp</a> <br><br> <a href="http://github.com/ismayc"><i class="fa fa-github fa-fw"></i>&nbsp; ismayc</a><br> <a href="http://twitter.com/old_man_chester"><i class="fa fa-twitter fa-fw"></i>&nbsp; @old_man_chester</a><br> <a href="mailto:chester@datacamp.com"><i class="fa fa-paper-plane fa-fw"></i>&nbsp; chester@datacamp.com</a><br>'
+date: 2018-03-02 <br><br> Slides available at <http://bit.ly/osu-ismay18>
+output: 
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: tomorrow-night-bright
+      highlightLines: true
+      highlightLanguage: r
+    includes:
+      in_header: header.html      
+    countIncrementalSlides: false
+    css: example.css
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/osu-ismay18]
+
+---
+
+class: center
+
+```{r include=FALSE}
+#specify the packages of interest
+pkgs <- c("tidyverse", "moderndive", "infer")
+
+# use this function to check if each package is on the local machine
+# if a package is installed, it will be loaded
+# if any are not, the missing package(s) will be installed and loaded
+pkg.check <- function(x) {
+    if (!require(x, character.only = TRUE)) {
+        install.packages(x, dependencies = TRUE, repos = "https://cran.rstudio.com")
+        library(x, character.only = TRUE)
+    }
+}
+lapply(pkgs, pkg.check)
+
+library(ggplot2)
+filter <- dplyr::filter
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, fig.width=10.5, fig.height=4, 
+  comment=NA, rows.print=16)
+theme_set(theme_gray(base_size = 24))
+
+gif_link <- function(link, file, size){
+    knitr::asis_output(
+      paste0('<center>\n<a href="',
+             link,
+             '">\n<img src="',
+             file,
+             '" style = "width: ',
+             size,
+             'px;"/>\n</a>\n</center>'
+      ))
+}
+
+```
+
+
+# Suppose you were learning something new
+
+```{r echo=FALSE}
+gif_link("https://gph.is/Z08iEX", "img/utopia.gif", 450)
+```
+
+## What would you want to help you?
+
+---
+
+# Learning R and data science? 
+
+--
+## How can we have less of this?
+
+```{r echo=FALSE}
+gif_link("http://gph.is/Yp0AdE", "img/zachroll.gif", 480)
+```
+
+---
+
+## And more of this?
+
+```{r echo=FALSE}
+gif_link("https://tenor.com/view/drake-hotlinebling-dance-gif-5915441", "img/zachslater.gif", 580)
+```
+
+---
+
+## Some thoughts on what might help with learning R
+
+1. Interactivity in small bits
+--
+
+1. Ways to practice what you've learned
+--
+
+1. Clear documentation with examples
+--
+
+1. Use what you know to connect with the new
+
+---
+
+# Interactivity in small bits
+
+- Small lessons where you can test your understanding
+- Immediate (helpful) feedback on errors
+- Learn by doing
+- Led by practioners devoted to education
+- A team of reviewers checking for course quality
+
+--
+
+***
+
+Demo! `r  gif_link("https://www.datacamp.com/courses/introduction-to-the-tidyverse","img/DataCamp_Horizontal_White.png", 430)`
+
+
+---
+
+# Ways to practice what you've learned
+
+- Should be available on multiple mediums
+- Short checks for knowledge growth
+- Ways to apply knowledge to new situations
+
+<!-- Over 100 courses total with another 100 currently in development -->
+
+---
+
+## DataCamp Practice
+
+`r gif_link("https://challenges.datacamp.com/practice/376", "img/practice.png", 600)` 
+
+---
+
+layout: false
+class: inverse
+
+## DataCamp Mobile
+
+`r gif_link("https://www.datacamp.com/mobile", "img/mobile.jpeg", 400)`
+
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/osu-ismay18]
+
+---
+
+## DataCamp Projects
+
+`r gif_link("https://projects.datacamp.com/projects/74", "img/amber.png", 650)`
+
+---
+
+# Getting started with DataCamp
+
+- Test out our free courses in [R](https://www.datacamp.com/courses/free-introduction-to-r), [SQL](https://www.datacamp.com/courses/intro-to-sql-for-data-science), [Python](https://www.datacamp.com/courses/intro-to-python-for-data-science), [Git](https://www.datacamp.com/courses/introduction-to-git-for-data-science), and [Shell](https://www.datacamp.com/courses/introduction-to-shell-for-data-science)
+- [DataCamp for Academics](https://www.datacamp.com/groups/education)
+- [Join a community](https://www.datacamp.com/pricing) of > 2 million students of 190+ different nationalities
+
+---
+
+# Clear documentation with examples
+
+<!-- One of the great perks of working at DataCamp as a Curriculum Lead is having time
+to work on my own projects during what we call community time. This means that 20% of my
+working hours should be spent working on interesting projects that help me interact
+with the data science community. -->
+
+- Data sets should be interesting
+- Content should be written with the beginner in mind
+- Materials should be modern and kept up-to-date
+
+--
+
+<br>
+
+`r gif_link("https://moderndive.com", "img/wide_format.png", 650)`
+
+--
+- Developmental version at <https://moderndive.netlify.com>
+
+---
+
+![](img/flowchart.png)
+
+---
+
+## Designed for the novice / Nice for the practioner
+
+`r gif_link("http://moderndive.netlify.com/2-getting-started.html", "img/engine.png", 600)`
+
+---
+
+## Designed for the novice / Nice for the practioner
+
+`r gif_link("http://moderndive.netlify.com/2-getting-started.html", "img/appstore.png", 600)`
+
+---
+
+# Use what you know to connect with new
+
+## Assume you understand how to create and read this
+
+```{r eval=FALSE}
+library(gapminder)
+library(tidyverse)
+gapminder_2007 <- gapminder %>% filter(year == 2007)
+ggplot(data = gapminder_2007, 
+       mapping = aes(x = gdpPercap, y = lifeExp, 
+                     size = pop, color = continent)) +
+  geom_point()
+```
+
+---
+
+```{r echo=FALSE, fig.height=7.5, fig.width=10}
+library(gapminder)
+library(tidyverse)
+gapminder_2007 <- gapminder %>% filter(year == 2007)
+ggplot(data = gapminder_2007, 
+       mapping = aes(x = gdpPercap, y = lifeExp, 
+                     size = pop, color = continent)) +
+  geom_point()
+```
+
+---
+
+layout: false
+class: inverse
+
+## Extending this knowledge to something new
+
+- How can we now learn about <u>sampling distributions</u>?
+
+--
+
+`r gif_link("http://moderndive.com/images/sampling_bowl.jpeg", "img/sampling_bowl.jpeg", 400)`
+
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/osu-ismay18]
+
+---
+
+```{r}
+library(moderndive)
+bowl
+```
+
+---
+
+## One "virtual" scoop of 50 balls
+
+```{r}
+set.seed(1977)
+( bowl_sample <- bowl %>% sample_n(size = 50) )
+```
+
+---
+
+# Proportion that are red
+
+```{r}
+bowl_sample %>% 
+  summarize(prop_red = mean(color == "red"))
+```
+
+--
+
+## Is this how many are in the full bowl?
+
+---
+
+## Sampling variability
+
+### What does <small>`rep_bowl_samples`</small> look like?
+
+```{r}
+library(moderndive)
+rep_bowl_samples <- bowl %>% 
+  rep_sample_n(size = 50, reps = 10000)
+```
+
+--
+
+### How about <small>`bowl_props`</small>?
+
+```{r}
+bowl_props <- rep_bowl_samples %>% 
+  group_by(replicate) %>% 
+  summarize(prop_red = mean(color == "red"))
+```
+
+
+---
+
+## The sampling distribution
+
+```{r fig.height=4.7}
+ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
+  geom_histogram(binwidth = 0.02, color = "white")
+```
+
+---
+
+### Shifting focus
+
+### What about if all we had was the one sample of balls?
+
+```{r}
+bowl_sample %>% count(color)
+```
+
+--
+
+## How could we use this sample to make a guess about the population?
+
+---
+
+layout: true
+class: inverse
+
+---
+
+# Building up to statistical inference!
+
+```{r}
+library(infer)
+bowl_sample %>% 
+  specify(formula = color ~ NULL, success = "red")
+```
+
+---
+
+# Bootstrapping?
+
+```{r}
+library(infer)
+( bootstrap_samples <- bowl_sample %>% 
+  specify(formula = color ~ NULL, success = "red") %>% 
+  generate(reps = 48, type = "bootstrap") )
+```
+
+---
+
+# What does <small>bootstrap_samples</small> represent?
+
+## Remember we assumed that all we had was the original sample of 32 red and 18 white to start.
+--
+
+## Hope <small>bootstrap_samples</small> is close to this:
+
+`r gif_link("http://moderndive.netlify.com/images/sampling_bowl.jpeg", "img/big_sampling_bowl.jpeg", 500)`
+
+---
+
+## Bootstrap statistics
+
+```{r}
+bowl_sample %>% 
+  specify(formula = color ~ NULL, success = "red") %>% 
+  generate(reps = 48, type = "bootstrap") %>% 
+  calculate(stat = "prop")
+```
+
+---
+
+## Do 10,000 reps to get a better sense for variability
+
+### Just as we did with the sampling distribution
+
+```{r}
+bootstrap_stats <- bowl_sample %>% 
+  specify(formula = color ~ NULL, success = "red") %>% 
+  generate(reps = 10000, type = "bootstrap") %>% 
+  calculate(stat = "prop")
+```
+
+---
+
+### The bootstrap distribution
+
+```{r fig.height=2.7, echo=FALSE}
+ggplot(data = bootstrap_stats, mapping = aes(x = stat)) +
+  geom_histogram(binwidth = 0.02, color = "white") +
+  geom_vline(xintercept = mean(bootstrap_stats$stat), color = "red",
+             size = 2) +
+  xlim(0.15, 0.55) +
+  geom_vline(xintercept = c(mean(bootstrap_stats$stat) - sd(bootstrap_stats$stat), mean(bootstrap_stats$stat) + sd(bootstrap_stats$stat)), color = "red", size = 1.5)
+```
+
+### The sampling distribution
+
+```{r fig.height=2.7, echo=FALSE}
+ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
+  geom_histogram(binwidth = 0.02, color = "white") +
+  geom_vline(xintercept = mean(bowl_props$prop_red), color = "red",
+             size = 2) +
+  xlim(0.15, 0.55) +
+  geom_vline(xintercept = c(mean(bowl_props$prop_red) - sd(bowl_props$prop_red), mean(bowl_props$prop_red) + sd(bowl_props$prop_red)), color = "red", size = 1.5)
+```
+
+---
+
+### `infer` verbs
+
+`r gif_link("https://infer.netlify.com", "img/infer_ci.jpg", 650)`
+
+---
+
+### `infer` verbs
+
+`r gif_link("https://infer.netlify.com", "img/infer_ht.jpg", 650)`
+
+
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/osu-ismay18]
+
+---
+
+## Future plans
+
+- Generalize `infer` functions so it is useful to practioners as well as students
+- Rewrite the inference part of the ModernDive book
+- Lead more workshops on using the `infer` package to extend knowledge of the `tidyverse`, R, and statistics like [this one](https://symposium.nestat.org/short-courses.html#infer)
+
+---
+
+layout: false
+class: middle, inverse
+
+<center>
+<a href="https://www.datacamp.com">
+<img src="img/DataCamp_Vertical_White.png" style="width: 250px;"/>
+</a>&emsp;&emsp;&emsp;&emsp;&emsp;<a href="http://moderndive.netlify.com"> 
+<img src="img/dark_vert.png" style="width: 220px;"/>
+</a>
+</center>
+
+
+# Thanks for attending!
+
+- Special thanks to [Albert Y. Kim](https://twitter.com/rudeboybert) and [Andrew Bray](https://andrewpbray.github.io)
+- Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
+- Slides available at <http://bit.ly/osu-ismay18>
+- Source code for these slides at <https://github.com/ismayc/talks/>
+
