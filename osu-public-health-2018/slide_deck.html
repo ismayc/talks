@@ -13,7 +13,7 @@ class: center, middle, inverse, title-slide
 
 # Online Training in Data Science Using R
 ### Dr. Chester Ismay <br> Data Science Curriculum Lead at <a href="https://www.datacamp.com/">DataCamp</a> <br><br> <a href="http://github.com/ismayc"><i class="fa fa-github fa-fw"></i>  ismayc</a><br> <a href="http://twitter.com/old_man_chester"><i class="fa fa-twitter fa-fw"></i>  <span class="citation">@old_man_chester</span></a><br> <a href="mailto:chester@datacamp.com"><i class="fa fa-paper-plane fa-fw"></i>  chester@datacamp.com</a><br>
-### 2018-03-02 <br><br> Slides available at <a href="http://bit.ly/osu-ismay18" class="uri">http://bit.ly/osu-ismay18</a>
+### 2018-03-02 <br><br> Oregon State University <br> College of Public Health and Human Sciences Seminar Series<br><br> Slides available at <a href="http://bit.ly/osu-ismay18" class="uri">http://bit.ly/osu-ismay18</a>
 
 ---
 
@@ -279,7 +279,7 @@ bowl
 
 ---
 
-## One "virtual" scoop of 50 balls
+## One virtual scoop of 50 balls
 
 
 ```r
@@ -311,14 +311,12 @@ set.seed(1977)
 
 ```r
 bowl_sample %&gt;% 
-  summarize(prop_red = mean(color == "red"))
+  summarize(prop_red = mean(color == "red")) %&gt;% 
+  pull()
 ```
 
 ```
-# A tibble: 1 x 1
-  prop_red
-     &lt;dbl&gt;
-1    0.360
+[1] 0.36
 ```
 
 --
@@ -549,9 +547,9 @@ class: inverse
 
 ## Future plans
 
-- Generalize `infer` functions so it is useful to practioners as well as students
+- Generalize &lt;small&gt;`infer`&lt;/small&gt; functions so it is useful to practioners as well as students
 - Rewrite the inference part of the ModernDive book
-- Lead more workshops on using the `infer` package to extend knowledge of the `tidyverse`, R, and statistics like [this one](https://symposium.nestat.org/short-courses.html#infer)
+- Lead more workshops on using the &lt;small&gt;`infer`&lt;/small&gt; package to extend knowledge of the &lt;small&gt;`tidyverse`&lt;/small&gt;, R, and statistics like [this one](https://symposium.nestat.org/short-courses.html#infer)
 
 ---
 
