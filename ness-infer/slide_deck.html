@@ -1610,7 +1610,7 @@ In an episode of the show *Mythbusters*, they tested the myth that yawning is co
 
 --
 
-Analysis done with [Alison Hill](https://alison.rbind.io)
+- Analysis done with [Alison Hill](https://alison.rbind.io)
 
 ---
 
@@ -1960,6 +1960,7 @@ The distribution of 1000 differences in proportions, if the null hypothesis were
 ## Calculating the p-value
 
 In how many of our "parallel universes" is the difference as big or bigger than the one we observed (0.04412)?
+
 --
 
 The shaded proportion is the p-value!
@@ -1974,7 +1975,7 @@ Null Hypothesis:  independence
 # A tibble: 1 x 3
   n_as_big n_total p_value
      &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt;
-1      512    1000   0.512
+1      505    1000   0.505
 ```
 
 ---
@@ -2092,7 +2093,7 @@ null_distn &lt;- yawn_myth %&gt;%
 
 ```r
 null_distn %&gt;% 
-  visualize(bins = 10, obs_stat = obs_diff, direction = "right")
+  visualize(obs_stat = obs_diff, direction = "right")
 ```
 
 ![](slide_deck_files/figure-html/unnamed-chunk-75-1.png)&lt;!-- --&gt;
@@ -2112,7 +2113,7 @@ yawn_myth %&gt;%
   hypothesize(null = "independence") %&gt;% 
   # generate() is not needed since we are not doing randomization
   # calculate(stat = "z") is implied based on variable types
-  visualize(method = "theoretical", obs_stat = obs_diff,
+  visualize(method = "theoretical", obs_stat = obs_z,
             direction = "right")
 ```
 
@@ -2130,7 +2131,7 @@ yawn_myth %&gt;%
   hypothesize(null = "independence") %&gt;% 
   generate(reps = 1000, type = "permute") %&gt;% 
   calculate(stat = "z", order = c("seed", "control")) %&gt;% 
-  visualize(method = "both", bins = 10, obs_stat = obs_diff,
+  visualize(method = "both", bins = 10, obs_stat = obs_z, 
             direction = "right")
 ```
 
@@ -2154,7 +2155,7 @@ mazes &lt;- read_csv("http://bit.ly/mazes-gist") %&gt;%
     - A permutation test and
     - A classical theoretical test.
     
-About the data: [Quantitative analysis of disfluency in children with autism spectrum disorder or language impairment](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0173936)
+About the data: &lt;small&gt;[Quantitative analysis of disfluency in children with autism spectrum disorder or language impairment](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0173936)&lt;/small&gt;
 
 ---
 
@@ -2174,7 +2175,7 @@ About the data: [Quantitative analysis of disfluency in children with autism spe
 ## Future plans
 
 - Generalize &lt;small&gt;`calculate()`'s&lt;/small&gt; `stat` argument
-- Improve speed and space by shifting to list-columns
+- Improve speed and memory used by shifting to list-columns
 - Rewrite the inference part of the [ModernDive](http://moderndive.netlify.com/9-ci.html) book
 - Lead more workshops on using the &lt;small&gt;`infer`&lt;/small&gt; package to extend knowledge of the &lt;small&gt;`tidyverse`&lt;/small&gt;, R, and statistics
 

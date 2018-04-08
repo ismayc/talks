@@ -1312,7 +1312,7 @@ In an episode of the show *Mythbusters*, they tested the myth that yawning is co
 
 --
 
-Analysis done with [Alison Hill](https://alison.rbind.io)
+- Analysis done with [Alison Hill](https://alison.rbind.io)
 
 ---
 
@@ -1570,7 +1570,7 @@ yawn_universes %>%
 ## The parallel universe distribution
 
 ```{r echo=FALSE}
-set.seed(8)
+set.seed(2)
 null_distn <- yawn_myth %>% 
   specify(formula = yawn ~ group,
           success = "1") %>% 
@@ -1592,6 +1592,7 @@ The distribution of 1000 differences in proportions, if the null hypothesis were
 ## Calculating the p-value
 
 In how many of our "parallel universes" is the difference as big or bigger than the one we observed (`r obs_diff`)?
+
 --
 
 The shaded proportion is the p-value!
@@ -1716,7 +1717,7 @@ null_distn <- yawn_myth %>%
 
 ```{r}
 null_distn %>% 
-  visualize(bins = 10, obs_stat = obs_diff, direction = "right")
+  visualize(obs_stat = obs_diff, direction = "right")
 ```
 
 ---
@@ -1726,10 +1727,11 @@ null_distn %>%
 Rely on theory to tell us what the null distribution looks like.
 
 ```{r include = FALSE}
+theme_set(theme_gray(base_size = 22))
 yawn_table <- table(group, yawn)
 yz <- prop.test(x = yawn_table, n = nrow(yawn_myth),
           alternative = "greater", correct = FALSE) 
-obs_stat <- yz %>% 
+obs_z <- yz %>% 
   broom::tidy(yz) %>% 
   pull(statistic)
 ```
@@ -1740,7 +1742,7 @@ yawn_myth %>%
   hypothesize(null = "independence") %>% 
   # generate() is not needed since we are not doing randomization
   # calculate(stat = "z") is implied based on variable types
-  visualize(method = "theoretical", obs_stat = obs_diff,
+  visualize(method = "theoretical", obs_stat = obs_z,
             direction = "right")
 ```
 
@@ -1755,7 +1757,7 @@ yawn_myth %>%
   hypothesize(null = "independence") %>% 
   generate(reps = 1000, type = "permute") %>% 
   calculate(stat = "z", order = c("seed", "control")) %>% 
-  visualize(method = "both", bins = 10, obs_stat = obs_diff,
+  visualize(method = "both", bins = 10, obs_stat = obs_z, 
             direction = "right")
 ```
 
@@ -1776,7 +1778,7 @@ mazes <- read_csv("http://bit.ly/mazes-gist") %>%
     - A permutation test and
     - A classical theoretical test.
     
-About the data: [Quantitative analysis of disfluency in children with autism spectrum disorder or language impairment](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0173936)
+About the data: <small>[Quantitative analysis of disfluency in children with autism spectrum disorder or language impairment](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0173936)</small>
 
 ---
 
@@ -1796,7 +1798,7 @@ About the data: [Quantitative analysis of disfluency in children with autism spe
 ## Future plans
 
 - Generalize <small>`calculate()`'s</small> `stat` argument
-- Improve speed and space by shifting to list-columns
+- Improve speed and memory used by shifting to list-columns
 - Rewrite the inference part of the [ModernDive](http://moderndive.netlify.com/9-ci.html) book
 - Lead more workshops on using the <small>`infer`</small> package to extend knowledge of the <small>`tidyverse`</small>, R, and statistics
 
