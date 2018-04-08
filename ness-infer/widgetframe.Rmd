@@ -1,0 +1,53 @@
+---
+title: Online Training in Data Science Using R
+output: 
+  xaringan::moon_reader:
+    lib_dir: libs
+	  nature:
+	    highlightStyle: github
+	    highlightLines: true
+	    countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+# Hover your mouse on these 3 dots and see when the hover text gets displayed
+
+esp the (2, 4) dot
+```{r, message=FALSE, fig.width=6, fig.height=4}
+library(plotly)
+df <- data.frame(x=c(1,2,1), y=c(3,4,5))
+plot_ly(data=df, x=~x, y=~y)
+```
+
+---
+# This is a work around for my issue #98
+
+```{r, message=FALSE}
+library(widgetframe)
+l <- plot_ly(data=df, x=~x, y=~y)
+frameWidget(l, width='60%', height='40%')
+```
+
+---
+# This also fixes #77
+
+```{r, echo=FALSE}
+library(leaflet)
+df <- data.frame(
+  name = c("Adyghe", "Udi"),
+  lat = c(44, 40.9),
+  long = c(39.33,47.7236),
+  stringsAsFactors = FALSE)
+
+l <- leaflet(df) %>% 
+  addTiles() %>%
+  addCircleMarkers(~long, ~lat, 
+				   popup = ~name,
+				   stroke = FALSE,
+				   fillOpacity = 1)
+
+frameWidget(l)
+```
