@@ -210,3 +210,15 @@ a:active {
 .pull-right ~ * {
   clear: both;
 }
+
+.mjx-chtml{ font-size: 120% !important; }
+
+
+.remark-inline-code{
+  background: #F5F5F5; /* lighter */
+  /*background: #e7e8e2; darker */
+  border-radius: 3px;
+  padding: 4px;
+  font-size: 26px;
+  color: green;
+}

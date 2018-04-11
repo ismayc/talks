@@ -21,8 +21,10 @@ name: toc
 
 ```{r include=FALSE}
 #specify the packages of interest
-pkgs <- c("tidyverse", "moderndive", "infer", "gapminder",
-          "nycflights13", "fivethirtyeight")
+pkgs <- c("tidyverse", "moderndive", "gapminder",
+          "nycflights13", "fivethirtyeight", "janitor",
+          "ggplot2movies", "remotes")
+#remotes::install_github("andrewpbray/infer", ref = "develop")
 
 # use this function to check if each package is on the local machine
 # if a package is installed, it will be loaded
@@ -39,7 +41,7 @@ library(ggplot2)
 filter <- dplyr::filter
 knitr::opts_chunk$set(warning=FALSE, message=FALSE, fig.width=10.5, fig.height=4, comment=NA, rows.print=16)
 theme_set(theme_gray(base_size = 24))
-options(digits = 5)
+options(digits = 5, width = 70)
 
 gif_link <- function(link, file, size){
     knitr::asis_output(
@@ -57,20 +59,14 @@ gif_link <- function(link, file, size){
 
 # Table of Contents
 
+Part 1
 - [Data Wrangling](#wrangling)
 - [Data Viz](#viz)
 - [Data Tidying](#tidying)
+
+Part 2
 - [Resampling](#resampling)
 - [Inference](#inference)
-
----
-
-class: inverse
-
-# Short Course Agenda
-
-- [Google Doc at http://bit.ly/ness-infer-agenda]()
-    - Need to create
 
 ---
 
@@ -179,14 +175,6 @@ class: center, middle
 The `tidyverse` is a collection of R packages that share common philosophies and are designed to work together. <br><br> 
   
 <a href="http://tidyverse.tidyverse.org/logo.png"><img src="figure/tidyverse.png" style="width: 160px;"/></a>
-
----
-
-# More DataCamp resources
-
-- [Introduction to the Tidyverse]
-- OTHERS...
-- Need to update
 
 ---
 
@@ -478,7 +466,7 @@ name: arrange
 --
 
 ```{r}
-gapminder %>% arrange(year, country)
+gapminder %>% arrange(year, country) %>% head(10)
 ```
 
 ---
@@ -656,7 +644,7 @@ class: inverse
 
 ---
 
-## Reproducing the plots in <small>`ggplot2`</small>
+## Reproducing the plots in `ggplot2`
 
 ### 1. A scatterplot
 
@@ -667,7 +655,7 @@ ggplot(data = simple_ex, mapping = aes(x = A, y = B)) +
 ```
 --
 
-```{r, echo=FALSE, fig.height=4.5}
+```{r, echo=FALSE, fig.height=4.4}
 ggplot(data = simple_ex, aes(x = A, y = B)) + 
   geom_point()
 ```
@@ -676,7 +664,7 @@ ggplot(data = simple_ex, aes(x = A, y = B)) +
 ---
 
 
-## Reproducing the plots in <small>`ggplot2`</small>
+## Reproducing the plots in `ggplot2`
 
 ### 2. A scatter plot where the `color` of the points corresponds to `D`
 
@@ -687,7 +675,7 @@ ggplot(data = simple_ex, mapping = aes(x = A, y = B)) +
 ```
 --
 
-```{r, echo=FALSE, fig.height=4.5}
+```{r, echo=FALSE, fig.height=4.4}
 ggplot(data = simple_ex, mapping = aes(x = A, y = B)) + 
   geom_point(mapping = aes(color = D))
 ```
@@ -695,7 +683,7 @@ ggplot(data = simple_ex, mapping = aes(x = A, y = B)) +
 
 ---
 
-## Reproducing the plots in <small>`ggplot2`</small>
+## Reproducing the plots in `ggplot2`
 
 ### 3. A scatter plot where the `size` of the points corresponds to `C`
 
@@ -706,7 +694,7 @@ ggplot(data = simple_ex, mapping = aes(x = A, y = B, size = C)) +
 ```
 --
 
-```{r, echo=FALSE, fig.height=4.5}
+```{r, echo=FALSE, fig.height=4.4}
 ggplot(data = simple_ex, mapping = aes(x = A, y = B, size = C)) + 
   geom_point()
 ```
@@ -873,7 +861,7 @@ p2 <- ggplot(data = bechdel, mapping = aes(x = log(budget_2013, 10))) +
 
 grid.arrange(p1, #p2, 
              p2, p3, ncol = 2, padding = unit(0.5, "line"),
-             widths = c(2.5, 2))
+             widths = c(2.6, 1.8))
 
 ```
 
@@ -1134,7 +1122,7 @@ bowl_sample %>%
 
 ## Sampling variability
 
-### What does <small>`rep_bowl_samples`</small> look like?
+### What does `rep_bowl_samples` look like?
 
 ```{r}
 library(moderndive)
@@ -1144,7 +1132,7 @@ rep_bowl_samples <- bowl %>%
 
 --
 
-### How about <small>`bowl_props`</small>?
+### How about `bowl_props`?
 
 ```{r}
 bowl_props <- rep_bowl_samples %>% 
@@ -1166,6 +1154,7 @@ ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
 
 # Practice
 
+- Let's estimate the mean age of pennies
 - Create a sampling distribution of 10,000 samples each of size 50 from `moderndive::pennies`
 
 ---
@@ -1210,12 +1199,12 @@ library(infer)
 
 ---
 
-# What does <small>bootstrap_samples</small> represent?
+# What does `bootstrap_samples` represent?
 
 ## Remember we assumed that all we had was the original sample of 32 red and 18 white to start.
 --
 
-## Hope <small>bootstrap_samples</small> is close to this:
+## Hope `bootstrap_samples` is close to this:
 
 `r gif_link("http://moderndive.netlify.com/images/sampling_bowl.jpeg", "img/big_sampling_bowl.jpeg", 500)`
 
@@ -1269,15 +1258,17 @@ ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
 
 ---
 
-### `infer` verbs
+layout: false
 
-`r gif_link("https://infer.netlify.com", "img/infer_ci.jpg", 650)`
+## `infer` verbs
+
+`r gif_link("https://infer.netlify.com", "img/infer_ci.jpg", 750)`
 
 ---
 
-### `infer` verbs
+## `infer` verbs
 
-`r gif_link("https://infer.netlify.com", "img/infer_ht.jpg", 650)`
+`r gif_link("https://infer.netlify.com", "img/infer_ht.jpg", 750)`
 
 
 ---
@@ -1294,7 +1285,7 @@ class: middle, center
 
 # Statistical Inference
 
-`r gif_link("https://infer-dev.netlify.com", "img/infer_gnome.jpg", 380)`
+`r gif_link("https://infer-dev.netlify.com", "img/infer_gnome.png", 400)`
 
 ---
 
@@ -1311,8 +1302,6 @@ class: inverse
 If you see someone else yawn, are you more likely to yawn?
 
 In an episode of the show *Mythbusters*, they tested the myth that yawning is contagious. 
-
---
 
 - Analysis done with [Alison Hill](https://alison.rbind.io)
 
@@ -1342,8 +1331,6 @@ In an episode of the show *Mythbusters*, they tested the myth that yawning is co
 
 ## Data
 
-Two group design: 
-
 - 34 saw the confederate yawn ( *seed* )
 - 16 did not see the confederate yawn ( *control* )
 
@@ -1355,7 +1342,7 @@ group <- c(rep("control", 12), rep("seed", 24),
 yawn <- c(rep(0, 36), rep(1, 14))
 yawn_myth <- data_frame(subj = seq(1, 50), group, yawn) %>% 
   mutate(yawn = factor(yawn))
-sample_n(yawn_myth, 3)
+slice(yawn_myth, c(5, 17, 37, 49))
 ```
 
 ---
@@ -1378,7 +1365,7 @@ class: inverse, middle, center
 
 --
 
-## *Finding: CONFIRMED*<sup>1</sup>
+## *Finding: CONFIRMED* <sup>1</sup>
 
 .footnote[
 [1] http://www.discovery.com/tv-shows/mythbusters/mythbusters-database/yawning-contagious/]
@@ -1387,7 +1374,7 @@ class: inverse, middle, center
 
 # Really?
 
-> "Though that's not an enormous increase, since they tested 50 people in the field, the gap was still wide enough for the MythBusters to confirm that yawning is indeed contagious."<sup>1</sup>
+> "Though that's not an enormous increase, since they tested 50 people in the field, the gap was still wide enough for the MythBusters to confirm that yawning is indeed contagious." <sup>1</sup>
 
 .footnote[
 [1] http://www.discovery.com/tv-shows/mythbusters/mythbusters-database/yawning-contagious/]
@@ -1495,9 +1482,19 @@ class: inverse, middle, center
 
 If... 
 
-$$H_0: p_{seed} = p_{control}$$
+<br>
 
-is true, then whether or not the participant saw someone else yawn does not matter: there is no association between exposure and yawning.
+&emsp;&emsp; $H_0: p_{seed} = p_{control}$ &emsp;&emsp;
+
+<br>
+
+is true, then whether or not the participant saw someone else yawn does not matter.
+
+--
+
+<br>
+
+In other words, there is no association between exposure and yawning.
 
 
 ---
@@ -1525,7 +1522,7 @@ yawn_myth %>%
 .pull-right[
 ### Parallel universe
 ```{r echo = FALSE}
-set.seed(8)
+set.seed(2018)
 perm1 <- yawn_myth %>% 
   specify(formula = yawn ~ group,
            success = "1") %>% 
@@ -1564,7 +1561,7 @@ yawn_universes
 .pull-right[
 ```{r echo=FALSE}
 yawn_universes %>% 
-  slice(990:1000)
+  slice(991:1000)
 ```
 ]
 
@@ -1596,6 +1593,8 @@ The distribution of 1000 differences in proportions, if the null hypothesis were
 In how many of our "parallel universes" is the difference as big or bigger than the one we observed (`r obs_diff`)?
 
 --
+
+<br>
 
 The shaded proportion is the p-value!
 
@@ -1738,22 +1737,37 @@ obs_z <- yz %>%
   pull(statistic)
 ```
 
-```{r fig.height=3}
+```{r eval=FALSE}
 yawn_myth %>%
   specify(yawn ~ group, success = "1") %>%
   hypothesize(null = "independence") %>% 
-  # generate() is not needed since we are not doing randomization
-  # calculate(stat = "z") is implied based on variable types
+  # generate() is not needed since we are not doing simulation
+  calculate(stat = "z", order = c("seed", "control")) %>%
   visualize(method = "theoretical", obs_stat = obs_z,
             direction = "right")
 ```
 
 ---
-# Classical vs resampling
 
-Using `stat = "z"` now.  
+# Classical inference
 
-```{r fig.height=3}
+Rely on theory to tell us what the null distribution looks like.
+
+```{r echo=FALSE, fig.height=4.5, warning=TRUE}
+yawn_myth %>%
+  specify(yawn ~ group, success = "1") %>%
+  hypothesize(null = "independence") %>% 
+  # generate() is not needed since we are not doing simulation
+  calculate(stat = "z", order = c("seed", "control")) %>%
+  visualize(method = "theoretical", obs_stat = obs_z,
+            direction = "right")
+```
+
+---
+
+# Resampling vs Classical (`stat = "z"`) 
+
+```{r fig.height=2.8, warning=TRUE}
 yawn_myth %>%
   specify(yawn ~ group, success = "1") %>%
   hypothesize(null = "independence") %>% 
@@ -1767,7 +1781,7 @@ yawn_myth %>%
 
 # Practice
 
-- Read in the `mazes` data (http://bit.ly/mazes-gist)
+- Read in/prep the [`mazes` data](http://bit.ly/mazes-gist)
 
 ```{r}
 library(readr)
@@ -1784,25 +1798,32 @@ About the data: <small>[Quantitative analysis of disfluency in children with aut
 
 ---
 
-## More info
+# More practice (time permitting)
+
+- Find a data set / use your own and perform statistical inference on one or two of the variables there using the `infer` package
+
+---
+
+## More info and resources
 
 - https://infer-dev.netlify.com
   - Many examples under Articles with more to come
   - To be discussed in [www.ModernDive.com](www.ModernDive.com)
-      - [Sign up](http://eepurl.com/cBkItf) to the ModernDive mailing list for updates
+      - [Sign up](http://eepurl.com/cBkItf) to the mailing list for updates
 - DataCamp courses launched that use `infer`
   - [Inference for Numerical Data](https://www.datacamp.com/courses/inference-for-numerical-data) by Mine Cetinkaya-Rundel
   - [Inference for Regression](https://www.datacamp.com/courses/inference-for-linear-regression) by Jo Hardin
 - Two more DataCamp courses to launch soon
+- [Learn the Tidyverse](https://www.tidyverse.org/learn/)
 
 ---
 
 ## Future plans
 
-- Generalize <small>`calculate()`'s</small> `stat` argument
+- Generalize `calculate()`'s `stat` argument
 - Improve speed and memory used by shifting to list-columns
 - Rewrite the inference part of the [ModernDive](http://moderndive.netlify.com/9-ci.html) book
-- Lead more workshops on using the <small>`infer`</small> package to extend knowledge of the <small>`tidyverse`</small>, R, and statistics
+- Lead more workshops on using the `infer` package to extend knowledge of the `tidyverse`, R, and statistics
 
 ---
 
@@ -1811,16 +1832,15 @@ class: inverse, middle
 
 <center>
 <a href="https://www.datacamp.com">
-<img src="img/DataCamp_Vertical_White.png" style="width: 200px;"/>
-</a>&emsp;&emsp;&emsp;<a href="https://moderndive.netlify.com"> 
-<img src="img/dark_vert.png" style="width: 200px;"/></a>&emsp;&emsp;&emsp;<a href="https://infer-dev.netlify.com"> 
-<img src="img/infer_oregon.png" style="width: 200px;"/></a></center>
-
+<img src="img/DataCamp_Vertical_White.png" style="width: 220px;"/>
+</a>&emsp;&emsp;<a href="https://moderndive.netlify.com"> 
+<img src="img/dark_vert.png" style="width: 210px;"/></a>&emsp;&emsp;<a href="https://infer.netlify.com"> 
+<img src="img/infer_oregon3.png" style="width: 200px;"/></a></center>
 
 ## Thanks for attending! Contact me: [Email](mailto:chester@datacamp.com) or [Twitter](https://twitter.com/old_man_chester)
 - Special thanks to [Albert Y. Kim](https://twitter.com/rudeboybert), 
     - [Andrew Bray](https://andrewpbray.github.io), and 
-    - [Alison HIll](https://twitter.com/apreshill)
+    - [Alison Hill](https://twitter.com/apreshill)
 - Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
 - Slides available at <http://bit.ly/ness-infer>
 - Slides source code at <https://github.com/ismayc/talks/>
