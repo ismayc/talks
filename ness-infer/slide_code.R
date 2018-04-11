@@ -1,3 +1,24 @@
+#' ---
+#' title: "Statistical Inference: A Tidy Approach"
+#' author: 'Dr. Chester Ismay <br> Senior Curriculum Lead at <a href="https://www.datacamp.com/">DataCamp</a> <br><br> <a href="http://github.com/ismayc"><i class="fa fa-github fa-fw"></i>&nbsp; ismayc</a><br> <a href="http://twitter.com/old_man_chester"> <i class="fa fa-twitter fa-fw"></i>&nbsp; @old_man_chester</a><br> <a href="mailto:chester@datacamp.com"><i class="fa fa-paper-plane fa-fw"></i>&nbsp; chester@datacamp.com</a><br>'
+#' date: 2018-04-13 <br>New England Statistical Symposium - UMass Amherst<br><br> Slides available at <http://bit.ly/ness-infer>
+#' output: 
+#'   xaringan::moon_reader:
+#'     chakra: remark-latest.min.js
+#'     lib_dir: libs
+#'     nature:
+#'       highlightStyle: tomorrow-night-bright
+#'       highlightLines: true
+#'       highlightLanguage: r
+#'     includes:
+#'       in_header: header.html      
+#'     countIncrementalSlides: false
+#'     css: example.css
+#' ---
+#' 
+#' class: inverse
+#' name: toc
+#' 
 ## ----include=FALSE, purl=TRUE--------------------------------------------
 #specify the packages of interest
 pkgs <- c("tidyverse", "moderndive", "gapminder",
@@ -18,6 +39,91 @@ lapply(pkgs, pkg.check)
 if(!require("infer"))
   remotes::install_github("andrewpbray/infer")
 
+#' 
+#' 
+#' # Table of Contents
+#' 
+#' Part 1
+#' - [Data Wrangling](#wrangling)
+#' - [Data Viz](#viz)
+#' - [Data Tidying](#tidying)
+#' 
+#' Part 2
+#' - [Resampling](#resampling)
+#' - [Inference](#inference)
+#' 
+#' ---
+#' 
+#' layout: true
+#' class: inverse
+#' 
+#' .footer[Slides available at http://bit.ly/ness-infer &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
+#' 
+#' ---
+#' 
+#' ## More freely available information
+#' 
+#' `r gif_link("http://moderndive.com", "img/wide_format.png", 650)`
+#' 
+#' <center><h2>A Modern Dive into Data with R</h2></center>
+#' 
+#' * Webpage: <http://moderndive.com>
+#' * Developmental version at <https://moderndive.netlify.com>
+#' * [GitHub Repo](https://github.com/moderndive/moderndiver-book)
+#' * Please [signup](http://eepurl.com/cBkItf) for our mailing list!
+#' 
+#' ---
+#' 
+#' layout: false
+#' class: center, middle
+#' 
+#' <img src="img/flowchart.png" style="width: 750px"/>
+#' 
+#' ---
+#' 
+#' layout: true
+#' class: inverse
+#' 
+#' .footer[Slides available at http://bit.ly/ness-infer &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
+#' 
+#' ---
+#' 
+#' ## Designed for the novice / Nice for the practioner
+#' 
+#' `r gif_link("http://moderndive.netlify.com/2-getting-started.html", "img/engine.png", 600)`
+#' 
+#' ---
+#' 
+#' ## Designed for the novice / Nice for the practioner
+#' 
+#' `r gif_link("http://moderndive.netlify.com/2-getting-started.html", "img/appstore.png", 600)`
+#' 
+#' ---
+#' 
+#' class: normal, center, middle
+#' 
+#' # R Data Types
+#' 
+#' ---
+#' 
+#' ## The bare minimum needed for understanding today
+#' 
+#' Vector/variable
+#'   - Type of vector (`int`, `num`, `chr`, `lgl`, `date`)
+#' 
+#' --
+#' 
+#' Data frame
+#'   - Vectors of (potentially) different types
+#'   - Each vector has the same number of rows
+#' 
+#' ---
+#' 
+#' ## The bare minimum needed for understanding today
+#' 
+#' 
+#' --
+#' 
 ## ----echo=FALSE, purl=TRUE-----------------------------------------------
 library(tibble)
 library(lubridate)
@@ -30,42 +136,175 @@ ex1 <- data_frame(
   )
 ex1
 
+#'   
+#' ---
+#' 
+#' class: center, middle  
+#'   
+#' # Welcome to the [tidyverse](https://blog.rstudio.org/2016/09/15/tidyverse-1-0-0/)!
+#'   
+#' The `tidyverse` is a collection of R packages that share common philosophies and are designed to work together. <br><br> 
+#'   
+#' <a href="http://tidyverse.tidyverse.org/logo.png"><img src="figure/tidyverse.png" style="width: 160px;"/></a>
+#' 
+#' ---
+#' 
+#' # First motivating example for today
+#' 
+#' <a href="http://gitsense.github.io/images/wealth.gif"><img src="figure/wealth.gif" style="width: 700px;"/></a>
+#' 
+#' - Inspired by the late, great [Hans Rosling](https://www.youtube.com/watch?v=jbkSRLYSojo)
+#' 
+#' 
+#' ---
+#' 
+#' layout: false
+#' class: center, middle
+#' name: wrangling
+#' 
+#' # Data Wrangling
+#' 
+#' `r gif_link("https://dplyr.tidyverse.org", "img/dplyr_hex.png", 400)`
+#' 
+#' ---
+#' 
+#' layout: true
+#' class: inverse
+#' 
+#' .footer[Slides available at http://bit.ly/ness-infer &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
+#' 
+#' ---
+#' 
+#' ## The [`gapminder` package](https://github.com/jennybc/gapminder)
+#' 
 ## ---- purl=TRUE----------------------------------------------------------
 library(gapminder)
 gapminder
 
+#' 
+#' 
+#' ---
+#' 
+#' ## Base R versus the `tidyverse`
+#' 
+#' - The mean life expectancy across all years for Asia
+#' --
+#' 
 ## ---- purl=TRUE----------------------------------------------------------
 # Base R
 asia <- gapminder[gapminder$continent == "Asia", ]
 mean(asia$lifeExp)
 
+#' --
+#'  
+#' 
 ## ----echo=FALSE, purl=TRUE-----------------------------------------------
 library(dplyr)
 gapminder %>% filter(continent == "Asia") %>%
   summarize(mean_exp = as.numeric(format(mean(lifeExp), digits = 5))) %>% 
   pull()
 
+#' 
+#' 
+#' ---
+#' 
+#' ## The pipe `%>%`
+#' 
+#' <img src="figure/pipe.png" style="width: 240px;"/> &emsp; &emsp; &emsp; <img src="figure/MagrittePipe.jpg" style="width: 300px;"/>
+#' --
+#' 
+#' - A way to chain together commands
+#' - Can be read as "and then" when reading over code
+#' --
+#' 
+#' 
+#' ---
+#' 
+#' name: fivemv
+#' 
+#' # [The Five Main Verbs (5MV)](http://moderndive.com/5-wrangling.html) of data wrangling
+#' 
+#' - [`filter()`](#filter) 
+#' - [`summarize()`](#summarize)
+#' - [`group_by()`](#groupby)
+#' - [`mutate()`](#mutate) 
+#' - [`arrange()`](#arrange)
+#' 
+#' ---
+#' 
+#' name: filter
+#' 
+#' ## `filter()`
+#' 
+#' - Select a subset of the rows of a data frame. 
+#' 
+#' - Arguments are "filters" that you'd like to apply.
+#' --
+#' 
 ## ---- purl=TRUE----------------------------------------------------------
 library(gapminder); library(dplyr)
 gap_2007 <- gapminder %>% filter(year == 2007)
 head(gap_2007, 4)
 
+#' 
+#' - Use `==` to compare a variable to a value
+#' 
+#' ---
+#' 
+#' ## Logical operators
+#' 
+#' - Use `|` to check for any in multiple filters being true:
+#' --
+#' 
+#' --
+#' 
 ## ----echo=FALSE, purl=TRUE-----------------------------------------------
 set.seed(2018)
 gapminder %>% 
   filter(year == 2002 | continent == "Asia") %>% 
   sample_n(8)
 
+#' 
+#' ---
+#' 
+#' ## Logical operators
+#' 
+#' - Use `,` to check for all of multiple filters being true:
+#' --
+#' 
+#' 
 ## ----echo=FALSE, purl=TRUE-----------------------------------------------
 gapminder %>% 
   filter(year == 2002, continent == "Asia") %>% 
   head(8)
 
+#' 
+#' ---
+#' 
+#' ## Logical operators
+#' 
+#' - Use `%in%` to check for any being true <br> (shortcut to using `|` repeatedly with `==`)
+#' --
+#' 
+#' --
+#' 
 ## ----echo=FALSE, purl=TRUE-----------------------------------------------
 gapminder %>% 
   filter(country %in% c("Argentina", "Belgium", "Mexico"),
          year %in% c(1987, 1992))
 
+#' 
+#' 
+#' ---
+#' 
+#' name: summarize
+#' 
+#' ## `summarize()`
+#' 
+#' - Any numerical summary that you want to apply to a column of a data frame is specified within `summarize()`.
+#' 
+#' --
+#' 
 ## ----echo=FALSE, purl=TRUE-----------------------------------------------
 stats_1997 <- gapminder %>% 
   filter(year == 1997) %>% 
@@ -73,6 +312,18 @@ stats_1997 <- gapminder %>%
             sd_exp = sd(lifeExp))
 stats_1997
 
+#' 
+#' ---
+#' 
+#' name: groupby
+#' 
+#' ### Combining `summarize()` with `group_by()`
+#' 
+#' When you'd like to determine a numerical summary for all
+#' levels of a different categorical variable
+#' 
+#' 
+#' --
 ## ----echo=FALSE, purl=TRUE-----------------------------------------------
 max_exp_1997_by_cont <- gapminder %>% 
   filter(year == 1997) %>% 
@@ -81,36 +332,208 @@ max_exp_1997_by_cont <- gapminder %>%
             sd_exp = sd(lifeExp))
 max_exp_1997_by_cont
 
+#' 
+#' ---
+#' 
+#' name: mutate
+#' 
+#' ## `mutate()`
+#' 
+#' - Allows you to 
+#'     1. <font color="yellow">create a new variable with a specific value</font> OR
+#'     2. create a new variable based on other variables OR
+#'     3. change the contents of an existing variable
+#' 
+#' --
+#' 
 ## ---- purl=TRUE----------------------------------------------------------
 gap_plus <- gapminder %>% mutate(just_one = 1)
 head(gap_plus, 4)
 
+#' 
+#' ---
+#' 
+#' ## `mutate()`
+#' 
+#' - Allows you to 
+#'     1. create a new variable with a specific value OR
+#'     2. <font color="yellow">create a new variable based on other variables</font> OR
+#'     3. change the contents of an existing variable
+#' 
+#' --
+#' 
 ## ----echo=FALSE, purl=TRUE-----------------------------------------------
 set.seed(2)
 
+#' 
+#' 
 ## ---- purl=TRUE----------------------------------------------------------
 gap_w_gdp <- gapminder %>% mutate(gdp = pop * gdpPercap)
 sample_n(gap_w_gdp, 4)
 
+#' 
+#' ---
+#' 
+#' ## `mutate()`
+#' 
+#' - Allows you to 
+#'     1. create a new variable with a specific value OR
+#'     2. create a new variable based on other variables OR
+#'     3. <font color="yellow">change the contents of an existing variable</font>
+#' 
+#' --
+#' 
 ## ---- purl=TRUE----------------------------------------------------------
 gap_weird <- gapminder %>% mutate(pop = pop + 1000)
 head(gap_weird, 4)
 
+#' 
+#' ---
+#' 
+#' name: arrange
+#' 
+#' ## `arrange()`
+#' 
+#' - Reorders the rows in a data frame based on the values of one or more variables
+#' --
+#' 
 ## ---- purl=TRUE----------------------------------------------------------
 gapminder %>% arrange(year, country) %>% head(10)
 
+#' 
+#' ---
+#' 
+#' ## `arrange()`
+#' 
+#' - Can also put into descending order
+#' --
+#' 
 ## ----desc, purl=TRUE-----------------------------------------------------
 gapminder %>%
   filter(year > 2000) %>%
   arrange(desc(lifeExp)) %>%
   head(10)
 
+#' 
+#' ---
+#' 
+#' ## Don't mix up `arrange` and `group_by`
+#' 
+#' - `group_by` is used (mostly) with `summarize` to calculate summaries over groups
+#' 
+#' - `arrange` is used for sorting
+#' 
+#' ---
+#' 
+#' ## Don't mix up `arrange` and `group_by`
+#' 
+#' This doesn't really do anything useful
+#' 
 ## ----purl=TRUE-----------------------------------------------------------
 gapminder %>% group_by(year)
 
+#' 
+#' ---
+#' 
+#' ## Don't mix up `arrange` and `group_by`
+#' 
+#' But this does
+#' 
 ## ----purl=TRUE-----------------------------------------------------------
 gapminder %>% arrange(year)
 
+#' 
+#' ---
+#' 
+#' ## Practice
+#' 
+#' Use the [5MV](#fivemv) to answer problems from R data packages, e.g., [`nycflights13::weather`] 
+#' 
+#' <!--
+#' Lay out what the resulting table should look like on paper first.
+#' -->
+#' 
+#' 1. What is the maximum arrival delay for each carrier departing JFK? [`nycflights13::flights`]
+#' 
+#' 2. Calculate for each movie the domestic return on investment for 2013 scaled data descending by ROI <br> [`fivethirtyeight::bechdel`]
+#' 
+#' ---
+#' 
+#' layout: false
+#' class: center, middle
+#' name: viz
+#' 
+#' # Data Visualization
+#' 
+#' `r gif_link("https://ggplot2.tidyverse.org", "img/ggplot2_hex.png", 400)`
+#' ---
+#' 
+#' layout: true
+#' class: inverse
+#' 
+#' .footer[Slides available at http://bit.ly/ness-infer &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
+#' 
+#' ---
+#' 
+#' 
+#' - What are the variables here?
+#' - What is the observational unit?
+#' - How are the variables mapped to aesthetics?
+#' 
+#' ---
+#' 
+#' class: center, middle
+#' 
+#' ## Grammar of Graphics
+#' 
+#' Wilkinson (2005) laid out the proposed <br> "Grammar of Graphics"
+#' 
+#' <br>
+#' 
+#' <a href="http://www.powells.com/book/the-grammar-of-graphics-9780387245447"><img src="figure/graphics.jpg" style="width: 200px;"></a>
+#' 
+#' ---
+#' 
+#' class: center, middle
+#' 
+#' ## Grammar of Graphics in R
+#' 
+#' Wickham implemented the grammar in R <br> in the `ggplot2` package
+#' 
+#' <br>
+#' 
+#' <a href="http://www.powells.com/book/ggplot2-elegant-graphics-for-data-analysis-9783319242750/68-428"><img src="figure/ggplot2.jpg" style="width: 200px;"></a>
+#' 
+#' ---
+#' 
+#' class: center, middle
+#' 
+#' ## What is a statistical graphic?
+#' 
+#' --
+#' 
+#' ## A `mapping` of <br> `data` variables
+#' 
+#' --
+#' 
+#' ## to <br> `aes()`thetic attributes
+#' 
+#' --
+#' 
+#' ## of <br> `geom_`etric objects.
+#' 
+#' ---
+#' 
+#' class: inverse, center, middle
+#' 
+#' # Back to Basics
+#' 
+#' ---
+#' 
+#' ## Old school
+#' 
+#' - Sketch the graphics below on paper, where the `x`-axis is variable `A` and the `y`-axis is variable `B`
+#' 
 ## ----echo=FALSE, purl=TRUE-----------------------------------------------
 simple_ex <-
   data_frame(
@@ -121,38 +544,128 @@ simple_ex <-
   )
 simple_ex
 
+#' 
+#' <!-- Copy to chalkboard/whiteboard -->
+#' 
+#' 1. <small>A scatter plot</small>
+#' 1. <small>A scatter plot where the `color` of the points corresponds to `D`</small>
+#' 1. <small>A scatter plot where the `size` of the points corresponds to `C`</small>
+#' 
+#' ---
+#' 
+#' layout: true
+#' class: inverse
+#' 
+#' .footer[Slides available at http://bit.ly/ness-infer &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
+#' 
+#' ---
+#' 
+#' ## Reproducing the plots in `ggplot2`
+#' 
+#' ### 1. A scatterplot
+#' 
+#' --
+#' 
 ## ---- echo=FALSE, fig.height=4.4, purl=TRUE------------------------------
 ggplot(data = simple_ex, aes(x = A, y = B)) + 
   geom_point()
 
+#' 
+#' 
+#' ---
+#' 
+#' 
+#' ## Reproducing the plots in `ggplot2`
+#' 
+#' ### 2. A scatter plot where the `color` of the points corresponds to `D`
+#' 
+#' --
+#' 
 ## ---- echo=FALSE, fig.height=4.4, purl=TRUE------------------------------
 ggplot(data = simple_ex, mapping = aes(x = A, y = B)) + 
   geom_point(mapping = aes(color = D))
 
+#' 
+#' 
+#' ---
+#' 
+#' ## Reproducing the plots in `ggplot2`
+#' 
+#' ### 3. A scatter plot where the `size` of the points corresponds to `C`
+#' 
+#' --
+#' 
 ## ---- echo=FALSE, fig.height=4.4, purl=TRUE------------------------------
 ggplot(data = simple_ex, mapping = aes(x = A, y = B, size = C)) + 
   geom_point()
 
+#' 
+#' ---
+#' 
+#' # [The Five-Named Graphs](http://moderndive.com/3-viz.html#FiveNG)
+#' 
+#' ## The 5NG of data viz
+#' 
+#' - Scatterplot: `geom_point()`
+#' - Line graph: `geom_line()`
+#' - Histogram: `geom_histogram()`
+#' - Boxplot: `geom_boxplot()`
+#' - Bar graph: `geom_bar()`
+#' 
+#' 
+#' ---
+#' 
+#' class: center, middle
+#' 
+#' ## More examples
+#' 
+#' ---
+#' 
+#' ## Histogram
+#' 
 ## ----fig.height=5.5, purl=TRUE-------------------------------------------
 library(nycflights13)
 ggplot(data = weather, mapping = aes(x = humid)) +
   geom_histogram(bins = 20, color = "black", fill = "darkorange")
 
+#' 
+#' ---
+#' 
+#' ## Boxplot (broken)
+#' 
 ## ----fig.height=5.5, purl=TRUE-------------------------------------------
 library(nycflights13)
 ggplot(data = weather, mapping = aes(x = month, y = humid)) +
   geom_boxplot()
 
+#' 
+#' ---
+#' 
+#' 
+#' ## Boxplot (fixed)
+#' 
 ## ----fig.height=5.5, purl=TRUE-------------------------------------------
 library(nycflights13)
 ggplot(data = weather, mapping = aes(x = factor(month), y = humid)) +
   geom_boxplot()
 
+#' 
+#' ---
+#' 
+#' ## Bar graph
+#' 
 ## ----fig.height=5.5, purl=TRUE-------------------------------------------
 library(fivethirtyeight)
 ggplot(data = bechdel, mapping = aes(x = clean_test)) +
   geom_bar()
 
+#' 
+#' ---
+#' 
+#' ## How about over time?
+#' 
+#' - One more variable to create with `dplyr`
+#' 
 ## ---- purl=TRUE----------------------------------------------------------
 library(dplyr)
 year_bins <- c("'70-'74", "'75-'79", "'80-'84", "'85-'89",
@@ -163,6 +676,11 @@ bechdel <- bechdel %>%
                          breaks = seq(1969, 2014, 5), 
                          labels = year_bins))
 
+#' 
+#' ---
+#' 
+#' ## How about over time? (Stacked)
+#' 
 ## ----fig.width=11, fig.height=5, purl=TRUE-------------------------------
 library(fivethirtyeight)
 library(ggplot2)
@@ -170,6 +688,11 @@ ggplot(data = bechdel,
        mapping = aes(x = five_year, fill = clean_test)) +
   geom_bar()
 
+#' 
+#' ---
+#' 
+#' ## How about over time? (Side-by-side)
+#' 
 ## ----fig.width=11, fig.height=5, purl=TRUE-------------------------------
 library(fivethirtyeight)
 library(ggplot2)
@@ -177,6 +700,11 @@ ggplot(data = bechdel,
        mapping = aes(x = five_year, fill = clean_test)) +
   geom_bar(position = "dodge")
 
+#' 
+#' ---
+#' 
+#' ## How about over time? (Stacked proportional)
+#' 
 ## ----fig.width=11, fig.height=5, purl=TRUE-------------------------------
 library(fivethirtyeight)
 library(ggplot2)
@@ -184,6 +712,123 @@ ggplot(data = bechdel,
        mapping = aes(x = five_year, fill = clean_test)) +
   geom_bar(position = "fill", color = "black")
 
+#' 
+#' ---
+#' 
+#' 
+#' class: center, middle
+#' 
+#' ## `ggplot2` is for beginners and for data science professionals!
+#' 
+#' <a href="https://fivethirtyeight.com/features/the-dollar-and-cents-case-against-hollywoods-exclusion-of-women/"><img src="figure/bechdel.png" width=500></a>
+#' 
+#' ---
+#' 
+#' ## Practice
+#' 
+#' Produce appropriate 5NG with R package & data set in [ ], e.g., [`nycflights13::weather`] 
+#' 
+#' <!--
+#' Try to look through the help documentation/Google to improve your plots
+#' -->
+#' 
+#' 1. How does `age` predict `recline_rude`? <br> [`fivethirtyeight::flying`]
+#' 
+#' 2. Distribution of log base 10 scale of `budget_2013` <br> [`fivethirtyeight::bechdel`]
+#' 
+#' 3. How does `budget` predict `rating`? <br> [`ggplot2movies::movies`]
+#' 
+#' ---
+#' 
+#' ### HINTS
+#' 
+#' 
+#' 
+#' 
+#' ---
+#' 
+#' class: inverse, center, middle
+#' 
+#' # DEMO in RStudio
+#' 
+#' ---
+#' 
+#' class: center, middle
+#' 
+#' ### Determining the appropriate plot
+#' 
+#' <a href="https://coggle.it/diagram/V_G2gzukTDoQ-aZt"><img src="figure/viz_mindmap.png" style="width: 385px;"/></a>
+#' 
+#' ---
+#' 
+#' layout: false
+#' class: center, middle
+#' name: tidying
+#' 
+#' # Data Tidying
+#' 
+#' `r gif_link("https://tidyr.tidyverse.org", "img/tidyr_hex.png", 380)`
+#' 
+#' ---
+#' 
+#' layout: true
+#' class: inverse
+#' 
+#' .footer[Slides available at http://bit.ly/ness-infer &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
+#' 
+#' ---
+#' 
+#' # Tidy Data?
+#' 
+#' <img src="http://garrettgman.github.io/images/tidy-1.png" alt="Drawing" style="width: 750px;"/>
+#' 
+#' 1. Each variable forms a column.
+#' 2. Each observation forms a row.
+#' 3. Each type of observational unit forms a table.
+#' 
+#' The third point means we don't mix apples and oranges.
+#' 
+#' ---
+#' 
+#' ## What is Tidy Data?
+#' 
+#' 1. Each observation forms a row. In other words, each row corresponds to a single instance of an <u>observational unit</u>
+#' 1. Each variable forms a column:
+#'     + Some variables may be used to identify the <u>observational units</u>. 
+#'     + For organizational purposes, it's generally better to put these in the left-hand columns
+#' 1. Each type of observational unit forms a table.
+#' 
+#' ---
+#' 
+#' ## Differentiating between <u>neat</u> data and <u>tidy</u> data
+#' 
+#' - Colloquially, they mean the same thing
+#' - But in our context, one is a subset of the other. 
+#' 
+#' <br>
+#' 
+#' <u>Neat</u> data is 
+#'   - easy to look at, 
+#'   - organized nicely, and 
+#'   - in table form.
+#' 
+#' --
+#' 
+#' <u>Tidy</u> data is neat but also abides by a set of three rules.
+#' 
+#' ---
+#' 
+#' class: center, middle
+#' 
+#' <a href="figure/lebowski-abides-o.gif"><img src="http://stream1.gifsoup.com/view8/20150404/5192859/lebowski-abides-o.gif" style="width: 450px;"/></a>
+#' 
+#' 
+#' <img src="figure/tidy-1.png" alt="Drawing" style="width: 750px;"/>
+#' 
+#' ---
+#' 
+#' ## Is this tidy?
+#' 
 ## ----echo=FALSE, message=FALSE, warning=FALSE, purl=TRUE-----------------
 library(fivethirtyeight)
 set.seed(2)
@@ -191,10 +836,38 @@ bechdel %>% sample_n(12) %>%
   select(year, title, clean_test, budget_2013) %>%
   arrange(title)
 
+#' 
+#' 
+#' ---
+#' 
+#' name: demscore
+#' 
+#' ## How about this? Is this tidy?
+#' 
 ## ----echo=FALSE, message=FALSE, warning=FALSE, purl=TRUE-----------------
 dem_score <- read_csv("https://raw.githubusercontent.com/ismayc/talks/master/ness-infer/data/dem_score.csv")
 dem_score %>% slice(1:12)
 
+#' 
+#' ---
+#' 
+#' name: whytidy
+#' 
+#' ## Why is tidy data important?
+#' 
+#' - Think about trying to plot democracy score across years in the simplest way possible with the data on the [Is this tidy? slide](#demscore).
+#' --
+#' 
+#' - It would be much easier if the data looked like what follows instead so we could put 
+#'     - `year` on the `x`-axis and 
+#'     - `dem_score` on the `y`-axis.
+#' 
+#' ---
+#' 
+#' ## Tidy is good
+#' 
+#' --
+#' 
 ## ----echo=FALSE, purl=TRUE-----------------------------------------------
 library(tidyr)
 dem_score_tidy <- dem_score %>% 
@@ -202,12 +875,61 @@ dem_score_tidy <- dem_score %>%
   mutate(year = as.integer(year)) 
 dem_score_tidy %>% sample_n(10) %>% arrange(country)
 
+#' 
+#' ---
+#' 
+#' ## Let's plot it
+#' 
+#' - Plot the line graph for 4 countries using `ggplot`
+#' 
 ## ----purl=TRUE-----------------------------------------------------------
 dem_score4 <- dem_score_tidy %>%
   filter(country %in% c("Australia", "Pakistan", "Portugal", "Uruguay"))
 ggplot(data = dem_score4, mapping = aes(x = year, y = dem_score)) +
   geom_line(mapping = aes(color = country), size = 2)
 
+#' 
+#' ---
+#' 
+#' ## Beginning steps
+#' 
+#' Frequently the first thing to do when given a dataset is to
+#' 
+#' - check that the data is <u>tidy</u> (if not, convert it!)
+#' - identify the observational unit,
+#' - specify the variables, and
+#' - give the types of variables you are presented with.
+#' 
+#' This will help with 
+#' 
+#' - choosing the appropriate plot, 
+#' - summarizing the data, and 
+#' - understanding which inferences can be applied.
+#' 
+#' ---
+#' 
+#' layout: false
+#' class: center, middle
+#' name: sampling
+#' 
+#' # Sampling Distributions
+#' 
+#' `r gif_link("https://moderndive.github.io/moderndive", "https://raw.githubusercontent.com/moderndive/moderndive/master/images/hex_blue_text.png", 380)`
+#' 
+#' ---
+#' 
+#' layout: true
+#' class: inverse
+#' 
+#' .footer[Slides available at http://bit.ly/ness-infer &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
+#' 
+#' ---
+#' 
+#' # Use what you know to connect with new
+#' 
+#' 
+#' ---
+#' 
 ## ----echo=FALSE, fig.height=7.5, fig.width=10, purl=TRUE-----------------
 library(gapminder)
 library(tidyverse)
@@ -217,59 +939,165 @@ ggplot(data = gapminder_2007,
                      size = pop, color = continent)) +
   geom_point()
 
+#' 
+#' ---
+#' 
+#' ## Extending this knowledge to something new
+#' 
+#' - How can we now learn about <u>sampling distributions</u>?
+#' 
+#' --
+#' 
+#' `r gif_link("http://moderndive.com/images/sampling_bowl.jpeg", "img/sampling_bowl.jpeg", 380)`
+#' 
+#' ---
+#' 
 ## ----purl=TRUE-----------------------------------------------------------
 library(moderndive)
 bowl
 
+#' 
+#' ---
+#' 
+#' ## One virtual scoop of 50 balls
+#' 
 ## ----purl=TRUE-----------------------------------------------------------
 set.seed(1977)
 ( bowl_sample <- bowl %>% sample_n(size = 50) )
 
+#' 
+#' ---
+#' 
+#' # Proportion that are red
+#' 
 ## ----purl=TRUE-----------------------------------------------------------
 bowl_sample %>% 
   summarize(prop_red = mean(color == "red")) %>% 
   pull()
 
+#' 
+#' --
+#' 
+#' ## Is this how many are in the full bowl?
+#' 
+#' ---
+#' 
+#' ## Sampling variability
+#' 
+#' ### What does `rep_bowl_samples` look like?
+#' 
 ## ----purl=TRUE-----------------------------------------------------------
 library(moderndive)
 rep_bowl_samples <- bowl %>% 
   rep_sample_n(size = 50, reps = 10000)
 
+#' 
+#' --
+#' 
+#' ### How about `bowl_props`?
+#' 
 ## ----purl=TRUE-----------------------------------------------------------
 bowl_props <- rep_bowl_samples %>% 
   group_by(replicate) %>% 
   summarize(prop_red = mean(color == "red"))
 
+#' 
+#' 
+#' ---
+#' 
+#' ## The sampling distribution
+#' 
 ## ----fig.height=4.7, purl=TRUE-------------------------------------------
 ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
   geom_histogram(binwidth = 0.02, color = "white")
 
+#' 
+#' ---
+#' 
+#' # Practice
+#' 
+#' - Let's estimate the mean age of pennies
+#' - Create a sampling distribution of 10,000 samples each of size 50 from `moderndive::pennies`
+#' 
+#' ---
+#' 
+#' ## Shifting focus
+#' 
+#' ### What about if all we had was the one sample of balls?
+#' 
 ## ----purl=TRUE-----------------------------------------------------------
 bowl_sample %>% count(color)
 
+#' 
+#' --
+#' 
+#' ### How could we use this sample to make a guess about the sampling variability from other samples?
+#' 
+#' ---
+#' 
+#' layout: true
+#' class: inverse
+#' 
+#' ---
+#' 
+#' # Building up to statistical inference!
+#' 
 ## ----purl=TRUE-----------------------------------------------------------
 library(infer)
 bowl_sample %>% 
   specify(formula = color ~ NULL, success = "red")
 
+#' 
+#' ---
+#' 
+#' # Bootstrapping?
+#' 
 ## ----purl=TRUE-----------------------------------------------------------
 library(infer)
 ( bootstrap_samples <- bowl_sample %>% 
   specify(formula = color ~ NULL, success = "red") %>% 
   generate(reps = 48, type = "bootstrap") )
 
+#' 
+#' ---
+#' 
+#' # What does `bootstrap_samples` represent?
+#' 
+#' ## Remember we assumed that all we had was the original sample of 32 red and 18 white to start.
+#' --
+#' 
+#' ## Hope `bootstrap_samples` is close to this:
+#' 
+#' `r gif_link("http://moderndive.netlify.com/images/sampling_bowl.jpeg", "img/big_sampling_bowl.jpeg", 500)`
+#' 
+#' ---
+#' 
+#' ## Bootstrap statistics
+#' 
 ## ----purl=TRUE-----------------------------------------------------------
 bowl_sample %>% 
   specify(formula = color ~ NULL, success = "red") %>% 
   generate(reps = 48, type = "bootstrap") %>% 
   calculate(stat = "prop")
 
+#' 
+#' ---
+#' 
+#' ## Do 10,000 reps to get a better sense for variability
+#' 
+#' ### Just as we did with the sampling distribution
+#' 
 ## ----purl=TRUE-----------------------------------------------------------
 bootstrap_stats <- bowl_sample %>% 
   specify(formula = color ~ NULL, success = "red") %>% 
   generate(reps = 10000, type = "bootstrap") %>% 
   calculate(stat = "prop")
 
+#' 
+#' ---
+#' 
+#' ### The bootstrap distribution
+#' 
 ## ----fig.height=2.7, echo=FALSE, purl=TRUE-------------------------------
 ggplot(data = bootstrap_stats, mapping = aes(x = stat)) +
   geom_histogram(binwidth = 0.02, color = "white") +
@@ -278,6 +1106,9 @@ ggplot(data = bootstrap_stats, mapping = aes(x = stat)) +
   xlim(0.15, 0.55) +
   geom_vline(xintercept = c(mean(bootstrap_stats$stat) - sd(bootstrap_stats$stat), mean(bootstrap_stats$stat) + sd(bootstrap_stats$stat)), color = "red", size = 1.5)
 
+#' 
+#' ### The sampling distribution
+#' 
 ## ----fig.height=2.7, echo=FALSE, purl=TRUE-------------------------------
 ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
   geom_histogram(binwidth = 0.02, color = "white") +
@@ -286,6 +1117,87 @@ ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
   xlim(0.15, 0.55) +
   geom_vline(xintercept = c(mean(bowl_props$prop_red) - sd(bowl_props$prop_red), mean(bowl_props$prop_red) + sd(bowl_props$prop_red)), color = "red", size = 1.5)
 
+#' 
+#' ---
+#' 
+#' layout: false
+#' 
+#' ## `infer` verbs
+#' 
+#' `r gif_link("https://infer.netlify.com", "img/infer_ci.jpg", 750)`
+#' 
+#' ---
+#' 
+#' ## `infer` verbs
+#' 
+#' `r gif_link("https://infer.netlify.com", "img/infer_ht.jpg", 750)`
+#' 
+#' 
+#' ---
+#' 
+#' layout: true
+#' class: inverse
+#' 
+#' .footer[Slides available at http://bit.ly/ness-infer &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
+#' 
+#' ---
+#' 
+#' layout: false
+#' class: middle, center
+#' 
+#' # Statistical Inference
+#' 
+#' `r gif_link("https://infer-dev.netlify.com", "img/infer_gnome.png", 400)`
+#' 
+#' ---
+#' 
+#' layout: true
+#' class: inverse
+#' 
+#' .footer[Slides available at http://bit.ly/ness-infer &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
+#' 
+#' ---
+#' 
+#' 
+#' # Research Question
+#' 
+#' If you see someone else yawn, are you more likely to yawn?
+#' 
+#' In an episode of the show *Mythbusters*, they tested the myth that yawning is contagious. 
+#' 
+#' - Analysis done with [Alison Hill](https://alison.rbind.io)
+#' 
+#' ---
+#' 
+#' ## Participants and Procedure
+#' 
+#' --
+#' 
+#' - 50 adults who thought they were being considered for an appearance on the show. 
+#' 
+#' --
+#' 
+#' - Each participant was interviewed individually by a show recruiter ("confederate") who either yawned or not
+#' 
+#' --
+#' 
+#' - Participants then sat by themselves in a large van and were asked to wait. 
+#' 
+#' --
+#' 
+#' - While in the van, the Mythbusters watched to see if the unaware participants yawned.
+#' 
+#' 
+#' 
+#' ---
+#' 
+#' ## Data
+#' 
+#' - 34 saw the confederate yawn ( *seed* )
+#' - 16 did not see the confederate yawn ( *control* )
+#' 
+#' --
+#' 
 ## ----purl=TRUE-----------------------------------------------------------
 group <- c(rep("control", 12), rep("seed", 24), 
             rep("control", 4), rep("seed", 10))
@@ -294,6 +1206,11 @@ yawn_myth <- data_frame(subj = seq(1, 50), group, yawn) %>%
   mutate(yawn = factor(yawn))
 slice(yawn_myth, c(5, 17, 37, 49))
 
+#' 
+#' ---
+#' 
+#' # Results
+#' 
 ## ----purl=TRUE-----------------------------------------------------------
 library(janitor)
 yawn_myth %>% 
@@ -302,11 +1219,102 @@ yawn_myth %>%
   adorn_pct_formatting() %>% 
   adorn_ns()
 
+#' 
+#' ---
+#' class: inverse, middle, center
+#' 
+#' ## Conclusion
+#' 
+#' --
+#' 
+#' ## *Finding: CONFIRMED* <sup>1</sup>
+#' 
+#' .footnote[
+#' [1] http://www.discovery.com/tv-shows/mythbusters/mythbusters-database/yawning-contagious/]
+#' 
+#' ---
+#' 
+#' # Really?
+#' 
+#' > "Though that's not an enormous increase, since they tested 50 people in the field, the gap was still wide enough for the MythBusters to confirm that yawning is indeed contagious." <sup>1</sup>
+#' 
+#' .footnote[
+#' [1] http://www.discovery.com/tv-shows/mythbusters/mythbusters-database/yawning-contagious/]
+#' 
+#' 
+#' ---
+#' 
+#' # State the hypotheses
+#' 
+#' --
+#' 
+#' Null hypothesis:  
+#' 
+#' > There is no difference between the seed and control groups in the proportion of people who yawned.
+#' 
+#' --
+#' 
+#' Alternative hypothesis (directional): 
+#' 
+#' > More people (relatively) yawned in the seed group than in the control group.
+#' 
+#' ---
+#' 
+#' # Test the hypothesis
+#' 
+#' Which type of hypothesis test would you conduct here?
+#' 
+#' - Independent samples t-test
+#' - Two proportion test
+#' - Chi-square Goodness of Fit
+#' - Analysis of Variance
+#' 
+#' ---
+#' 
+#' # Test the hypothesis
+#' 
+#' Which type of hypothesis test would you conduct here?
+#' 
+#' - Independent samples t-test
+#' - Two proportion test
+#' - Chi-square Goodness of Fit
+#' - Analysis of Variance
+#' 
+#' --
+#' 
+#' <br>
+#' 
+#' ***
+#' 
+#' Answer: 
+#' - Two proportion test
+#' 
+#' 
+#' ---
+#' class: center, middle
+#' 
+#' # Two proportion test
+#' 
+#' --
+#' 
+#' $H_0: p_{seed} - p_{control} = 0$
+#' 
+#' --
+#' 
+#' $H_A: p_{seed} - p_{control} > 0$
+#' 
+#' ---
+#' 
+#' # The observed difference
+#' 
 ## ----purl=TRUE-----------------------------------------------------------
 yawn_myth %>%
   group_by(group) %>%
   summarize(prop = mean(yawn == 1))
 
+#' 
+#' --
+#' 
 ## ----purl=TRUE-----------------------------------------------------------
 (obs_diff <- yawn_myth %>%
   group_by(group) %>%
@@ -314,6 +1322,54 @@ yawn_myth %>%
   summarize(diff(prop)) %>%
   pull())
 
+#' 
+#' 
+#' 
+#' ---
+#' class: inverse, middle, center
+#' 
+#' ## Is this difference *meaningful*?
+#' 
+#' --
+#' 
+#' ## Different question: 
+#' 
+#' --
+#' 
+#' ## Is this difference *significant*?
+#' 
+#' ---
+#' 
+#' # Modeling the null hypothesis
+#' 
+#' If... 
+#' 
+#' <br>
+#' 
+#' &emsp;&emsp; $H_0: p_{seed} = p_{control}$ &emsp;&emsp;
+#' 
+#' <br>
+#' 
+#' is true, then whether or not the participant saw someone else yawn does not matter.
+#' 
+#' --
+#' 
+#' <br>
+#' 
+#' In other words, there is no association between exposure and yawning.
+#' 
+#' 
+#' ---
+#' class: inverse, center, middle
+#' 
+#' ![](http://directorsnotes.com/wp-content/uploads/2011/11/another_earth_03.jpg)
+#' ---
+#' 
+#' 
+#' 
+#' .pull-left[
+#' ### Original universe
+#' 
 ## ----echo=FALSE, purl=TRUE-----------------------------------------------
 yawn_myth %>% 
   slice(c(1:6, 15:20))
@@ -321,6 +1377,12 @@ yawn_myth %>%
   tabyl(group, yawn) %>% 
   adorn_totals(where = c("row", "col"))
 
+#' ]
+#' 
+#' --
+#' 
+#' .pull-right[
+#' ### Parallel universe
 ## ----echo=FALSE, purl=TRUE-----------------------------------------------
 set.seed(2018)
 perm1 <- yawn_myth %>% 
@@ -337,6 +1399,13 @@ perm1 %>%
   tabyl(group, alt_yawn) %>% 
   adorn_totals(where = c("row", "col"))
 
+#' ]
+#' 
+#' ---
+#' 
+#' # 1000 parallel universes
+#' 
+#' .pull-left[
 ## ----echo=FALSE, purl=TRUE-----------------------------------------------
 yawn_universes <- yawn_myth %>% 
   specify(yawn ~ group,
@@ -347,10 +1416,20 @@ yawn_universes <- yawn_myth %>%
             order = c("seed", "control"))
 yawn_universes
 
+#' ]
+#' 
+#' --
+#' 
+#' .pull-right[
 ## ----echo=FALSE, purl=TRUE-----------------------------------------------
 yawn_universes %>% 
   slice(991:1000)
 
+#' ]
+#' 
+#' ---
+#' ## The parallel universe distribution
+#' 
 ## ----echo=FALSE, purl=TRUE-----------------------------------------------
 set.seed(2)
 null_distn <- yawn_myth %>% 
@@ -365,12 +1444,132 @@ null_plot <- null_distn %>%
   labs(x = "Difference in proportions")
 null_plot
 
+#' 
+#' 
+#' The distribution of 1000 differences in proportions, if the null hypothesis were *true* and yawning was not contagious. 
+#' 
+#' 
+#' ---
+#' ## Calculating the p-value
+#' 
+#' In how many of our "parallel universes" is the difference as big or bigger than the one we observed (`r obs_diff`)?
+#' 
+#' --
+#' 
+#' <br>
+#' 
+#' The shaded proportion is the p-value!
+#' 
 ## ----echo=FALSE, purl=TRUE-----------------------------------------------
 null_distn %>% 
   summarize(n_as_big = sum(stat >= obs_diff),
             n_total = n(),
             p_value = mean(stat >= obs_diff))
 
+#' 
+#' ---
+#' class: middle, center
+#' layout: false
+#' 
+#' # There is Only One Test!
+#' 
+#' [![Only One Test](images/downey.png)](http://allendowney.blogspot.com/2016/06/there-is-still-only-one-test.html)
+#' 
+#' ---
+#' 
+#' layout: true
+#' class: inverse
+#' 
+#' .footer[Slides available at http://bit.ly/ness-infer &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
+#' 
+#' ---
+#' 
+#' layout: false
+#' 
+#' ![](images/infer.073.jpeg)
+#' 
+#' ---
+#' 
+#' ![](images/infer.074.jpeg)
+#' 
+#' ---
+#' 
+#' ![](images/infer.075.jpeg)
+#' 
+#' ---
+#' 
+#' ![](images/infer.076.jpeg)
+#' 
+#' ---
+#' 
+#' ![](images/infer.077.jpeg)
+#' 
+#' ---
+#' 
+#' ![](images/infer.078.jpeg)
+#' 
+#' ---
+#' 
+#' ![](images/infer.079.jpeg)
+#' 
+#' ---
+#' 
+#' ![](images/infer.080.jpeg)
+#' 
+#' ---
+#' 
+#' ![](images/infer.081.jpeg)
+#' 
+#' ---
+#' 
+#' ![](images/infer.082.jpeg)
+#' 
+#' ---
+#' 
+#' ![](images/infer.084.jpeg)
+#' 
+#' ---
+#' 
+#' layout: true
+#' class: inverse
+#' 
+#' .footer[Slides available at http://bit.ly/ness-infer &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
+#' 
+#' ---
+#' 
+#' # `infer`
+#' 
+#' Five functions:
+#' 
+#' - `specify()`
+#' - `hypothesize()`
+#' - `generate()`
+#' - `calculate()`
+#' - `visualize()`
+#' 
+#' ---
+#' 
+#' # `infer`
+#' <small>
+#' - `specify` the response and explanatory variables (`y ~ x`)
+#' - `hypothesize` what the null hypothesis is (here, `independence` of `y` and `x`)
+#' - `generate` new samples from parallel universes:
+#'     - <small>Resample from our original data <u>without replacement</u>, each time shuffling the `group` (`type = "permute"`)</small>
+#'     - <small>Do this <u>a ton of times</u> (`reps = 1000`)</small>
+#' - `calculate` the *new* statistic (`stat = "diff in props"`) for each `rep`
+#' </small>
+#' 
+#' ---
+#' 
+#' # `infer` example
+#' 
+#' 
+#' ---
+#' 
+#' # Visualize the null distribution
+#' 
+#' - `visualize` the distribution of the `stat` <br> (here, `diff in props`)
+#' 
 ## ----include=FALSE, purl=TRUE--------------------------------------------
 set.seed(8)
 null_distn <- yawn_myth %>% 
@@ -379,10 +1578,19 @@ null_distn <- yawn_myth %>%
   generate(reps = 1000, type = "permute") %>% 
   calculate(stat = "diff in props", order = c("seed", "control"))
 
+#' 
+#' 
 ## ----purl=TRUE-----------------------------------------------------------
 null_distn %>% 
   visualize(obs_stat = obs_diff, direction = "right")
 
+#' 
+#' ---
+#' 
+#' # Classical inference
+#' 
+#' Rely on theory to tell us what the null distribution looks like.
+#' 
 ## ----include=FALSE, purl=TRUE--------------------------------------------
 theme_set(theme_gray(base_size = 22))
 yawn_table <- table(group, yawn)
@@ -392,6 +1600,8 @@ obs_z <- yz %>%
   broom::tidy(yz) %>% 
   pull(statistic)
 
+#' 
+#' 
 ## ----include=FALSE, purl=TRUE--------------------------------------------
 yawn_myth %>%
   specify(yawn ~ group, success = "1") %>%
@@ -401,6 +1611,13 @@ yawn_myth %>%
   visualize(method = "theoretical", obs_stat = obs_z,
             direction = "right")
 
+#' 
+#' ---
+#' 
+#' # Classical inference
+#' 
+#' Rely on theory to tell us what the null distribution looks like.
+#' 
 ## ----echo=FALSE, fig.height=4.5, warning=TRUE, purl=TRUE-----------------
 yawn_myth %>%
   specify(yawn ~ group, success = "1") %>%
@@ -410,6 +1627,11 @@ yawn_myth %>%
   visualize(method = "theoretical", obs_stat = obs_z,
             direction = "right")
 
+#' 
+#' ---
+#' 
+#' # Resampling vs Classical (`stat = "z"`) 
+#' 
 ## ----fig.height=2.8, warning=TRUE, purl=TRUE-----------------------------
 yawn_myth %>%
   specify(yawn ~ group, success = "1") %>%
@@ -419,9 +1641,71 @@ yawn_myth %>%
   visualize(method = "both", bins = 10, obs_stat = obs_z, 
             direction = "right")
 
+#' 
+#' ---
+#' 
+#' # Practice
+#' 
+#' - Read in/prep the [`mazes` data](http://bit.ly/mazes-gist)
+#' 
 ## ---- purl=TRUE----------------------------------------------------------
 library(readr)
 mazes <- read_csv("http://bit.ly/mazes-gist") %>% 
   clean_names() %>%  #janitor package
   filter(dx %in% c("ASD", "TD"))
 
+#' 
+#' - Use `infer` to compare a numerical variable between the two groups using:
+#'     - A permutation test and
+#'     - A classical theoretical test.
+#'     
+#' About the data: <small>[Quantitative analysis of disfluency in children with autism spectrum disorder or language impairment](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0173936)</small>
+#' 
+#' ---
+#' 
+#' # More practice (time permitting)
+#' 
+#' - Find a data set / use your own and perform statistical inference on one or two of the variables there using the `infer` package
+#' 
+#' ---
+#' 
+#' ## More info and resources
+#' 
+#' - https://infer-dev.netlify.com
+#'   - Many examples under Articles with more to come
+#'   - To be discussed in [www.ModernDive.com](www.ModernDive.com)
+#'       - [Sign up](http://eepurl.com/cBkItf) to the mailing list for updates
+#' - DataCamp courses launched that use `infer`
+#'   - [Inference for Numerical Data](https://www.datacamp.com/courses/inference-for-numerical-data) by Mine Cetinkaya-Rundel
+#'   - [Inference for Regression](https://www.datacamp.com/courses/inference-for-linear-regression) by Jo Hardin
+#' - Two more DataCamp courses to launch soon
+#' - [Learn the Tidyverse](https://www.tidyverse.org/learn/)
+#' 
+#' ---
+#' 
+#' ## Future plans
+#' 
+#' - Generalize `calculate()`'s `stat` argument
+#' - Improve speed and memory used by shifting to list-columns
+#' - Rewrite the inference part of the [ModernDive](http://moderndive.netlify.com/9-ci.html) book
+#' - Lead more workshops on using the `infer` package to extend knowledge of the `tidyverse`, R, and statistics
+#' 
+#' ---
+#' 
+#' layout: false
+#' class: inverse, middle
+#' 
+#' <center>
+#' <a href="https://www.datacamp.com">
+#' <img src="img/DataCamp_Vertical_White.png" style="width: 220px;"/>
+#' </a>&emsp;&emsp;<a href="https://moderndive.netlify.com"> 
+#' <img src="img/dark_vert.png" style="width: 210px;"/></a>&emsp;&emsp;<a href="https://infer.netlify.com"> 
+#' <img src="img/infer_oregon3.png" style="width: 200px;"/></a></center>
+#' 
+#' ## Thanks for attending! Contact me: [Email](mailto:chester@datacamp.com) or [Twitter](https://twitter.com/old_man_chester)
+#' - Special thanks to [Albert Y. Kim](https://twitter.com/rudeboybert), 
+#'     - [Andrew Bray](https://andrewpbray.github.io), and 
+#'     - [Alison Hill](https://twitter.com/apreshill)
+#' - Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
+#' - Slides available at <http://bit.ly/ness-infer>
+#' - Slides source code at <https://github.com/ismayc/talks/>
