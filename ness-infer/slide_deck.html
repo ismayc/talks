@@ -46,7 +46,31 @@ class: inverse
 
 ---
 
-## More freely available information
+## Prior Installation
+
+Make sure you have the (current) up-to-date R, RStudio, and R packages
+- [Beginner's Guide](http://moderndive.com/2-getting-started.html) on ModernDive.com
+
+***
+
+- [R (version 3.4.4)](https://cran.r-project.org/)
+- [RStudio (version 1.1.442)](https://www.rstudio.com/products/rstudio/download3/)
+
+- Run this in the RStudio Console
+
+
+```r
+pkgs &lt;- c("tidyverse", "moderndive", "gapminder",
+          "nycflights13", "fivethirtyeight", "janitor",
+          "ggplot2movies", "remotes")
+
+install.packages(pkgs)
+remotes::install_github("andrewpbray/infer")
+```
+
+---
+
+## Freely available information
 
 &lt;center&gt;
 &lt;a href="http://moderndive.com"&gt;
@@ -698,7 +722,7 @@ class: inverse
 .footer[Slides available at http://bit.ly/ness-infer &amp;emsp; &amp;emsp; &amp;emsp; [Return to Table of Contents](#toc)]
 
 ---
-&lt;img src="slide_deck_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="slide_deck_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
 
 - What are the variables here?
 - What is the observational unit?
@@ -796,7 +820,7 @@ ggplot(data = simple_ex, mapping = aes(x = A, y = B)) +
 ```
 --
 
-![](slide_deck_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -814,7 +838,7 @@ ggplot(data = simple_ex, mapping = aes(x = A, y = B)) +
 ```
 --
 
-![](slide_deck_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -831,7 +855,7 @@ ggplot(data = simple_ex, mapping = aes(x = A, y = B, size = C)) +
 ```
 --
 
-![](slide_deck_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -863,7 +887,7 @@ ggplot(data = weather, mapping = aes(x = humid)) +
   geom_histogram(bins = 20, color = "black", fill = "darkorange")
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -876,7 +900,7 @@ ggplot(data = weather, mapping = aes(x = month, y = humid)) +
   geom_boxplot()
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -890,7 +914,7 @@ ggplot(data = weather, mapping = aes(x = factor(month), y = humid)) +
   geom_boxplot()
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -903,7 +927,7 @@ ggplot(data = bechdel, mapping = aes(x = clean_test)) +
   geom_bar()
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -936,7 +960,7 @@ ggplot(data = bechdel,
   geom_bar()
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-41-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -951,7 +975,7 @@ ggplot(data = bechdel,
   geom_bar(position = "dodge")
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -966,7 +990,7 @@ ggplot(data = bechdel,
   geom_bar(position = "fill", color = "black")
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -997,7 +1021,7 @@ Try to look through the help documentation/Google to improve your plots
 
 ### HINTS
 
-![](slide_deck_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-45-1.png)&lt;!-- --&gt;
 
 
 
@@ -1194,7 +1218,7 @@ ggplot(data = dem_score4, mapping = aes(x = year, y = dem_score)) +
   geom_line(mapping = aes(color = country), size = 2)
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-49-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-50-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -1240,7 +1264,7 @@ class: inverse
 
 - Write the code to produce this plot for 2007 data
 
-![](slide_deck_files/figure-html/unnamed-chunk-50-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-51-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -1362,7 +1386,7 @@ ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
   geom_histogram(binwidth = 0.02, color = "white")
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-56-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-57-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -1525,11 +1549,11 @@ bootstrap_stats &lt;- jennys_sample %&gt;%
 
 ### The bootstrap distribution
 
-![](slide_deck_files/figure-html/unnamed-chunk-63-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-64-1.png)&lt;!-- --&gt;
 
 ### The sampling distribution
 
-![](slide_deck_files/figure-html/unnamed-chunk-64-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-65-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -1926,7 +1950,7 @@ Null Hypothesis:  independence
 ---
 ## The parallel universe distribution
 
-![](slide_deck_files/figure-html/unnamed-chunk-73-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-74-1.png)&lt;!-- --&gt;
 
 
 The distribution of 1000 differences in proportions, if the null hypothesis were *true* and yawning was not contagious. 
@@ -2075,7 +2099,7 @@ null_distn %&gt;%
   visualize(obs_stat = obs_diff, direction = "right")
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-77-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-78-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -2110,7 +2134,7 @@ Warning: Check to make sure the conditions have been met for the
 theoretical method. `infer` currently does not check these for you.
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-81-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-82-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -2132,7 +2156,7 @@ Warning: Check to make sure the conditions have been met for the
 theoretical method. `infer` currently does not check these for you.
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-82-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-83-1.png)&lt;!-- --&gt;
 
 ---
 

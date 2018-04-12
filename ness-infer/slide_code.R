@@ -62,7 +62,22 @@ if(!require("infer"))
 #' 
 #' ---
 #' 
-#' ## More freely available information
+#' ## Prior Installation
+#' 
+#' Make sure you have the (current) up-to-date R, RStudio, and R packages
+#' - [Beginner's Guide](http://moderndive.com/2-getting-started.html) on ModernDive.com
+#' 
+#' ***
+#' 
+#' - [R (version 3.4.4)](https://cran.r-project.org/)
+#' - [RStudio (version 1.1.442)](https://www.rstudio.com/products/rstudio/download3/)
+#' 
+#' - Run this in the RStudio Console
+#' 
+#' 
+#' ---
+#' 
+#' ## Freely available information
 #' 
 #' `r gif_link("http://moderndive.com", "img/wide_format.png", 650)`
 #' 
