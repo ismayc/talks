@@ -1,7 +1,7 @@
 #' ---
 #' title: "Statistical Inference: A Tidy Approach"
 #' author: 'Dr. Chester Ismay <br> Senior Curriculum Lead at <a href="https://www.datacamp.com/">DataCamp</a> <br><br> <a href="http://github.com/ismayc"><i class="fa fa-github fa-fw"></i>&nbsp; ismayc</a><br> <a href="http://twitter.com/old_man_chester"> <i class="fa fa-twitter fa-fw"></i>&nbsp; @old_man_chester</a><br> <a href="mailto:chester@datacamp.com"><i class="fa fa-paper-plane fa-fw"></i>&nbsp; chester@datacamp.com</a><br>'
-#' date: 2018-04-13 <br>New England Statistical Symposium - UMass Amherst<br><br> Slides available at <http://bit.ly/ness-infer>
+#' date: 2018-04-13 <br>New England Statistical Symposium - UMass Amherst<br><br> Slides available at <http://bit.ly/ness-infer> <br> PDF slides at <http://bit.ly/ness-infer-pdf>
 #' output: 
 #'   xaringan::moon_reader:
 #'     chakra: remark-latest.min.js
@@ -45,13 +45,14 @@ if(!require("infer"))
 #' 
 #' Part 1
 #' - [Data Wrangling](#wrangling)
-#' - [Data Viz](#viz)
+#' - [Data Visualization](#viz)
 #' - [Data Tidying](#tidying)
 #' 
 #' Part 2
 #' - [Resampling](#resampling)
 #' - [Inference](#inference)
 #' 
+#' .footer[R code from throughout the slides is saved as an R script [here](https://raw.githubusercontent.com/ismayc/talks/master/ness-infer/slide_code.R)]
 #' ---
 #' 
 #' layout: true
@@ -96,7 +97,7 @@ if(!require("infer"))
 #' 
 #' ## Designed for the novice / Nice for the practioner
 #' 
-#' `r gif_link("http://moderndive.netlify.com/2-getting-started.html", "img/appstore.png", 600)`
+#' `r gif_link("http://moderndive.netlify.com/2-getting-started.html", "img/appstore.png", 620)`
 #' 
 #' ---
 #' 
@@ -109,7 +110,7 @@ if(!require("infer"))
 #' ## The bare minimum needed for understanding today
 #' 
 #' Vector/variable
-#'   - Type of vector (`int`, `num`, `chr`, `lgl`, `date`)
+#'   - Type of vector (`int`, `num` or `dbl`, `chr`, `lgl`, `date`)
 #' 
 #' --
 #' 
@@ -145,7 +146,7 @@ ex1
 #'   
 #' The `tidyverse` is a collection of R packages that share common philosophies and are designed to work together. <br><br> 
 #'   
-#' <a href="http://tidyverse.tidyverse.org/logo.png"><img src="figure/tidyverse.png" style="width: 160px;"/></a>
+#' <a href="http://tidyverse.tidyverse.org/logo.png"><img src="figure/tidyverse.png" style="width: 200px;"/></a>
 #' 
 #' ---
 #' 
@@ -474,7 +475,6 @@ gapminder %>% arrange(year)
 #' .footer[Slides available at http://bit.ly/ness-infer &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
 #' 
 #' ---
-#' 
 #' 
 #' - What are the variables here?
 #' - What is the observational unit?
@@ -855,7 +855,7 @@ dem_score %>% slice(1:12)
 #' 
 #' ## Why is tidy data important?
 #' 
-#' - Think about trying to plot democracy score across years in the simplest way possible with the data on the [Is this tidy? slide](#demscore).
+#' - Think about trying to plot democracy score across years in the simplest way possible with the data on the [previous slide](#demscore).
 #' --
 #' 
 #' - It would be much easier if the data looked like what follows instead so we could put 
@@ -925,12 +925,11 @@ ggplot(data = dem_score4, mapping = aes(x = year, y = dem_score)) +
 #' 
 #' ---
 #' 
-#' # Use what you know to connect with new
+#' # Review
 #' 
+#' - Write the code to produce this plot for 2007 data
 #' 
-#' ---
-#' 
-## ----echo=FALSE, fig.height=7.5, fig.width=10, purl=TRUE-----------------
+## ----echo=FALSE, fig.height=5.5, fig.width=10, purl=TRUE-----------------
 library(gapminder)
 library(tidyverse)
 gapminder_2007 <- gapminder %>% filter(year == 2007)
@@ -959,11 +958,11 @@ bowl
 #' 
 #' ---
 #' 
-#' ## One virtual scoop of 50 balls
+#' ## One virtual scoop of 50 balls (one sample)
 #' 
 ## ----purl=TRUE-----------------------------------------------------------
-set.seed(1977)
-( bowl_sample <- bowl %>% sample_n(size = 50) )
+set.seed(8675309)
+( jennys_sample <- bowl %>% sample_n(size = 50) )
 
 #' 
 #' ---
@@ -971,7 +970,7 @@ set.seed(1977)
 #' # Proportion that are red
 #' 
 ## ----purl=TRUE-----------------------------------------------------------
-bowl_sample %>% 
+jennys_sample %>% 
   summarize(prop_red = mean(color == "red")) %>% 
   pull()
 
@@ -1017,16 +1016,18 @@ ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
 #' # Practice
 #' 
 #' - Let's estimate the mean age of pennies
-#' - Create a sampling distribution of 10,000 samples each of size 50 from `moderndive::pennies`
+#' - Create a sampling distribution of 10,000 samples each of size 100 from `moderndive::pennies`
+#' 
+#' 
 #' 
 #' ---
 #' 
 #' ## Shifting focus
 #' 
-#' ### What about if all we had was the one sample of balls?
+#' ### What about if all we had was the one sample of balls (not the whole bowl)?
 #' 
 ## ----purl=TRUE-----------------------------------------------------------
-bowl_sample %>% count(color)
+jennys_sample %>% count(color)
 
 #' 
 #' --
@@ -1044,7 +1045,7 @@ bowl_sample %>% count(color)
 #' 
 ## ----purl=TRUE-----------------------------------------------------------
 library(infer)
-bowl_sample %>% 
+jennys_sample %>% 
   specify(formula = color ~ NULL, success = "red")
 
 #' 
@@ -1054,7 +1055,7 @@ bowl_sample %>%
 #' 
 ## ----purl=TRUE-----------------------------------------------------------
 library(infer)
-( bootstrap_samples <- bowl_sample %>% 
+( bootstrap_samples <- jennys_sample %>% 
   specify(formula = color ~ NULL, success = "red") %>% 
   generate(reps = 48, type = "bootstrap") )
 
@@ -1063,7 +1064,7 @@ library(infer)
 #' 
 #' # What does `bootstrap_samples` represent?
 #' 
-#' ## Remember we assumed that all we had was the original sample of 32 red and 18 white to start.
+#' ## Remember we assumed that all we had was the original sample of 19 red and 31 white to start.
 #' --
 #' 
 #' ## Hope `bootstrap_samples` is close to this:
@@ -1075,7 +1076,7 @@ library(infer)
 #' ## Bootstrap statistics
 #' 
 ## ----purl=TRUE-----------------------------------------------------------
-bowl_sample %>% 
+jennys_sample %>% 
   specify(formula = color ~ NULL, success = "red") %>% 
   generate(reps = 48, type = "bootstrap") %>% 
   calculate(stat = "prop")
@@ -1088,7 +1089,7 @@ bowl_sample %>%
 #' ### Just as we did with the sampling distribution
 #' 
 ## ----purl=TRUE-----------------------------------------------------------
-bootstrap_stats <- bowl_sample %>% 
+bootstrap_stats <- jennys_sample %>% 
   specify(formula = color ~ NULL, success = "red") %>% 
   generate(reps = 10000, type = "bootstrap") %>% 
   calculate(stat = "prop")
@@ -1149,6 +1150,10 @@ ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
 #' 
 #' `r gif_link("https://infer-dev.netlify.com", "img/infer_gnome.png", 400)`
 #' 
+#' <br>
+#' 
+#' .footnote[`infer` hex sticker designs kindly created by [Thomas Mock](https://www.linkedin.com/in/jthomasmock/)]
+#' 
 #' ---
 #' 
 #' layout: true
@@ -1177,7 +1182,7 @@ ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
 #' 
 #' --
 #' 
-#' - Each participant was interviewed individually by a show recruiter ("confederate") who either yawned or not
+#' - Each participant was interviewed individually by a show recruiter ("confederate") who either yawned or did not.
 #' 
 #' --
 #' 
@@ -1195,6 +1200,7 @@ ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
 #' 
 #' - 34 saw the confederate yawn ( *seed* )
 #' - 16 did not see the confederate yawn ( *control* )
+#' - `1` corresponds to yawn, `0` to no yawn
 #' 
 #' --
 #' 
@@ -1210,6 +1216,8 @@ slice(yawn_myth, c(5, 17, 37, 49))
 #' ---
 #' 
 #' # Results
+#' 
+#' `r gif_link("https://github.com/sfirke/janitor", "img/janitor_hex.png", 180)`
 #' 
 ## ----purl=TRUE-----------------------------------------------------------
 library(janitor)
@@ -1268,27 +1276,6 @@ yawn_myth %>%
 #' - Two proportion test
 #' - Chi-square Goodness of Fit
 #' - Analysis of Variance
-#' 
-#' ---
-#' 
-#' # Test the hypothesis
-#' 
-#' Which type of hypothesis test would you conduct here?
-#' 
-#' - Independent samples t-test
-#' - Two proportion test
-#' - Chi-square Goodness of Fit
-#' - Analysis of Variance
-#' 
-#' --
-#' 
-#' <br>
-#' 
-#' ***
-#' 
-#' Answer: 
-#' - Two proportion test
-#' 
 #' 
 #' ---
 #' class: center, middle
@@ -1553,10 +1540,10 @@ null_distn %>%
 #' <small>
 #' - `specify` the response and explanatory variables (`y ~ x`)
 #' - `hypothesize` what the null hypothesis is (here, `independence` of `y` and `x`)
-#' - `generate` new samples from parallel universes:
+#' - `generate` new samples from parallel universes under the null hypothesis model:
 #'     - <small>Resample from our original data <u>without replacement</u>, each time shuffling the `group` (`type = "permute"`)</small>
 #'     - <small>Do this <u>a ton of times</u> (`reps = 1000`)</small>
-#' - `calculate` the *new* statistic (`stat = "diff in props"`) for each `rep`
+#' - `calculate` the statistic (`stat = "diff in props"`) for each of the `reps`
 #' </small>
 #' 
 #' ---
@@ -1644,15 +1631,14 @@ yawn_myth %>%
 #' 
 #' ---
 #' 
-#' # Practice
+#' ## Practice
 #' 
 #' - Read in/prep the [`mazes` data](http://bit.ly/mazes-gist)
 #' 
 ## ---- purl=TRUE----------------------------------------------------------
 library(readr)
 mazes <- read_csv("http://bit.ly/mazes-gist") %>% 
-  clean_names() %>%  #janitor package
-  filter(dx %in% c("ASD", "TD"))
+  janitor::clean_names() %>% filter(dx %in% c("ASD", "TD"))
 
 #' 
 #' - Use `infer` to compare a numerical variable between the two groups using:
@@ -1660,6 +1646,17 @@ mazes <- read_csv("http://bit.ly/mazes-gist") %>%
 #'     - A classical theoretical test.
 #'     
 #' About the data: <small>[Quantitative analysis of disfluency in children with autism spectrum disorder or language impairment](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0173936)</small>
+#' 
+## ----include=FALSE-------------------------------------------------------
+obs_t <- mazes %>% t_stat(cued ~ dx)
+mazes %>%
+  specify(cued ~ dx) %>%
+  hypothesize(null = "independence") %>% 
+  generate(reps = 1000, type = "permute") %>% 
+  calculate(stat = "t", order = c("ASD", "TD")) %>% 
+  visualize(method = "both", obs_stat = obs_t, direction = "left")
+
+#' 
 #' 
 #' ---
 #' 
@@ -1671,14 +1668,14 @@ mazes <- read_csv("http://bit.ly/mazes-gist") %>%
 #' 
 #' ## More info and resources
 #' 
-#' - https://infer-dev.netlify.com
+#' - https://infer.netlify.com (https://infer-dev.netlify.com for development)
 #'   - Many examples under Articles with more to come
 #'   - To be discussed in [www.ModernDive.com](www.ModernDive.com)
 #'       - [Sign up](http://eepurl.com/cBkItf) to the mailing list for updates
-#' - DataCamp courses launched that use `infer`
-#'   - [Inference for Numerical Data](https://www.datacamp.com/courses/inference-for-numerical-data) by Mine Cetinkaya-Rundel
-#'   - [Inference for Regression](https://www.datacamp.com/courses/inference-for-linear-regression) by Jo Hardin
-#' - Two more DataCamp courses to launch soon
+#' - DataCamp courses that use `infer`
+#'   - [Inference for Numerical Data](https://www.datacamp.com/courses/inference-for-numerical-data)
+#'   - [Inference for Regression](https://www.datacamp.com/courses/inference-for-linear-regression)
+#'   - Two more DataCamp courses to launch soon
 #' - [Learn the Tidyverse](https://www.tidyverse.org/learn/)
 #' 
 #' ---
@@ -1703,9 +1700,9 @@ mazes <- read_csv("http://bit.ly/mazes-gist") %>%
 #' <img src="img/infer_oregon3.png" style="width: 200px;"/></a></center>
 #' 
 #' ## Thanks for attending! Contact me: [Email](mailto:chester@datacamp.com) or [Twitter](https://twitter.com/old_man_chester)
-#' - Special thanks to [Albert Y. Kim](https://twitter.com/rudeboybert), 
-#'     - [Andrew Bray](https://andrewpbray.github.io), and 
+#' - Special thanks to 
+#'     - [Albert Y. Kim](https://twitter.com/rudeboybert) 
+#'     - [Andrew Bray](https://andrewpbray.github.io)
 #'     - [Alison Hill](https://twitter.com/apreshill)
 #' - Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
-#' - Slides available at <http://bit.ly/ness-infer>
-#' - Slides source code at <https://github.com/ismayc/talks/>
+#' - Slides' source code at <https://github.com/ismayc/talks/>
