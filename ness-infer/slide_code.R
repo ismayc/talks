@@ -696,24 +696,26 @@ bechdel <- bechdel %>%
 #' 
 #' ## How about over time? (Stacked)
 #' 
-## ----fig.width=11, fig.height=5, purl=TRUE-------------------------------
+## ----fig.width=11, fig.height=4.8, purl=TRUE-----------------------------
 library(fivethirtyeight)
 library(ggplot2)
 ggplot(data = bechdel,
        mapping = aes(x = five_year, fill = clean_test)) +
-  geom_bar()
+  geom_bar() +
+  scale_fill_brewer(type = "qual") # set colors
 
 #' 
 #' ---
 #' 
 #' ## How about over time? (Side-by-side)
 #' 
-## ----fig.width=11, fig.height=5, purl=TRUE-------------------------------
+## ----fig.width=11, fig.height=4.8, purl=TRUE-----------------------------
 library(fivethirtyeight)
 library(ggplot2)
 ggplot(data = bechdel,
        mapping = aes(x = five_year, fill = clean_test)) +
-  geom_bar(position = "dodge")
+  geom_bar(position = "dodge") +
+  scale_fill_brewer(type = "qual")
 
 #' 
 #' ---

@@ -800,24 +800,26 @@ bechdel <- bechdel %>%
 
 ## How about over time? (Stacked)
 
-```{r fig.width=11, fig.height=5, purl=TRUE}
+```{r fig.width=11, fig.height=4.8, purl=TRUE}
 library(fivethirtyeight)
 library(ggplot2)
 ggplot(data = bechdel,
        mapping = aes(x = five_year, fill = clean_test)) +
-  geom_bar()
+  geom_bar() +
+  scale_fill_brewer(type = "qual") # set colors
 ```
 
 ---
 
 ## How about over time? (Side-by-side)
 
-```{r fig.width=11, fig.height=5, purl=TRUE}
+```{r fig.width=11, fig.height=4.8, purl=TRUE}
 library(fivethirtyeight)
 library(ggplot2)
 ggplot(data = bechdel,
        mapping = aes(x = five_year, fill = clean_test)) +
-  geom_bar(position = "dodge")
+  geom_bar(position = "dodge") +
+  scale_fill_brewer(type = "qual")
 ```
 
 ---
@@ -868,7 +870,9 @@ library(fivethirtyeight)
 library(ggplot2movies)
 #library(okcupiddata)
 
-p1 <- ggplot(data = na.omit(flying), mapping = aes(fill = recline_rude, x = age)) + geom_bar(position = "fill") + ggtitle("Problem 1") + theme_gray(base_size = 20)
+p1 <- ggplot(data = na.omit(flying), mapping = aes(fill = recline_rude, x = age)) + geom_bar(position = "fill") +
+  scale_fill_brewer(type = "qual") +
+  ggtitle("Problem 1") + theme_gray(base_size = 20)
 
 #p2 <- ggplot(data = profiles, mapping = aes(x = sex, y = age)) +
 #  geom_boxplot() + ggtitle("Problem 2") + theme_gray(base_size = 20)

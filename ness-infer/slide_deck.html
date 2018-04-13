@@ -957,7 +957,8 @@ library(fivethirtyeight)
 library(ggplot2)
 ggplot(data = bechdel,
        mapping = aes(x = five_year, fill = clean_test)) +
-  geom_bar()
+  geom_bar() +
+  scale_fill_brewer(type = "qual") # set colors
 ```
 
 ![](slide_deck_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
@@ -972,7 +973,8 @@ library(fivethirtyeight)
 library(ggplot2)
 ggplot(data = bechdel,
        mapping = aes(x = five_year, fill = clean_test)) +
-  geom_bar(position = "dodge")
+  geom_bar(position = "dodge") +
+  scale_fill_brewer(type = "qual")
 ```
 
 ![](slide_deck_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
