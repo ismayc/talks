@@ -720,12 +720,13 @@ ggplot(data = bechdel,
 #' 
 #' ## How about over time? (Stacked proportional)
 #' 
-## ----fig.width=11, fig.height=5, purl=TRUE-------------------------------
+## ----fig.width=11, fig.height=4.7, purl=TRUE-----------------------------
 library(fivethirtyeight)
 library(ggplot2)
 ggplot(data = bechdel,
        mapping = aes(x = five_year, fill = clean_test)) +
-  geom_bar(position = "fill", color = "black")
+  geom_bar(position = "fill", color = "black") +
+  scale_fill_brewer(type = "qual")
 
 #' 
 #' ---
