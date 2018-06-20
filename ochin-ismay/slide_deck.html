@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tidyverse Tools in R for Data Science and Statistical Inference</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Dr. Chester Ismay   Senior Curriculum Lead at DataCamp      ismayc     @old_man_chester    chester@datacamp.com" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="example.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Tidyverse Tools in R for Data Science and Statistical Inference
+### Dr. Chester Ismay <br> Senior Curriculum Lead at <a href="https://www.datacamp.com/">DataCamp</a> <br><br> <a href="http://github.com/ismayc"><i class="fa fa-github fa-fw"></i>  ismayc</a><br> <a href="http://twitter.com/old_man_chester"> <i class="fa fa-twitter fa-fw"></i>  <span class="citation">@old_man_chester</span></a><br> <a href="mailto:chester@datacamp.com"><i class="fa fa-paper-plane fa-fw"></i>  chester@datacamp.com</a><br>
+### 2018-06-20 <br>Journal Club June - OCHIN<br><br> Slides available at <a href="http://bit.ly/ochin-ismay" class="uri">http://bit.ly/ochin-ismay</a> <br> PDF slides at <a href="http://bit.ly/ochin-ismay-pdf" class="uri">http://bit.ly/ochin-ismay-pdf</a>
+
+---
+
+
+&lt;img src="images/seuss.jpg" width="1573" /&gt;
+--
+
+&lt;div align="right"&gt;&lt;font size="20" color = "#27A9DB"&gt; with the tidyverse!!!&lt;/font&gt;&lt;/right&gt;
+
+---
+
+class: inverse
+name: toc
+
+
+
+
+
+
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/ochin-ismay]
+
+---
+
+## Prior Installation
+
+Make sure you have the (current) up-to-date R, RStudio, and R packages
+- [Beginner's Guide](http://moderndive.com/2-getting-started.html) on ModernDive.com
+
+***
+
+- [R (version 3.4.4)](https://cran.r-project.org/)
+- [RStudio (version 1.1.442)](https://www.rstudio.com/products/rstudio/download3/)
+
+- Run this in the RStudio Console
+
+
+```r
+pkgs &lt;- c("tidyverse", "moderndive", "gapminder",
+          "nycflights13", "fivethirtyeight", "janitor",
+          "ggplot2movies", "remotes")
+
+install.packages(pkgs)
+remotes::install_github("andrewpbray/infer")
+```
+
+---
+
+## Freely available information
+
+&lt;center&gt;
+&lt;a href="http://moderndive.com"&gt;
+&lt;img src="img/wide_format.png" style = "width: 650px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+&lt;center&gt;&lt;h2&gt;A Modern Dive into Data with R&lt;/h2&gt;&lt;/center&gt;
+
+* Webpage: &lt;http://moderndive.com&gt;
+* Developmental version at &lt;https://moderndive.netlify.com&gt;
+* [GitHub Repo](https://github.com/moderndive/moderndiver-book)
+* Please [signup](http://eepurl.com/cBkItf) for our mailing list!
+
+---
+
+layout: false
+class: center, middle
+
+&lt;img src="img/flowchart.png" style="width: 750px"/&gt;
+
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/ochin-ismay]
+
+---
+
+## Designed for the novice / Nice for the practioner
+
+&lt;center&gt;
+&lt;a href="http://moderndive.netlify.com/2-getting-started.html"&gt;
+&lt;img src="img/engine.png" style = "width: 600px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+## Designed for the novice / Nice for the practioner
+
+&lt;center&gt;
+&lt;a href="http://moderndive.netlify.com/2-getting-started.html"&gt;
+&lt;img src="img/appstore.png" style = "width: 620px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+# R Data Types
+
+Vector/variable
+  - Type of vector (`int`, `num` or `dbl`, `chr`, `lgl`, `date`)
+
+--
+
+Data frame
+  - Vectors of (potentially) different types
+  - Each vector has the same number of rows
+
+---
+
+## The bare minimum needed for understanding today
+
+
+```r
+library(tibble)
+library(lubridate)
+ex1 &lt;- data_frame(
+    vec1 = c(1980, 1990, 2000, 2010),
+    vec2 = c(1L, 2L, 3L, 4L),
+    vec3 = c("low", "low", "high", "high"),
+    vec4 = c(TRUE, FALSE, FALSE, FALSE),
+    vec5 = ymd(c("2017-05-23", "1776/07/04", 
+                 "1983-05/31", "1908/04-01"))
+  )
+ex1
+```
+
+--
+
+
+```
+# A tibble: 4 x 5
+   vec1  vec2 vec3  vec4  vec5      
+  &lt;dbl&gt; &lt;int&gt; &lt;chr&gt; &lt;lgl&gt; &lt;date&gt;    
+1  1980     1 low   TRUE  2017-05-23
+2  1990     2 low   FALSE 1776-07-04
+3  2000     3 high  FALSE 1983-05-31
+4  2010     4 high  FALSE 1908-04-01
+```
+  
+---
+
+class: center, middle  
+  
+# Welcome to the [tidyverse](https://blog.rstudio.org/2016/09/15/tidyverse-1-0-0/)!
+  
+The `tidyverse` is a collection of R packages that share common philosophies and are designed to work together. &lt;br&gt;&lt;br&gt; 
+  
+&lt;a href="http://tidyverse.tidyverse.org/logo.png"&gt;&lt;img src="figure/tidyverse.png" style="width: 200px;"/&gt;&lt;/a&gt;
+
+---
+
+# The workflow model
+
+&lt;center&gt;
+&lt;a href="http://tm.durusau.net/"&gt;
+&lt;img src="images/new-pipeline.png" style = "width: 650px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+
+&lt;small&gt;Modified from [image](http://r4ds.had.co.nz/introduction.html#what-you-will-learn) by Hadley Wickham&lt;/small&gt;
+
+---
+
+class: inverse
+layout: false
+
+# Table of Contents
+
+- [Importing](#import)
+- [Transforming](#wrangling)
+- [Visualizing](#viz)
+- [Tidying](#tidying)
+- [Modeling](#resampling)
+- [Infering](#inference)
+- [Communicating/Automating](#communicate)
+
+.footer[R code from throughout the slides is saved as an R Markdown file [here](https://raw.githubusercontent.com/ismayc/talks/master/ochin-ismay/slides.Rmd)]
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/ochin-ismay &amp;emsp; &amp;emsp; &amp;emsp; [Return to Table of Contents](#toc)]
+
+---
+
+
+
+# Motivating example for today
+
+&lt;center&gt;
+&lt;a href="https://media.giphy.com/media/4ohPvJj051TeU/giphy.gif"&gt;
+&lt;img src="images/soggy.gif" style = "width: 650px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+- Great British Bakeoff data collected by [Alison Hill](http://alison.rbind.io/)
+
+
+---
+
+layout: false
+class: center, middle
+name: wrangling
+
+# Data Importing
+
+&lt;center&gt;
+&lt;a href="https://readr.tidyverse.org"&gt;
+&lt;img src="images/readr_hex.png" style = "width: 400px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/ochin-ismay &amp;emsp; &amp;emsp; &amp;emsp; [Return to Table of Contents](#toc)]
+
+
+---
+
+## Read from CSV file
+
+### From the internet
+
+
+```r
+bakeoff &lt;- read_csv("http://bit.ly/bakeoff-csv")
+```
+
+
+### Locally from your computer
+
+
+```r
+library(readr)
+bakeoff &lt;- read_csv("data/bakeoff.csv")
+```
+
+
+---
+
+layout: false
+class: inverse, middle
+
+&lt;center&gt;
+&lt;a href="https://www.datacamp.com"&gt;
+&lt;img src="img/DataCamp_Vertical_White.png" style="width: 220px;"/&gt;
+&lt;/a&gt;&amp;emsp;&amp;emsp;&lt;a href="https://moderndive.netlify.com"&gt; 
+&lt;img src="img/dark_vert.png" style="width: 210px;"/&gt;&lt;/a&gt;&amp;emsp;&amp;emsp;&lt;a href="https://infer.netlify.com"&gt; 
+&lt;img src="img/infer_oregon3.png" style="width: 200px;"/&gt;&lt;/a&gt;&lt;/center&gt;
+
+## Thanks for attending! Contact me: [Email](mailto:chester@datacamp.com) or [Twitter](https://twitter.com/old_man_chester)
+- Special thanks to 
+    - [Albert Y. Kim](https://twitter.com/rudeboybert) 
+    - [Andrew Bray](https://andrewpbray.github.io)
+    - [Alison Hill](https://twitter.com/apreshill)
+- Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
+- Slides' source code at &lt;https://github.com/ismayc/talks/&gt;
+    </textarea>
+<script src="remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "tomorrow-night-bright",
+"highlightLines": true,
+"highlightLanguage": "r"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

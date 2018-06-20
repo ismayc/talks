@@ -1,0 +1,298 @@
+---
+title: "Tidyverse Tools in R for Data Science and Statistical Inference"
+author: 'Dr. Chester Ismay <br> Senior Curriculum Lead at <a href="https://www.datacamp.com/">DataCamp</a> <br><br> <a href="http://github.com/ismayc"><i class="fa fa-github fa-fw"></i>&nbsp; ismayc</a><br> <a href="http://twitter.com/old_man_chester"> <i class="fa fa-twitter fa-fw"></i>&nbsp; @old_man_chester</a><br> <a href="mailto:chester@datacamp.com"><i class="fa fa-paper-plane fa-fw"></i>&nbsp; chester@datacamp.com</a><br>'
+date: 2018-06-20 <br>Journal Club June - OCHIN<br><br> Slides available at <http://bit.ly/ochin-ismay> <br> PDF slides at <http://bit.ly/ochin-ismay-pdf>
+output: 
+  xaringan::moon_reader:
+    chakra: remark-latest.min.js
+    lib_dir: libs
+    nature:
+      highlightStyle: tomorrow-night-bright
+      highlightLines: true
+      highlightLanguage: r
+    includes:
+      in_header: header.html      
+    countIncrementalSlides: false
+    css: example.css
+---
+
+```{r echo=FALSE}
+knitr::include_graphics("images/seuss.jpg")
+```
+--
+
+<div align="right"><font size="20" color = "#27A9DB"> with the tidyverse!!!</font></right>
+
+---
+
+class: inverse
+name: toc
+
+```{r include=FALSE, purl=TRUE}
+#specify the packages of interest
+pkgs <- c("tidyverse", "moderndive", "gapminder",
+          "nycflights13", "fivethirtyeight", "janitor",
+          "ggplot2movies", "remotes")
+
+# use this function to check if each package is on the local machine
+# if a package is installed, it will be loaded
+# if any are not, the missing package(s) will be installed and loaded
+pkg.check <- function(x) {
+    if (!require(x, character.only = TRUE)) {
+        install.packages(x, dependencies = TRUE, repos = "https://cran.rstudio.com")
+        library(x, character.only = TRUE)
+    }
+}
+lapply(pkgs, pkg.check)
+
+if(!require("infer"))
+  remotes::install_github("andrewpbray/infer")
+```
+
+```{r echo=FALSE, purl=FALSE}
+library(ggplot2)
+filter <- dplyr::filter
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, fig.width=10.5, fig.height=4, comment=NA, rows.print=16)
+theme_set(theme_gray(base_size = 24))
+options(digits = 5, width = 70)
+
+gif_link <- function(link, file, size){
+    knitr::asis_output(
+      paste0('<center>\n<a href="',
+             link,
+             '">\n<img src="',
+             file,
+             '" style = "width: ',
+             size,
+             'px;"/>\n</a>\n</center>'
+      ))
+}
+
+```
+
+
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/ochin-ismay]
+
+---
+
+## Prior Installation
+
+Make sure you have the (current) up-to-date R, RStudio, and R packages
+- [Beginner's Guide](http://moderndive.com/2-getting-started.html) on ModernDive.com
+
+***
+
+- [R (version 3.4.4)](https://cran.r-project.org/)
+- [RStudio (version 1.1.442)](https://www.rstudio.com/products/rstudio/download3/)
+
+- Run this in the RStudio Console
+
+```{r, eval=FALSE, purl=FALSE}
+pkgs <- c("tidyverse", "moderndive", "gapminder",
+          "nycflights13", "fivethirtyeight", "janitor",
+          "ggplot2movies", "remotes")
+
+install.packages(pkgs)
+remotes::install_github("andrewpbray/infer")
+```
+
+---
+
+## Freely available information
+
+`r gif_link("http://moderndive.com", "img/wide_format.png", 650)`
+
+<center><h2>A Modern Dive into Data with R</h2></center>
+
+* Webpage: <http://moderndive.com>
+* Developmental version at <https://moderndive.netlify.com>
+* [GitHub Repo](https://github.com/moderndive/moderndiver-book)
+* Please [signup](http://eepurl.com/cBkItf) for our mailing list!
+
+---
+
+layout: false
+class: center, middle
+
+<img src="img/flowchart.png" style="width: 750px"/>
+
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/ochin-ismay]
+
+---
+
+## Designed for the novice / Nice for the practioner
+
+`r gif_link("http://moderndive.netlify.com/2-getting-started.html", "img/engine.png", 600)`
+
+---
+
+## Designed for the novice / Nice for the practioner
+
+`r gif_link("http://moderndive.netlify.com/2-getting-started.html", "img/appstore.png", 620)`
+
+---
+
+# R Data Types
+
+Vector/variable
+  - Type of vector (`int`, `num` or `dbl`, `chr`, `lgl`, `date`)
+
+--
+
+Data frame
+  - Vectors of (potentially) different types
+  - Each vector has the same number of rows
+
+---
+
+## The bare minimum needed for understanding today
+
+```{r eval=FALSE, purl=FALSE}
+library(tibble)
+library(lubridate)
+ex1 <- data_frame(
+    vec1 = c(1980, 1990, 2000, 2010),
+    vec2 = c(1L, 2L, 3L, 4L),
+    vec3 = c("low", "low", "high", "high"),
+    vec4 = c(TRUE, FALSE, FALSE, FALSE),
+    vec5 = ymd(c("2017-05-23", "1776/07/04", 
+                 "1983-05/31", "1908/04-01"))
+  )
+ex1
+```
+
+--
+
+```{r echo=FALSE, purl=TRUE}
+library(tibble)
+library(lubridate)
+ex1 <- data_frame(
+    vec1 = c(1980, 1990, 2000, 2010),
+    vec2 = c(1L, 2L, 3L, 4L),
+    vec3 = c("low", "low", "high", "high"),
+    vec4 = c(TRUE, FALSE, FALSE, FALSE),
+    vec5 = ymd(c("2017-05-23", "1776/7/04", "1983-5/31", "1908/04-1"))
+  )
+ex1
+```
+  
+---
+
+class: center, middle  
+  
+# Welcome to the [tidyverse](https://blog.rstudio.org/2016/09/15/tidyverse-1-0-0/)!
+  
+The `tidyverse` is a collection of R packages that share common philosophies and are designed to work together. <br><br> 
+  
+<a href="http://tidyverse.tidyverse.org/logo.png"><img src="figure/tidyverse.png" style="width: 200px;"/></a>
+
+---
+
+# The workflow model
+
+```{r echo=FALSE}
+gif_link("http://tm.durusau.net/", "images/new-pipeline.png", 650)
+```
+
+
+<small>Modified from [image](http://r4ds.had.co.nz/introduction.html#what-you-will-learn) by Hadley Wickham</small>
+
+---
+
+class: inverse
+layout: false
+
+# Table of Contents
+
+- [Importing](#import)
+- [Transforming](#wrangling)
+- [Visualizing](#viz)
+- [Tidying](#tidying)
+- [Modeling](#resampling)
+- [Infering](#inference)
+- [Communicating/Automating](#communicate)
+
+.footer[R code from throughout the slides is saved as an R Markdown file [here](https://raw.githubusercontent.com/ismayc/talks/master/ochin-ismay/slides.Rmd)]
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/ochin-ismay &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
+
+---
+
+
+
+# Motivating example for today
+
+`r gif_link("https://media.giphy.com/media/4ohPvJj051TeU/giphy.gif", "images/soggy.gif", 650)`
+
+- Great British Bakeoff data collected by [Alison Hill](http://alison.rbind.io/)
+
+
+---
+
+layout: false
+class: center, middle
+name: wrangling
+
+# Data Importing
+
+`r gif_link("https://readr.tidyverse.org", "images/readr_hex.png", 400)`
+
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/ochin-ismay &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
+
+
+---
+
+## Read from CSV file
+
+### From the internet
+
+```{r eval=FALSE}
+bakeoff <- read_csv("http://bit.ly/bakeoff-csv")
+```
+
+
+### Locally from your computer
+
+```{r}
+library(readr)
+bakeoff <- read_csv("data/bakeoff.csv")
+```
+
+
+---
+
+layout: false
+class: inverse, middle
+
+<center>
+<a href="https://www.datacamp.com">
+<img src="img/DataCamp_Vertical_White.png" style="width: 220px;"/>
+</a>&emsp;&emsp;<a href="https://moderndive.netlify.com"> 
+<img src="img/dark_vert.png" style="width: 210px;"/></a>&emsp;&emsp;<a href="https://infer.netlify.com"> 
+<img src="img/infer_oregon3.png" style="width: 200px;"/></a></center>
+
+## Thanks for attending! Contact me: [Email](mailto:chester@datacamp.com) or [Twitter](https://twitter.com/old_man_chester)
+- Special thanks to 
+    - [Albert Y. Kim](https://twitter.com/rudeboybert) 
+    - [Andrew Bray](https://andrewpbray.github.io)
+    - [Alison Hill](https://twitter.com/apreshill)
+- Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
+- Slides' source code at <https://github.com/ismayc/talks/>
