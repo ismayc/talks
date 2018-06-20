@@ -185,8 +185,12 @@ gif_link("http://tm.durusau.net/", "images/new-pipeline.png", 650)
 
 ---
 
+layout: true
 class: inverse
-layout: false
+
+.footer[Slides available at http://bit.ly/ochin-ismay &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
+
+---
 
 # Table of Contents
 
@@ -198,17 +202,7 @@ layout: false
 - [Infering](#inference)
 - [Communicating/Automating](#communicate)
 
-.footer[R code from throughout the slides is saved as an R Markdown file [here](https://raw.githubusercontent.com/ismayc/talks/master/ochin-ismay/slides.Rmd)]
 ---
-
-layout: true
-class: inverse
-
-.footer[Slides available at http://bit.ly/ochin-ismay &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
-
----
-
-
 
 # Motivating example for today
 
@@ -453,7 +447,6 @@ class: inverse
 
 .footer[Slides available at http://bit.ly/ochin-ismay &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
 
-
 ---
 
 ## Get the data - More information on [ModernDive](http://moderndive.netlify.com/7-multiple-regression.html)
@@ -480,8 +473,8 @@ ggplot(evals, aes(x = age, y = score, col = gender)) +
 
 ```{r}
 library(moderndive)
-score_model_2 <- lm(score ~ age + gender, data = evals)
-get_regression_table(score_model_2)
+score_model_interaction <- lm(score ~ age * gender, data = evals)
+get_regression_table(score_model_interaction)
 ```
 
 ---
@@ -492,7 +485,13 @@ name: inference
 
 # Statistical Inference
 
-`r gif_link("https://infer-dev.netlify.com", "images/infer-gnome.png", 400)`
+`r gif_link("https://infer-dev.netlify.com", "images/infer_gnome.png", 400)`
+
+---
+
+# Infer pipeline
+
+`r gif_link("http://moderndive.netlify.com/9-confidence-intervals.html", "images/infer_pipeline.png", 600)`
 
 ---
 
@@ -504,11 +503,6 @@ class: inverse
 
 ---
 
-# Infer pipeline
-
-`r gif_link("http://moderndive.netlify.com/9-confidence-intervals.html", "images/infer_pipeline.png", 400)`
-
----
 
 ## Mythbusters yawning example
 
@@ -536,20 +530,22 @@ name: communicate
 
 ---
 
-# The magic
+layout: true
+class: inverse
 
-- These slides were made with R Markdown
-- An HTML report version of the slides is [here]()
-- Download and extract the ZIP file [here]()
-    - Click on `ismay_bakeoff.Rproj` to open RStudio
-
---
-
-- If I wasn't using R Markdown, what would I do if there was a mistake in `bakeoff.csv`?
+.footer[Slides available at http://bit.ly/ochin-ismay &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
 
 ---
 
-# Let's assume that 
+# The magic
+
+- These slides were made with R Markdown
+
+- If I wasn't using R Markdown, what would I do if there was a mistake in `bakeoff.csv` and I needed to update a report based on it?
+
+--
+
+- Let's (maybe) try it out!
 
 ---
 
@@ -563,17 +559,19 @@ class: inverse
 
 # Resources
 
-- ModernDive
-- DataCamp
-- R4DS
-- Portland R User Group
-- R-Ladies PDX
+- [ModernDive](https://moderndive.netlify.com)
+- [DataCamp](https://www.datacamp.com)
+- [R for Data Science](http://r4ds.had.co.nz/)
+- [Portland R User Group](https://www.meetup.com/portland-r-user-group/)
+- [R-Ladies PDX](https://www.meetup.com/R-Ladies-PDX/)
+- [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
+- [#rstats on Twitter](https://twitter.com/search?q=%23rstats&src=typd)
 
 ---
 
 class: inverse
 
-# To reproduce these slides
+# To run the code in these slides
 
 Make sure you have the (current) up-to-date R, RStudio, and R packages
 - [Beginner's Guide](http://moderndive.com/2-getting-started.html) on ModernDive.com
@@ -599,17 +597,16 @@ layout: false
 class: inverse, middle
 
 <center>
-<a href="https://www.datacamp.com">
-<img src="img/DataCamp_Vertical_White.png" style="width: 220px;"/>
+<a href="https://www.tidyverse.org/learn">
+<img src="figure/tidyverse.png" style="width: 200px;"/>
 </a>&emsp;&emsp;<a href="https://moderndive.netlify.com"> 
-<img src="img/dark_vert.png" style="width: 210px;"/></a>&emsp;&emsp;<a href="https://infer.netlify.com"> 
-<img src="img/infer_oregon3.png" style="width: 200px;"/></a></center>
+<img src="img/dark_vert.png" style="width: 180px;"/></a>&emsp;&emsp;<a href="https://infer.netlify.com"> 
+<img src="img/infer_oregon3.png" style="width: 180px;"/></a></center>
 
 ## Thanks for attending! Contact me: [Email](mailto:chester@datacamp.com) or [Twitter](https://twitter.com/old_man_chester)
 - Special thanks to 
     - [Albert Y. Kim](https://twitter.com/rudeboybert) 
     - [Andrew Bray](https://andrewpbray.github.io)
     - [Alison Hill](https://twitter.com/apreshill)
-- Check out the [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
 - Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
 - Slides' source code at <https://github.com/ismayc/talks/>

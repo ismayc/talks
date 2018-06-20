@@ -162,8 +162,12 @@ The `tidyverse` is a collection of R packages that share common philosophies and
 
 ---
 
+layout: true
 class: inverse
-layout: false
+
+.footer[Slides available at http://bit.ly/ochin-ismay &amp;emsp; &amp;emsp; &amp;emsp; [Return to Table of Contents](#toc)]
+
+---
 
 # Table of Contents
 
@@ -175,17 +179,7 @@ layout: false
 - [Infering](#inference)
 - [Communicating/Automating](#communicate)
 
-.footer[R code from throughout the slides is saved as an R Markdown file [here](https://raw.githubusercontent.com/ismayc/talks/master/ochin-ismay/slides.Rmd)]
 ---
-
-layout: true
-class: inverse
-
-.footer[Slides available at http://bit.ly/ochin-ismay &amp;emsp; &amp;emsp; &amp;emsp; [Return to Table of Contents](#toc)]
-
----
-
-
 
 # Motivating example for today
 
@@ -537,7 +531,6 @@ class: inverse
 
 .footer[Slides available at http://bit.ly/ochin-ismay &amp;emsp; &amp;emsp; &amp;emsp; [Return to Table of Contents](#toc)]
 
-
 ---
 
 ## Get the data - More information on [ModernDive](http://moderndive.netlify.com/7-multiple-regression.html)
@@ -549,199 +542,20 @@ download.file("http://bit.ly/evals-rds", destfile = "data/evals.rds")
 ```
 
 ```
-    score         rank    ethnicity gender    language age
-1     4.7 tenure track     minority female     english  36
-2     4.1 tenure track     minority female     english  36
-3     3.9 tenure track     minority female     english  36
-4     4.8 tenure track     minority female     english  36
-5     4.6      tenured not minority   male     english  59
-6     4.3      tenured not minority   male     english  59
-7     2.8      tenured not minority   male     english  59
-8     4.1      tenured not minority   male     english  51
-9     3.4      tenured not minority   male     english  51
-10    4.5      tenured not minority female     english  40
-11    3.8      tenured not minority female     english  40
-12    4.5      tenured not minority female     english  40
-13    4.6      tenured not minority female     english  40
-14    3.9      tenured not minority female     english  40
-15    3.9      tenured not minority female     english  40
-16    4.3      tenured not minority female     english  40
-17    4.5      tenured not minority female     english  40
-18    4.8 tenure track not minority female     english  31
-19    4.6 tenure track not minority female     english  31
-20    4.6 tenure track not minority female     english  31
-21    4.9 tenure track not minority female     english  31
-22    4.6 tenure track not minority female     english  31
-23    4.5 tenure track not minority female     english  31
-24    4.4      tenured not minority   male     english  62
-25    4.6      tenured not minority   male     english  62
-26    4.7      tenured not minority   male     english  62
-27    4.5      tenured not minority   male     english  62
-28    4.8      tenured not minority   male     english  62
-29    4.9      tenured not minority   male     english  62
-30    4.5      tenured not minority   male     english  62
-31    4.4 tenure track not minority female     english  33
-32    4.3 tenure track not minority female     english  33
-33    4.1 tenure track not minority female     english  33
-34    4.2 tenure track not minority female     english  33
-35    3.5 tenure track not minority female     english  33
-36    3.4      tenured not minority female     english  51
-37    4.5      tenured not minority female     english  51
-38    4.4      tenured not minority female     english  51
-39    4.4      tenured not minority female     english  51
-40    2.5      tenured not minority female     english  51
-41    4.3      tenured not minority female     english  51
-42    4.5      tenured not minority female     english  51
-43    4.8 tenure track not minority female     english  33
-44    4.8 tenure track not minority female     english  33
-45    4.4 tenure track not minority female     english  33
-46    4.7 tenure track not minority female     english  33
-47    4.4 tenure track not minority female     english  33
-    cls_perc_eval cls_did_eval cls_students cls_level cls_profs
-1          55.814           24           43     upper    single
-2          68.800           86          125     upper    single
-3          60.800           76          125     upper    single
-4          62.602           77          123     upper    single
-5          85.000           17           20     upper  multiple
-6          87.500           35           40     upper  multiple
-7          88.636           39           44     upper  multiple
-8         100.000           55           55     upper    single
-9          56.923          111          195     upper    single
-10         86.957           40           46     upper    single
-11         88.889           24           27     upper    single
-12         96.000           24           25     upper  multiple
-13         85.000           17           20     upper    single
-14         56.000           14           25     upper    single
-15         88.095           37           42     upper    single
-16         90.000           18           20     upper  multiple
-17         83.333           15           18     upper  multiple
-18         87.500           42           48     upper  multiple
-19         90.909           40           44     upper  multiple
-20         79.167           38           48     upper  multiple
-21         88.889           40           45     upper  multiple
-22         88.136           52           59     upper  multiple
-23         56.322           49           87     upper    single
-24         64.539          182          282     upper  multiple
-25         54.795          160          292     upper  multiple
-26         60.769           79          130     upper  multiple
-27         61.754          176          285     upper    single
-28         56.985          155          272     upper  multiple
-29         58.042          166          286     upper  multiple
-30         61.589          186          302     upper    single
-31         80.488           33           41     upper    single
-32         85.294           29           34     upper    single
-33         90.244           37           41     upper    single
-34         70.732           29           41     upper    single
-35         82.353           28           34     upper    single
-36         60.976           25           41     upper  multiple
-37         95.455           21           22     upper  multiple
-38         61.905           13           21     upper  multiple
-39         94.118           16           17     upper  multiple
-40         80.000           24           30     lower  multiple
-41        100.000           23           23     upper  multiple
-42        100.000           20           20     upper  multiple
-43         80.000           48           60     upper  multiple
-44         87.879           29           33     upper    single
-45         25.000           11           44     upper  multiple
-46         59.184           29           49     upper    single
-47         86.207           25           29     upper    single
-     cls_credits bty_f1lower bty_f1upper bty_f2upper bty_m1lower
-1   multi credit           5           7           6           2
-2   multi credit           5           7           6           2
-3   multi credit           5           7           6           2
-4   multi credit           5           7           6           2
-5   multi credit           4           4           2           2
-6   multi credit           4           4           2           2
-7   multi credit           4           4           2           2
-8   multi credit           5           2           5           2
-9   multi credit           5           2           5           2
-10  multi credit           2           5           4           3
-11  multi credit           2           5           4           3
-12  multi credit           2           5           4           3
-13  multi credit           2           5           4           3
-14  multi credit           2           5           4           3
-15  multi credit           2           5           4           3
-16  multi credit           2           5           4           3
-17  multi credit           2           5           4           3
-18  multi credit           7           9           9           7
-19  multi credit           7           9           9           7
-20  multi credit           7           9           9           7
-21  multi credit           7           9           9           7
-22  multi credit           7           9           9           7
-23  multi credit           7           9           9           7
-24  multi credit           6           6           5           5
-25  multi credit           6           6           5           5
-26  multi credit           6           6           5           5
-27  multi credit           6           6           5           5
-28  multi credit           6           6           5           5
-29  multi credit           6           6           5           5
-30  multi credit           6           6           5           5
-31  multi credit           4           4           5           4
-32  multi credit           4           4           5           4
-33  multi credit           4           4           5           4
-34  multi credit           4           4           5           4
-35  multi credit           4           4           5           4
-36  multi credit           4           6           6           2
-37  multi credit           4           6           6           2
-38  multi credit           4           6           6           2
-39  multi credit           4           6           6           2
-40  multi credit           4           6           6           2
-41  multi credit           4           6           6           2
-42  multi credit           4           6           6           2
-43  multi credit           3           7           5           5
-44  multi credit           3           7           5           5
-45  multi credit           3           7           5           5
-46  multi credit           3           7           5           5
-47  multi credit           3           7           5           5
-    bty_m1upper bty_m2upper bty_avg pic_outfit   pic_color
-1             4           6   5.000 not formal       color
-2             4           6   5.000 not formal       color
-3             4           6   5.000 not formal       color
-4             4           6   5.000 not formal       color
-5             3           3   3.000 not formal       color
-6             3           3   3.000 not formal       color
-7             3           3   3.000 not formal       color
-8             3           3   3.333 not formal       color
-9             3           3   3.333 not formal       color
-10            3           2   3.167 not formal       color
-11            3           2   3.167 not formal       color
-12            3           2   3.167 not formal       color
-13            3           2   3.167 not formal       color
-14            3           2   3.167 not formal       color
-15            3           2   3.167 not formal       color
-16            3           2   3.167 not formal       color
-17            3           2   3.167 not formal       color
-18            6           6   7.333 not formal       color
-19            6           6   7.333 not formal       color
-20            6           6   7.333 not formal       color
-21            6           6   7.333 not formal       color
-22            6           6   7.333 not formal       color
-23            6           6   7.333 not formal       color
-24            5           6   5.500     formal       color
-25            5           6   5.500     formal       color
-26            5           6   5.500     formal       color
-27            5           6   5.500     formal       color
-28            5           6   5.500     formal       color
-29            5           6   5.500     formal       color
-30            5           6   5.500     formal       color
-31            4           4   4.167 not formal       color
-32            4           4   4.167 not formal       color
-33            4           4   4.167 not formal       color
-34            4           4   4.167 not formal       color
-35            4           4   4.167 not formal       color
-36            3           3   4.000 not formal       color
-37            3           3   4.000 not formal       color
-38            3           3   4.000 not formal       color
-39            3           3   4.000 not formal       color
-40            3           3   4.000 not formal       color
-41            3           3   4.000 not formal       color
-42            3           3   4.000 not formal       color
-43            3           5   4.667 not formal       color
-44            3           5   4.667 not formal       color
-45            3           5   4.667 not formal       color
-46            3           5   4.667 not formal       color
-47            3           5   4.667 not formal       color
- [ reached getOption("max.print") -- omitted 416 rows ]
+# A tibble: 463 x 4
+   score bty_avg   age gender
+   &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt; &lt;fct&gt; 
+ 1   4.7    5       36 female
+ 2   4.1    5       36 female
+ 3   3.9    5       36 female
+ 4   4.8    5       36 female
+ 5   4.6    3       59 male  
+ 6   4.3    3       59 male  
+ 7   2.8    3       59 male  
+ 8   4.1    3.33    51 male  
+ 9   3.4    3.33    51 male  
+10   4.5    3.17    40 female
+# ... with 453 more rows
 ```
 
 ---
@@ -765,17 +579,18 @@ ggplot(evals, aes(x = age, y = score, col = gender)) +
 
 ```r
 library(moderndive)
-score_model_2 &lt;- lm(score ~ age + gender, data = evals)
-get_regression_table(score_model_2)
+score_model_interaction &lt;- lm(score ~ age * gender, data = evals)
+get_regression_table(score_model_interaction)
 ```
 
 ```
-# A tibble: 3 x 7
+# A tibble: 4 x 7
   term   estimate std_error statistic p_value conf_low conf_high
   &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-1 inter…    4.48      0.125     35.8    0        4.24      4.73 
-2 age      -0.009     0.003     -3.28   0.001   -0.014    -0.003
-3 gende…    0.191     0.052      3.63   0        0.087     0.294
+1 inter…    4.88      0.205     23.8    0        4.48      5.29 
+2 age      -0.018     0.004     -3.92   0       -0.026    -0.009
+3 gende…   -0.446     0.265     -1.68   0.094   -0.968     0.076
+4 age:g…    0.014     0.006      2.45   0.015    0.003     0.024
 ```
 
 ---
@@ -788,7 +603,17 @@ name: inference
 
 &lt;center&gt;
 &lt;a href="https://infer-dev.netlify.com"&gt;
-&lt;img src="images/infer-gnome.png" style = "width: 400px;"/&gt;
+&lt;img src="images/infer_gnome.png" style = "width: 400px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+# Infer pipeline
+
+&lt;center&gt;
+&lt;a href="http://moderndive.netlify.com/9-confidence-intervals.html"&gt;
+&lt;img src="images/infer_pipeline.png" style = "width: 600px;"/&gt;
 &lt;/a&gt;
 &lt;/center&gt;
 
@@ -802,15 +627,6 @@ class: inverse
 
 ---
 
-# Infer pipeline
-
-&lt;center&gt;
-&lt;a href="http://moderndive.netlify.com/9-confidence-intervals.html"&gt;
-&lt;img src="images/infer_pipeline.png" style = "width: 400px;"/&gt;
-&lt;/a&gt;
-&lt;/center&gt;
-
----
 
 ## Mythbusters yawning example
 
@@ -829,7 +645,7 @@ mythbusters_yawn %&gt;%
 # A tibble: 1 x 2
   `2.5%` `97.5%`
    &lt;dbl&gt;   &lt;dbl&gt;
-1 -0.233   0.298
+1 -0.260   0.308
 ```
 
 
@@ -850,20 +666,22 @@ name: communicate
 
 ---
 
-# The magic
+layout: true
+class: inverse
 
-- These slides were made with R Markdown
-- An HTML report version of the slides is [here]()
-- Download and extract the ZIP file [here]()
-    - Click on `ismay_bakeoff.Rproj` to open RStudio
-
---
-
-- If I wasn't using R Markdown, what would I do if there was a mistake in `bakeoff.csv`?
+.footer[Slides available at http://bit.ly/ochin-ismay &amp;emsp; &amp;emsp; &amp;emsp; [Return to Table of Contents](#toc)]
 
 ---
 
-# Let's assume that 
+# The magic
+
+- These slides were made with R Markdown
+
+- If I wasn't using R Markdown, what would I do if there was a mistake in `bakeoff.csv` and I needed to update a report based on it?
+
+--
+
+- Let's (maybe) try it out!
 
 ---
 
@@ -877,17 +695,19 @@ class: inverse
 
 # Resources
 
-- ModernDive
-- DataCamp
-- R4DS
-- Portland R User Group
-- R-Ladies PDX
+- [ModernDive](https://moderndive.netlify.com)
+- [DataCamp](https://www.datacamp.com)
+- [R for Data Science](http://r4ds.had.co.nz/)
+- [Portland R User Group](https://www.meetup.com/portland-r-user-group/)
+- [R-Ladies PDX](https://www.meetup.com/R-Ladies-PDX/)
+- [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
+- [#rstats on Twitter](https://twitter.com/search?q=%23rstats&amp;src=typd)
 
 ---
 
 class: inverse
 
-# To reproduce these slides
+# To run the code in these slides
 
 Make sure you have the (current) up-to-date R, RStudio, and R packages
 - [Beginner's Guide](http://moderndive.com/2-getting-started.html) on ModernDive.com
@@ -914,18 +734,17 @@ layout: false
 class: inverse, middle
 
 &lt;center&gt;
-&lt;a href="https://www.datacamp.com"&gt;
-&lt;img src="img/DataCamp_Vertical_White.png" style="width: 220px;"/&gt;
+&lt;a href="https://www.tidyverse.org/learn"&gt;
+&lt;img src="figure/tidyverse.png" style="width: 200px;"/&gt;
 &lt;/a&gt;&amp;emsp;&amp;emsp;&lt;a href="https://moderndive.netlify.com"&gt; 
-&lt;img src="img/dark_vert.png" style="width: 210px;"/&gt;&lt;/a&gt;&amp;emsp;&amp;emsp;&lt;a href="https://infer.netlify.com"&gt; 
-&lt;img src="img/infer_oregon3.png" style="width: 200px;"/&gt;&lt;/a&gt;&lt;/center&gt;
+&lt;img src="img/dark_vert.png" style="width: 180px;"/&gt;&lt;/a&gt;&amp;emsp;&amp;emsp;&lt;a href="https://infer.netlify.com"&gt; 
+&lt;img src="img/infer_oregon3.png" style="width: 180px;"/&gt;&lt;/a&gt;&lt;/center&gt;
 
 ## Thanks for attending! Contact me: [Email](mailto:chester@datacamp.com) or [Twitter](https://twitter.com/old_man_chester)
 - Special thanks to 
     - [Albert Y. Kim](https://twitter.com/rudeboybert) 
     - [Andrew Bray](https://andrewpbray.github.io)
     - [Alison Hill](https://twitter.com/apreshill)
-- Check out the [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
 - Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
 - Slides' source code at &lt;https://github.com/ismayc/talks/&gt;
     </textarea>
