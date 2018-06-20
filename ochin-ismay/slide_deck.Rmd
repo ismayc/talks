@@ -54,7 +54,7 @@ library(ggplot2)
 filter <- dplyr::filter
 knitr::opts_chunk$set(warning=FALSE, message=FALSE, fig.width=10.5, fig.height=4, comment=NA, rows.print=16)
 theme_set(theme_gray(base_size = 24))
-options(digits = 5, width = 70)
+options(digits = 5, width = 65)
 
 gif_link <- function(link, file, size){
     knitr::asis_output(
@@ -76,29 +76,6 @@ layout: true
 class: inverse
 
 .footer[Slides available at http://bit.ly/ochin-ismay]
-
----
-
-## Prior Installation
-
-Make sure you have the (current) up-to-date R, RStudio, and R packages
-- [Beginner's Guide](http://moderndive.com/2-getting-started.html) on ModernDive.com
-
-***
-
-- [R (version 3.4.4)](https://cran.r-project.org/)
-- [RStudio (version 1.1.442)](https://www.rstudio.com/products/rstudio/download3/)
-
-- Run this in the RStudio Console
-
-```{r, eval=FALSE, purl=FALSE}
-pkgs <- c("tidyverse", "moderndive", "gapminder",
-          "nycflights13", "fivethirtyeight", "janitor",
-          "ggplot2movies", "remotes")
-
-install.packages(pkgs)
-remotes::install_github("andrewpbray/infer")
-```
 
 ---
 
@@ -248,7 +225,8 @@ name: wrangling
 
 # Data Importing
 
-`r gif_link("https://readr.tidyverse.org", "images/readr_hex.png", 400)`
+`r gif_link("https://readr.tidyverse.org/", "images/readr-hex.png", 400)`
+
 
 ---
 
@@ -276,6 +254,162 @@ library(readr)
 bakeoff <- read_csv("data/bakeoff.csv")
 ```
 
+---
+
+layout: false
+
+```{r eval=FALSE}
+bakeoff
+```
+
+```{r echo=FALSE}
+rmarkdown::paged_table(bakeoff)
+```
+
+
+---
+
+layout: false
+
+## Other packages for reading in data
+
+<a href="https://readr.tidyverse.org"><img src="images/readr_hex.png" style = "width: 200px;"/></a> - Read in SPSS, SAS, and STATA data files
+
+--
+
+<a href="https://readxl.tidyverse.org"><img src="images/readxl_hex.jpg" style = "width: 150px;"/></a> - Read in Excel data files
+
+---
+
+layout: false
+class: center, middle
+name: wrangling
+
+# Data Transforming/Wrangling
+
+`r gif_link("https://dplyr.tidyverse.org/", "images/dplyr_hex.png", 400)`
+
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/ochin-ismay &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
+
+---
+
+## Get summary information quickly and readably
+
+
+```{r}
+bakeoff %>% 
+  filter(!is.na(us_season)) %>% 
+  count(series, episode)
+```
+
+---
+
+## Get summary information quickly and readably
+
+
+```{r}
+bakers_season4_episodes <- bakeoff %>% 
+  filter(!is.na(us_season), series == 4) %>% 
+  group_by(episode) %>% 
+  summarize(count = n())
+bakers_season4_episodes
+```
+
+
+---
+
+layout: false
+class: center, middle
+name: wrangling
+
+# Data Visualization
+
+`r gif_link("https://ggplot2.tidyverse.org/", "images/ggplot2_hex.png", 400)`
+
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/ochin-ismay &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
+
+---
+
+# Visualize our last result
+
+```{r}
+ggplot(data = bakers_season4_episodes,
+       mapping = aes(x = episode, y = count)) +
+         geom_col()
+```
+
+
+---
+
+# Tweak it
+
+```{r}
+ggplot(data = bakers_season4_episodes,
+       mapping = aes(x = factor(episode), y = count)) +
+  geom_col(fill = "green") +
+  labs(x = "Episode", y = "Number of bakers",
+       title = "Number of bakers in Season 4 per episode")
+```
+
+---
+
+layout: false
+class: center, middle
+name: wrangling
+
+# Data Tidying
+
+`r gif_link("https://tidyr.tidyverse.org/", "images/tidyr_hex.png", 400)`
+
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/ochin-ismay &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
+
+---
+
+# "Messy" data
+
+```{r}
+
+```
+
+
+---
+
+class: inverse
+
+# To reproduce these slides
+
+Make sure you have the (current) up-to-date R, RStudio, and R packages
+- [Beginner's Guide](http://moderndive.com/2-getting-started.html) on ModernDive.com
+
+***
+
+- [R (at least version 3.4.4 or higher)](https://cran.r-project.org/)
+- [RStudio (at least version 1.1.442 or higher)](https://www.rstudio.com/products/rstudio/download3/)
+
+- Run this in the RStudio Console
+
+```{r, eval=FALSE, purl=FALSE}
+pkgs <- c("tidyverse", "moderndive", "janitor", "remotes")
+
+install.packages(pkgs)
+remotes::install_github("andrewpbray/infer", ref = "develop")
+```
+
 
 ---
 
@@ -294,5 +428,6 @@ class: inverse, middle
     - [Albert Y. Kim](https://twitter.com/rudeboybert) 
     - [Andrew Bray](https://andrewpbray.github.io)
     - [Alison Hill](https://twitter.com/apreshill)
+- Check out the [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
 - Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
 - Slides' source code at <https://github.com/ismayc/talks/>
