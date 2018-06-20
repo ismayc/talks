@@ -208,7 +208,7 @@ name: wrangling
 
 &lt;center&gt;
 &lt;a href="https://readr.tidyverse.org/"&gt;
-&lt;img src="images/readr-hex.png" style = "width: 400px;"/&gt;
+&lt;img src="images/readr_hex.png" style = "width: 400px;"/&gt;
 &lt;/a&gt;
 &lt;/center&gt;
 
@@ -802,33 +802,86 @@ class: inverse
 
 ---
 
+# Infer pipeline
+
+&lt;center&gt;
+&lt;a href="http://moderndive.netlify.com/9-confidence-intervals.html"&gt;
+&lt;img src="images/infer_pipeline.png" style = "width: 400px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
 ## Mythbusters yawning example
 
 
 ```r
+library(infer)
+mythbusters_yawn &lt;- read_rds(url("http://bit.ly/mythbusters_yawn-rds"))
 mythbusters_yawn %&gt;% 
   specify(formula = yawn ~ group, success = "yes") %&gt;% 
   generate(reps = 1000) %&gt;% 
-  calculate(stat = "diff in props", order = c("seed", "control"))
+  calculate(stat = "diff in props", order = c("seed", "control")) %&gt;% 
+  get_ci()
 ```
 
 ```
-# A tibble: 1,000 x 2
-   replicate    stat
-       &lt;int&gt;   &lt;dbl&gt;
- 1         1  0.075 
- 2         2  0     
- 3         3  0.267 
- 4         4 -0.0561
- 5         5  0.0378
- 6         6  0.0404
- 7         7  0.0225
- 8         8  0.202 
- 9         9  0.127 
-10        10  0.129 
-# ... with 990 more rows
+# A tibble: 1 x 2
+  `2.5%` `97.5%`
+   &lt;dbl&gt;   &lt;dbl&gt;
+1 -0.233   0.298
 ```
 
+
+---
+
+
+layout: false
+class: center, middle
+name: communicate
+
+# Communicating with Data / Automating the Process
+
+&lt;center&gt;
+&lt;a href="https://rmarkdown.rstudio.com/"&gt;
+&lt;img src="images/rmarkdown_hex.jpg" style = "width: 400px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+# The magic
+
+- These slides were made with R Markdown
+- An HTML report version of the slides is [here]()
+- Download and extract the ZIP file [here]()
+    - Click on `ismay_bakeoff.Rproj` to open RStudio
+
+--
+
+- If I wasn't using R Markdown, what would I do if there was a mistake in `bakeoff.csv`?
+
+---
+
+# Let's assume that 
+
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/ochin-ismay &amp;emsp; &amp;emsp; &amp;emsp; [Return to Table of Contents](#toc)]
+
+
+---
+
+# Resources
+
+- ModernDive
+- DataCamp
+- R4DS
+- Portland R User Group
+- R-Ladies PDX
 
 ---
 
@@ -851,7 +904,7 @@ Make sure you have the (current) up-to-date R, RStudio, and R packages
 pkgs &lt;- c("tidyverse", "moderndive", "remotes")
 
 install.packages(pkgs)
-remotes::install_github("andrewpbray/infer", ref = "develop")
+remotes::install_github("andrewpbray/infer", ref = "p_value")
 ```
 
 

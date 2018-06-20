@@ -225,7 +225,7 @@ name: wrangling
 
 # Data Importing
 
-`r gif_link("https://readr.tidyverse.org/", "images/readr-hex.png", 400)`
+`r gif_link("https://readr.tidyverse.org/", "images/readr_hex.png", 400)`
 
 
 ---
@@ -504,11 +504,17 @@ class: inverse
 
 ---
 
+# Infer pipeline
+
+`r gif_link("http://moderndive.netlify.com/9-confidence-intervals.html", "images/infer_pipeline.png", 400)`
+
+---
+
 ## Mythbusters yawning example
 
 ```{r}
 library(infer)
-mythbusters_yawn <- read_rds(url("http://bit.ly/evals-rds"))
+mythbusters_yawn <- read_rds(url("http://bit.ly/mythbusters_yawn-rds"))
 mythbusters_yawn %>% 
   specify(formula = yawn ~ group, success = "yes") %>% 
   generate(reps = 1000) %>% 
