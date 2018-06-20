@@ -194,7 +194,7 @@ layout: false
 - [Transforming](#wrangling)
 - [Visualizing](#viz)
 - [Tidying](#tidying)
-- [Modeling](#resampling)
+- [Modeling](#modeling)
 - [Infering](#inference)
 - [Communicating/Automating](#communicate)
 
@@ -325,7 +325,7 @@ bakers_season4_episodes
 
 layout: false
 class: center, middle
-name: wrangling
+name: viz
 
 # Data Visualization
 
@@ -365,7 +365,7 @@ ggplot(data = bakers_season4_episodes,
 
 layout: false
 class: center, middle
-name: wrangling
+name: tidying
 
 # Data Tidying
 
@@ -380,10 +380,88 @@ class: inverse
 
 ---
 
+class: inverse
+layout: false
+
 # "Messy" data
 
 ```{r}
+ratings <- read_csv("http://bit.ly/ratings-csv",
+                col_types = cols(series = col_factor(levels = NULL)))
+ratings
+```
 
+- What if we'd like to plot average 7 day viewership for each episode?
+---
+
+class: inverse
+layout: false
+
+# Some tidying and cleaning
+
+```{r}
+# Gather and count episodes
+tidy_ratings <- ratings %>%
+    gather(key = "episode", value = "viewers_7day", -series, 
+           na.rm = TRUE) %>% 
+    arrange(series, episode) %>% 
+    mutate(episode_count = row_number())
+tidy_ratings
+```
+
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/ochin-ismay &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
+
+---
+
+# Plot viewers by episode and series
+
+```{r fig.height=4.5}
+ggplot(tidy_ratings, aes(x = episode_count, y = viewers_7day, 
+                         fill = series)) + geom_col() 
+```
+
+--
+
+[What happened?](https://www.telegraph.co.uk/tv/0/great-british-bake-ratings-channel-4-should-happy-will-paul/)
+
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/ochin-ismay &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
+
+---
+
+layout: false
+class: center, middle
+name: modeling
+
+# Data Modeling
+
+`r gif_link("https://moderndive.github.io/moderndive", "images/moderndive_white_text.png", 400)`
+
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/ochin-ismay &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
+
+
+---
+
+# Get the data
+
+More information on [ModernDive](http://moderndive.netlify.com/7-multiple-regression.html)
+
+```{r}
+# evals <- read_rds("http://bit.ly/evals-rds")
 ```
 
 
@@ -404,7 +482,7 @@ Make sure you have the (current) up-to-date R, RStudio, and R packages
 - Run this in the RStudio Console
 
 ```{r, eval=FALSE, purl=FALSE}
-pkgs <- c("tidyverse", "moderndive", "janitor", "remotes")
+pkgs <- c("tidyverse", "moderndive", "remotes")
 
 install.packages(pkgs)
 remotes::install_github("andrewpbray/infer", ref = "develop")

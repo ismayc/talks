@@ -171,7 +171,7 @@ layout: false
 - [Transforming](#wrangling)
 - [Visualizing](#viz)
 - [Tidying](#tidying)
-- [Modeling](#resampling)
+- [Modeling](#modeling)
 - [Infering](#inference)
 - [Communicating/Automating](#communicate)
 
@@ -354,7 +354,7 @@ bakers_season4_episodes
 
 layout: false
 class: center, middle
-name: wrangling
+name: viz
 
 # Data Visualization
 
@@ -404,7 +404,7 @@ ggplot(data = bakers_season4_episodes,
 
 layout: false
 class: center, middle
-name: wrangling
+name: tidying
 
 # Data Tidying
 
@@ -423,9 +423,131 @@ class: inverse
 
 ---
 
+class: inverse
+layout: false
+
 # "Messy" data
 
 
+```r
+ratings &lt;- read_csv("http://bit.ly/ratings-csv",
+                col_types = cols(series = col_factor(levels = NULL)))
+ratings
+```
+
+```
+# A tibble: 8 x 11
+  series    e1    e2    e3    e4    e5    e6    e7    e8    e9
+  &lt;fct&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 1       2.24  3     3     2.6   3.03  2.75 NA    NA    NA   
+2 2       3.1   3.53  3.82  3.6   3.83  4.25  4.42  5.06 NA   
+3 3       3.85  4.6   4.53  4.71  4.61  4.82  5.1   5.35  5.7 
+4 4       6.6   6.65  7.17  6.82  6.95  7.32  7.76  7.41  7.41
+5 5       8.51  8.79  9.28 10.2   9.95 10.1  10.3   9.02 10.7 
+6 6      11.6  11.6  12.0  12.4  12.4  12    12.4  11.1  12.6 
+7 7      13.6  13.4  13.0  13.3  13.1  13.1  13.4  13.3  13.4 
+8 8       9.46  9.23  8.68  8.55  8.61  8.61  9.01  8.95  9.03
+# ... with 1 more variable: e10 &lt;dbl&gt;
+```
+
+- What if we'd like to plot average 7 day viewership for each episode?
+---
+
+class: inverse
+layout: false
+
+# Some tidying and cleaning
+
+
+```r
+# Gather and count episodes
+tidy_ratings &lt;- ratings %&gt;%
+    gather(key = "episode", value = "viewers_7day", -series, 
+           na.rm = TRUE) %&gt;% 
+    arrange(series, episode) %&gt;% 
+    mutate(episode_count = row_number())
+tidy_ratings
+```
+
+```
+# A tibble: 74 x 4
+   series episode viewers_7day episode_count
+   &lt;fct&gt;  &lt;chr&gt;          &lt;dbl&gt;         &lt;int&gt;
+ 1 1      e1              2.24             1
+ 2 1      e2              3                2
+ 3 1      e3              3                3
+ 4 1      e4              2.6              4
+ 5 1      e5              3.03             5
+ 6 1      e6              2.75             6
+ 7 2      e1              3.1              7
+ 8 2      e2              3.53             8
+ 9 2      e3              3.82             9
+10 2      e4              3.6             10
+# ... with 64 more rows
+```
+
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/ochin-ismay &amp;emsp; &amp;emsp; &amp;emsp; [Return to Table of Contents](#toc)]
+
+---
+
+# Plot viewers by episode and series
+
+
+```r
+ggplot(tidy_ratings, aes(x = episode_count, y = viewers_7day, 
+                         fill = series)) + geom_col() 
+```
+
+![](slide_deck_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+
+--
+
+[What happened?](https://www.telegraph.co.uk/tv/0/great-british-bake-ratings-channel-4-should-happy-will-paul/)
+
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/ochin-ismay &amp;emsp; &amp;emsp; &amp;emsp; [Return to Table of Contents](#toc)]
+
+---
+
+layout: false
+class: center, middle
+name: modeling
+
+# Data Modeling
+
+&lt;center&gt;
+&lt;a href="https://moderndive.github.io/moderndive"&gt;
+&lt;img src="images/moderndive_white_text.png" style = "width: 400px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/ochin-ismay &amp;emsp; &amp;emsp; &amp;emsp; [Return to Table of Contents](#toc)]
+
+
+---
+
+# Get the data
+
+More information on [ModernDive](http://moderndive.netlify.com/7-multiple-regression.html)
+
+
+```r
+# evals &lt;- read_rds("http://bit.ly/evals-rds")
+```
 
 
 ---
@@ -446,7 +568,7 @@ Make sure you have the (current) up-to-date R, RStudio, and R packages
 
 
 ```r
-pkgs &lt;- c("tidyverse", "moderndive", "janitor", "remotes")
+pkgs &lt;- c("tidyverse", "moderndive", "remotes")
 
 install.packages(pkgs)
 remotes::install_github("andrewpbray/infer", ref = "develop")
