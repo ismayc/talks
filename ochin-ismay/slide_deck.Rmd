@@ -456,14 +456,112 @@ class: inverse
 
 ---
 
-# Get the data
-
-More information on [ModernDive](http://moderndive.netlify.com/7-multiple-regression.html)
+## Get the data - More information on [ModernDive](http://moderndive.netlify.com/7-multiple-regression.html)
 
 ```{r}
-# evals <- read_rds("http://bit.ly/evals-rds")
+download.file("http://bit.ly/evals-rds", destfile = "data/evals.rds")
+( evals <- read_rds("data/evals.rds") )
 ```
 
+---
+
+## Visualize the fits
+
+```{r}
+ggplot(evals, aes(x = age, y = score, col = gender)) +
+  geom_jitter() +
+  labs(x = "Age", y = "Teaching Score", color = "Gender") +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+---
+
+## Analyze the model
+
+```{r}
+library(moderndive)
+score_model_2 <- lm(score ~ age + gender, data = evals)
+get_regression_table(score_model_2)
+```
+
+---
+
+layout: false
+class: center, middle
+name: inference
+
+# Statistical Inference
+
+`r gif_link("https://infer-dev.netlify.com", "images/infer-gnome.png", 400)`
+
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/ochin-ismay &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
+
+
+---
+
+## Mythbusters yawning example
+
+```{r}
+library(infer)
+mythbusters_yawn <- read_rds(url("http://bit.ly/evals-rds"))
+mythbusters_yawn %>% 
+  specify(formula = yawn ~ group, success = "yes") %>% 
+  generate(reps = 1000) %>% 
+  calculate(stat = "diff in props", order = c("seed", "control")) %>% 
+  get_ci()
+```
+
+
+---
+
+
+layout: false
+class: center, middle
+name: communicate
+
+# Communicating with Data / Automating the Process
+
+`r gif_link("https://rmarkdown.rstudio.com/", "images/rmarkdown_hex.jpg", 400)`
+
+---
+
+# The magic
+
+- These slides were made with R Markdown
+- An HTML report version of the slides is [here]()
+- Download and extract the ZIP file [here]()
+    - Click on `ismay_bakeoff.Rproj` to open RStudio
+
+--
+
+- If I wasn't using R Markdown, what would I do if there was a mistake in `bakeoff.csv`?
+
+---
+
+# Let's assume that 
+
+---
+
+layout: true
+class: inverse
+
+.footer[Slides available at http://bit.ly/ochin-ismay &emsp; &emsp; &emsp; [Return to Table of Contents](#toc)]
+
+
+---
+
+# Resources
+
+- ModernDive
+- DataCamp
+- R4DS
+- Portland R User Group
+- R-Ladies PDX
 
 ---
 
@@ -485,7 +583,7 @@ Make sure you have the (current) up-to-date R, RStudio, and R packages
 pkgs <- c("tidyverse", "moderndive", "remotes")
 
 install.packages(pkgs)
-remotes::install_github("andrewpbray/infer", ref = "develop")
+remotes::install_github("andrewpbray/infer", ref = "p_value")
 ```
 
 
