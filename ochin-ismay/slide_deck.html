@@ -241,7 +241,7 @@ layout: false
 
 
 ```r
-bakeoff
+rmarkdown::paged_table(bakeoff)
 ```
 
 &lt;div data-pagedtable="false"&gt;
@@ -257,7 +257,7 @@ layout: false
 
 ## Other packages for reading in data
 
-&lt;a href="https://readr.tidyverse.org"&gt;&lt;img src="images/readr_hex.png" style = "width: 200px;"/&gt;&lt;/a&gt; - Read in SPSS, SAS, and STATA data files
+&lt;a href="https://haven.tidyverse.org"&gt;&lt;img src="images/haven-hex.png" style = "width: 200px;"/&gt;&lt;/a&gt; - Read in SPSS, SAS, and STATA data files
 
 --
 
@@ -376,7 +376,7 @@ ggplot(data = bakers_season4_episodes,
          geom_col()
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -392,7 +392,7 @@ ggplot(data = bakers_season4_episodes,
        title = "Number of bakers in Season 4 per episode")
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -497,7 +497,7 @@ ggplot(tidy_ratings, aes(x = episode_count, y = viewers_7day,
                          fill = series)) + geom_col() 
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
 
 --
 
@@ -570,7 +570,7 @@ ggplot(evals, aes(x = age, y = score, col = gender)) +
   geom_smooth(method = "lm", se = FALSE)
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -645,7 +645,7 @@ mythbusters_yawn %&gt;%
 # A tibble: 1 x 2
   `2.5%` `97.5%`
    &lt;dbl&gt;   &lt;dbl&gt;
-1 -0.228   0.312
+1 -0.233   0.304
 ```
 
 
@@ -678,10 +678,6 @@ class: inverse
 - These slides were made with R Markdown
 
 - If I wasn't using R Markdown, what would I do if there was a mistake in `bakeoff.csv` and I needed to update a report based on it?
-
---
-
-- Let's (maybe) try it out!
 
 ---
 

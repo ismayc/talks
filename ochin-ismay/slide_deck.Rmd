@@ -252,11 +252,7 @@ bakeoff <- read_csv("data/bakeoff.csv")
 
 layout: false
 
-```{r eval=FALSE}
-bakeoff
-```
-
-```{r echo=FALSE}
+```{r}
 rmarkdown::paged_table(bakeoff)
 ```
 
@@ -267,7 +263,7 @@ layout: false
 
 ## Other packages for reading in data
 
-<a href="https://readr.tidyverse.org"><img src="images/readr_hex.png" style = "width: 200px;"/></a> - Read in SPSS, SAS, and STATA data files
+<a href="https://haven.tidyverse.org"><img src="images/haven-hex.png" style = "width: 200px;"/></a> - Read in SPSS, SAS, and STATA data files
 
 --
 
@@ -542,10 +538,6 @@ class: inverse
 - These slides were made with R Markdown
 
 - If I wasn't using R Markdown, what would I do if there was a mistake in `bakeoff.csv` and I needed to update a report based on it?
-
---
-
-- Let's (maybe) try it out!
 
 ---
 
