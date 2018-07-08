@@ -2,7 +2,7 @@
 title: "Statistical Inference: A Tidy Approach <br>"
 subtitle: The <code><font color="black">infer</font></code> R package
 author: 'Dr. Chester Ismay <br> Senior Curriculum Lead at <a href="https://www.datacamp.com/">DataCamp</a> <br> <a href="http://github.com/ismayc"><i class="fa fa-github fa-fw"></i>&nbsp; ismayc</a><br> <a href="http://twitter.com/old_man_chester"> <i class="fa fa-twitter fa-fw"></i>&nbsp; @old_man_chester</a><br> <a href="mailto:chester@datacamp.com"><i class="fa fa-paper-plane fa-fw"></i>&nbsp; chester@datacamp.com</a><br>'
-date: 2018-07-10 - useR! 2018 <br><br> Slides available at <http://bit.ly/infer-useR> <br> Package webpage at <https://infer.netlify.com>
+date: 2018-07-12 - useR! 2018 <br><br> Slides available at <http://bit.ly/infer-useR> <br> Package webpage at <https://infer.netlify.com>
 output: 
   xaringan::moon_reader:
     chakra: remark-latest.min.js

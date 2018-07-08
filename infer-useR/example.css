@@ -135,7 +135,8 @@ tr:hover {background-color: skyblue}
 }
 
 .remark-slide-number {
-  opacity: 0; /* default: 0.5 */
+  opacity: 0; 
+  /* default: 0.5 */
 }
 
 .remark-code, .remark-inline-code { font-family: 'Source Code Pro', 'Lucida Console', Monaco, monospace;
