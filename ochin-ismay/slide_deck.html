@@ -429,6 +429,7 @@ ratings &lt;- read_csv("http://bit.ly/ratings-csv",
 ratings
 ```
 
+
 ```
 # A tibble: 8 x 11
   series    e1    e2    e3    e4    e5    e6    e7    e8    e9
@@ -443,6 +444,7 @@ ratings
 8 8       9.46  9.23  8.68  8.55  8.61  8.61  9.01  8.95  9.03
 # ... with 1 more variable: e10 &lt;dbl&gt;
 ```
+
 
 - What if we'd like to plot average 7 day viewership for each episode?
 ---
@@ -497,7 +499,7 @@ ggplot(tidy_ratings, aes(x = episode_count, y = viewers_7day,
                          fill = series)) + geom_col() 
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
 
 --
 
@@ -537,25 +539,27 @@ class: inverse
 
 
 ```r
-download.file("http://bit.ly/evals-rds", destfile = "data/evals.rds")
-( evals &lt;- read_rds("data/evals.rds") )
+library(moderndive)
+evals
 ```
 
 ```
-# A tibble: 463 x 4
-   score bty_avg   age gender
-   &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt; &lt;fct&gt; 
- 1   4.7    5       36 female
- 2   4.1    5       36 female
- 3   3.9    5       36 female
- 4   4.8    5       36 female
- 5   4.6    3       59 male  
- 6   4.3    3       59 male  
- 7   2.8    3       59 male  
- 8   4.1    3.33    51 male  
- 9   3.4    3.33    51 male  
-10   4.5    3.17    40 female
-# ... with 453 more rows
+# A tibble: 463 x 13
+      ID score   age bty_avg gender ethnicity   language rank   
+   &lt;int&gt; &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;fct&gt;  &lt;fct&gt;       &lt;fct&gt;    &lt;fct&gt;  
+ 1     1   4.7    36    5    female minority    english  tenure…
+ 2     2   4.1    36    5    female minority    english  tenure…
+ 3     3   3.9    36    5    female minority    english  tenure…
+ 4     4   4.8    36    5    female minority    english  tenure…
+ 5     5   4.6    59    3    male   not minori… english  tenured
+ 6     6   4.3    59    3    male   not minori… english  tenured
+ 7     7   2.8    59    3    male   not minori… english  tenured
+ 8     8   4.1    51    3.33 male   not minori… english  tenured
+ 9     9   3.4    51    3.33 male   not minori… english  tenured
+10    10   4.5    40    3.17 female not minori… english  tenured
+# ... with 453 more rows, and 5 more variables:
+#   pic_outfit &lt;fct&gt;, pic_color &lt;fct&gt;, cls_did_eval &lt;int&gt;,
+#   cls_students &lt;int&gt;, cls_level &lt;fct&gt;
 ```
 
 ---
@@ -570,7 +574,7 @@ ggplot(evals, aes(x = age, y = score, col = gender)) +
   geom_smooth(method = "lm", se = FALSE)
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -585,12 +589,12 @@ get_regression_table(score_model_interaction)
 
 ```
 # A tibble: 4 x 7
-  term   estimate std_error statistic p_value conf_low conf_high
-  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-1 inter…    4.88      0.205     23.8    0        4.48      5.29 
-2 age      -0.018     0.004     -3.92   0       -0.026    -0.009
-3 gende…   -0.446     0.265     -1.68   0.094   -0.968     0.076
-4 age:g…    0.014     0.006      2.45   0.015    0.003     0.024
+  term    estimate std_error statistic p_value lower_ci upper_ci
+  &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+1 interc…    4.88      0.205     23.8    0        4.48     5.29 
+2 age       -0.018     0.004     -3.92   0       -0.026   -0.009
+3 gender…   -0.446     0.265     -1.68   0.094   -0.968    0.076
+4 age:ge…    0.014     0.006      2.45   0.015    0.003    0.024
 ```
 
 ---
@@ -633,7 +637,7 @@ class: inverse
 
 ```r
 library(infer)
-mythbusters_yawn &lt;- read_rds(url("http://bit.ly/mythbusters_yawn-rds"))
+library(moderndive)
 mythbusters_yawn %&gt;% 
   specify(formula = yawn ~ group, success = "yes") %&gt;% 
   generate(reps = 1000) %&gt;% 
@@ -645,7 +649,7 @@ mythbusters_yawn %&gt;%
 # A tibble: 1 x 2
   `2.5%` `97.5%`
    &lt;dbl&gt;   &lt;dbl&gt;
-1 -0.233   0.304
+1 -0.228   0.301
 ```
 
 

@@ -375,11 +375,18 @@ layout: false
 
 # "Messy" data
 
-```{r}
+```{r eval=FALSE}
 ratings <- read_csv("http://bit.ly/ratings-csv",
                 col_types = cols(series = col_factor(levels = NULL)))
 ratings
 ```
+
+```{r echo=FALSE}
+ratings <- read_csv("data/ratings.csv",
+                col_types = cols(series = col_factor(levels = NULL)))
+ratings
+```
+
 
 - What if we'd like to plot average 7 day viewership for each episode?
 ---
@@ -448,8 +455,8 @@ class: inverse
 ## Get the data - More information on [ModernDive](http://moderndive.netlify.com/7-multiple-regression.html)
 
 ```{r}
-download.file("http://bit.ly/evals-rds", destfile = "data/evals.rds")
-( evals <- read_rds("data/evals.rds") )
+library(moderndive)
+evals
 ```
 
 ---
@@ -504,7 +511,7 @@ class: inverse
 
 ```{r}
 library(infer)
-mythbusters_yawn <- read_rds(url("http://bit.ly/mythbusters_yawn-rds"))
+library(moderndive)
 mythbusters_yawn %>% 
   specify(formula = yawn ~ group, success = "yes") %>% 
   generate(reps = 1000) %>% 
