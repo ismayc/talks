@@ -58,7 +58,7 @@ layout: true
 
 class: middle
 
-&lt;small&gt;Students at Virginia Tech studied which vehicles come to a complete stop at an intersection with four-way stop signs, selecting at random the cars to observe. &lt;!--They looked at several factors to see which (if any) were associated with coming to a complete stop. (They defined a complete stop as “the speed of the vehicle will become zero at least for an [instant]”). Some of these variables included the age of the driver, how many passengers were in the vehicle, and type of vehicle.--&gt; The &lt;font color="orange"&gt;explanatory&lt;/font&gt; variable used here is the arrival position of vehicles approaching an intersection all traveling in the same direction. They classified this arrival pattern into three groups: whether the vehicle arrives alone (&lt;font color="orange"&gt;&lt;code&gt;&lt;small&gt;single&lt;/small&gt;&lt;/code&gt;&lt;/font&gt;), is the &lt;font color="orange"&gt;&lt;code&gt;&lt;small&gt;lead&lt;/small&gt;&lt;/code&gt;&lt;/font&gt; in a group of vehicles, or is a &lt;font color="orange"&gt;&lt;code&gt;&lt;small&gt;follow&lt;/small&gt;&lt;/code&gt;&lt;/font&gt;er in a group of vehicles. Is there an association between &lt;font color="orange"&gt;arrival pattern&lt;/font&gt; and whether a &lt;font color="darkgreen"&gt;&lt;code&gt;&lt;small&gt;complete&lt;/small&gt;&lt;/code&gt;&lt;/font&gt; stop or &lt;font color="darkgreen"&gt;&lt;code&gt;&lt;small&gt;not_complete&lt;/small&gt;&lt;/code&gt;&lt;/font&gt; was made?&lt;/small&gt; &lt;!--The students studied one specific intersection in Northern Virginia at a variety of different times. Because random assignment was not used, this is an observational study. Also note that no vehicle from one group is paired with a vehicle from another group.--&gt;
+&lt;small&gt;Students at Virginia Tech studied which vehicles come to a complete stop at an intersection with four-way stop signs, selecting at random the cars to observe. &lt;!--They looked at several factors to see which (if any) were associated with coming to a complete stop. (They defined a complete stop as “the speed of the vehicle will become zero at least for an [instant]”). Some of these variables included the age of the driver, how many passengers were in the vehicle, and type of vehicle.--&gt; The &lt;font color="green"&gt;explanatory&lt;/font&gt; variable used here is the arrival position of vehicles approaching an intersection all traveling in the same direction. They classified this arrival pattern into three groups: whether the vehicle arrives alone (&lt;font color="orange"&gt;&lt;code&gt;&lt;small&gt;single&lt;/small&gt;&lt;/code&gt;&lt;/font&gt;), is the &lt;font color="orange"&gt;&lt;code&gt;&lt;small&gt;lead&lt;/small&gt;&lt;/code&gt;&lt;/font&gt; in a group of vehicles, or is a &lt;font color="orange"&gt;&lt;code&gt;&lt;small&gt;follow&lt;/small&gt;&lt;/code&gt;&lt;/font&gt;er in a group of vehicles. Is there an association between &lt;font color="green"&gt;arrival pattern&lt;/font&gt; and whether a &lt;code&gt;&lt;font color="orange"&gt;&lt;small&gt;complete&lt;/small&gt;&lt;/font&gt;&lt;/code&gt; stop or &lt;code&gt;&lt;font color="orange"&gt;&lt;small&gt;not_complete&lt;/small&gt;&lt;/font&gt;&lt;/code&gt; was made?&lt;/small&gt; &lt;!--The students studied one specific intersection in Northern Virginia at a variety of different times. Because random assignment was not used, this is an observational study. Also note that no vehicle from one group is paired with a vehicle from another group.--&gt;
 
 &lt;br&gt;
 
@@ -84,7 +84,7 @@ Which type of hypothesis test should we conduct here?
 
 ```r
 library(tidyverse)
-# https://ismayc.github.io/talks/data-day-texas-infer/car_stop.rds
+# https://ismayc.github.io/talks/infer-useR/car_stop.rds
 download.file("http://bit.ly/car_stop_rds", 
               destfile = "car_stop.rds")
 car_stop &lt;- read_rds("car_stop.rds")
@@ -186,6 +186,8 @@ X-squared = 3.9476, df = 2, p-value = 0.1389
 
 ---
 
+layout: false
+
 ## 
 
 
@@ -195,6 +197,13 @@ X-squared = 3.9476, df = 2, p-value = 0.1389
 
 [![Chisq test image](chisq.png)](https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/chisq.test)
 
+
+---
+
+class: inverse
+layout: true
+
+.footer[Slides available at &lt;http://bit.ly/infer-useR&gt; &lt;br&gt; Package webpage at &lt;https://infer.netlify.com&gt;]
 
 ---
 
@@ -483,7 +492,7 @@ layout: true
 
 &lt;!-- So how did I generate this code to permute? --&gt;
 
-## Objectives of `infer`
+## Objectives of the `infer` package
 
 - Implement common classical inferential techniques in a `tidyverse`-friendly framework that is expressive of the underlying procedure. 
 --
@@ -645,69 +654,67 @@ null_distn %&gt;%
 ## Compare to theoretical
 
 
+
+
 ```r
 null_distn %&gt;% 
   visualize(method = "both", obs_stat = Chisq_obs, 
             direction = "greater")
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+```
+Warning: Check to make sure the conditions have been met for the
+theoretical method. `infer` currently does not check these for you.
+```
+
+![](slide_deck_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
 
 ---
 
-## What's to come
+## What's to come with `infer`
 
 - Generalized input to `calculate()`
   - For example, `calculate(trimmed_mean)`
   - Support for more advanced regression models
 - Implement list-columns in the `generate()` step
-
----
-
-## Tips and tricks for package development
-
-- Use [GitHub](https://github.com/andrewpbray/infer/) and pull requests to the `master` branch
-- [Create useful vignettes](https://cran.r-project.org/web/packages/infer/vignettes/flights_examples.html) so others know how your pkg works
-- Write tests and assertions for your code
-  - [Buy and read Richie's *Testing R Code* book](https://www.crcpress.com/Testing-R-Code/Cotton/p/book/9781498763653)
-- Let [travis-ci](https://travis-ci.org/andrewpbray/infer) do [the work](https://github.com/andrewpbray/infer/blob/master/.travis.yml) for you
-- Use Hadley's [`pkgdown` package](https://github.com/r-lib/pkgdown) to build a pkg website
-  - Host it on Netlify.com to be super cool
-
+- [More to-dos](https://github.com/andrewpbay/infer/blob/develop/TO-DO.md)
+- Feature requests and bug reports at https://github.com/andrewpbray/infer/issues
 
 ---
 
 class: inverse
 layout: false
 
-## More info
+## More info and practice
 
-- https://infer.netlify.com
+- [infer.netlify.com](https://infer.netlify.com) (or [infer-dev.netlify.com](https://infer-dev.netlify.com))
   - Many examples under Articles with more to come
-  - Plans to be fully implemented in [ModernDive.com](www.ModernDive.com)
+- To be fully implemented in [ModernDive.com](www.ModernDive.com)
       - [Sign up](http://eepurl.com/cBkItf) for the ModernDive mailing list
-- Three DataCamp courses that use `infer`
-  - [Inference for Numerical Data](https://www.datacamp.com/courses/inference-for-numerical-data) by Mine Cetinkaya-Rundel
-  - [Inference for Categorical Data](https://www.datacamp.com/courses/inference-for-categorical-data) by Andrew Bray
-  - [Inference for Regression](https://www.datacamp.com/courses/inference-for-linear-regression) by Jo Hardin
-- One more DataCamp course being revamped to include it
+- DataCamp courses that use `infer`
+  - [Inference for Numerical Data](https://www.datacamp.com/courses/inference-for-numerical-data)
+  - [Inference for Categorical Data](https://www.datacamp.com/courses/inference-for-categorical-data)
+  - [Inference for Regression](https://www.datacamp.com/courses/inference-for-linear-regression)
+  - One more DataCamp course being revamped to include it
 ---
 
+layout: false
 class: inverse, middle
 
-
-- Thanks to [Andrew Bray](https://andrewpbray.github.io) &amp; the other pkg contributors
-- Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
-- Slides available at &lt;http://bit.ly/infer-useR&gt;
-- Source code for these slides at &lt;https://github.com/ismayc/talks/tree/master/infer-useR&gt;
-
-&lt;br&gt;
-
 &lt;center&gt;
-&lt;a href="https://giphy.com/gifs/wMY3LjQQMqo5W?utm_source=media-link&amp;utm_medium=landing&amp;utm_campaign=Media%20Links&amp;utm_term="&gt; 
-&lt;img src="peele.gif" style="width: 550px;"/&gt;
-&lt;/a&gt;
-&lt;/center&gt;
+&lt;a href="https://www.tidyverse.org/learn"&gt;
+&lt;img src="figure/tidyverse.png" style="width: 200px;"/&gt;
+&lt;/a&gt;&amp;emsp;&amp;emsp;&lt;a href="https://moderndive.netlify.com"&gt; 
+&lt;img src="figure/dark_vert.png" style="width: 180px;"/&gt;&lt;/a&gt;&amp;emsp;&amp;emsp;&lt;a href="https://infer.netlify.com"&gt; 
+&lt;img src="figure/infer_oregon3.png" style="width: 180px;"/&gt;&lt;/a&gt;&lt;/center&gt;
+
+## Thanks for attending! Contact me: [Email](mailto:chester@datacamp.com) or [Twitter](https://twitter.com/old_man_chester)
+- Special thanks to 
+    - [Albert Y. Kim](https://twitter.com/rudeboybert) 
+    - [Andrew Bray](https://andrewpbray.github.io)
+    - [Alison Hill](https://twitter.com/apreshill)
+- Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
+- Slides' source code at &lt;https://github.com/ismayc/talks/&gt;
     </textarea>
 <script src="remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
