@@ -554,7 +554,7 @@ null_distn %>%
 ## Compare to theoretical
 
 ```{r include=FALSE}
-theme_set(theme_gray(base_size = 20))
+theme_set(theme_gray(base_size = 18))
 ```
 
 ```{r fig.height=3.5, warning=TRUE}
