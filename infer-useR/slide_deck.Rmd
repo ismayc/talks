@@ -1,8 +1,8 @@
 ---
-title: "Statistical Inference: A Tidy Approach <br>"
+title: "Statistical Inference: A Tidy Approach"
 subtitle: The <code><font color="black">infer</font></code> R package
 author: 'Dr. Chester Ismay <br> Senior Curriculum Lead at <a href="https://www.datacamp.com/">DataCamp</a> <br> <a href="http://github.com/ismayc"><i class="fa fa-github fa-fw"></i>&nbsp; ismayc</a><br> <a href="http://twitter.com/old_man_chester"> <i class="fa fa-twitter fa-fw"></i>&nbsp; @old_man_chester</a><br> <a href="mailto:chester@datacamp.com"><i class="fa fa-paper-plane fa-fw"></i>&nbsp; chester@datacamp.com</a><br>'
-date: 2018-07-12 - useR! 2018 <br><br> Slides available at <http://bit.ly/infer-useR> <br> Package webpage at <https://infer.netlify.com>
+date: 2018-07-12 - `r knitr::include_graphics("figure/user_au_logo_small.png")` <br><br> Slides available at <http://bit.ly/infer-useR> <br> Package webpage at <https://infer.netlify.com>
 output: 
   xaringan::moon_reader:
     chakra: remark-latest.min.js
@@ -585,11 +585,11 @@ layout: false
   - Many examples under Articles with more to come
 - To be fully implemented in [ModernDive.com](www.ModernDive.com)
       - [Sign up](http://eepurl.com/cBkItf) for the ModernDive mailing list
-- DataCamp courses that use `infer`
+- DataCamp courses with `infer` + one more coming
   - [Inference for Numerical Data](https://www.datacamp.com/courses/inference-for-numerical-data)
   - [Inference for Categorical Data](https://www.datacamp.com/courses/inference-for-categorical-data)
   - [Inference for Regression](https://www.datacamp.com/courses/inference-for-linear-regression)
-  - One more DataCamp course being revamped to include it
+- Keep an eye on the [`tidymodels` metapackage](https://github.com/tidymodels/tidymodels)
 ---
 
 layout: false
@@ -603,10 +603,7 @@ class: inverse, middle
 <img src="figure/infer_oregon3.png" style="width: 180px;"/></a></center>
 
 ## Thanks for attending! Contact me: [Email](mailto:chester@datacamp.com) or [Twitter](https://twitter.com/old_man_chester)
-- Special thanks to 
-    - [Albert Y. Kim](https://twitter.com/rudeboybert) 
-    - [Andrew Bray](https://andrewpbray.github.io)
-    - [Alison Hill](https://twitter.com/apreshill)
+- Thanks to [Albert Y. Kim](https://twitter.com/rudeboybert), [Andrew Bray](https://andrewpbray.github.io), and [Alison Hill](https://twitter.com/apreshill)
 - Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
 - Slides' source code at <https://github.com/ismayc/talks/>
 
