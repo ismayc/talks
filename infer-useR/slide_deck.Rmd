@@ -2,7 +2,7 @@
 title: "Statistical Inference: A Tidy Approach"
 subtitle: The <code><font color="black">infer</font></code> R package
 author: 'Dr. Chester Ismay <br> Senior Curriculum Lead at <a href="https://www.datacamp.com/">DataCamp</a> <br> <a href="http://github.com/ismayc"><i class="fa fa-github fa-fw"></i>&nbsp; ismayc</a><br> <a href="http://twitter.com/old_man_chester"> <i class="fa fa-twitter fa-fw"></i>&nbsp; @old_man_chester</a><br> <a href="mailto:chester@datacamp.com"><i class="fa fa-paper-plane fa-fw"></i>&nbsp; chester@datacamp.com</a><br>'
-date: 2018-07-12 - `r knitr::include_graphics("figure/user_au_logo_small.png")` <br><br> Slides available at <http://bit.ly/infer-useR> <br> Package webpage at <https://infer.netlify.com>
+date: 2018-07-12 &ensp; `r knitr::include_graphics("figure/user_au_logo_small.png")` <br><br> Slides available at <http://bit.ly/infer-useR> <br> Package webpage at <https://infer.netlify.com>
 output: 
   xaringan::moon_reader:
     chakra: remark-latest.min.js
@@ -597,8 +597,8 @@ class: inverse, middle
 <a href="https://www.tidyverse.org/learn">
 <img src="figure/tidyverse.png" style="width: 200px;"/>
 </a>&emsp;&emsp;<a href="https://moderndive.netlify.com"> 
-<img src="figure/dark_vert.png" style="width: 180px;"/></a>&emsp;&emsp;<a href="https://infer.netlify.com"> 
-<img src="figure/infer_oregon3.png" style="width: 180px;"/></a></center>
+<img src="figure/dark_vert.png" style="width: 221px;"/></a>&emsp;&emsp;<a href="https://infer.netlify.com"> 
+<img src="figure/infer_gnome.png" style="width: 230px;"/></a></center>
 
 ## Thanks for attending! Contact me: [Email](mailto:chester@datacamp.com) or [Twitter](https://twitter.com/old_man_chester)
 - Thanks to [Albert Y. Kim](https://twitter.com/rudeboybert), [Andrew Bray](https://andrewpbray.github.io), and [Alison Hill](https://twitter.com/apreshill)
