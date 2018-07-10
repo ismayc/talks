@@ -567,7 +567,6 @@ null_distn %>%
 
 - Generalized input to `calculate()`
   - For example, `calculate(trimmed_mean)`
-  - Support for more advanced regression models
 - Implement list-columns in the `generate()` step
 - [More to-dos](https://github.com/andrewpbay/infer/blob/develop/TO-DO.md)
 - Feature requests and bug reports at https://github.com/andrewpbray/infer/issues
