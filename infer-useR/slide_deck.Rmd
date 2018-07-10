@@ -587,7 +587,7 @@ layout: false
   - [Inference for Numerical Data](https://www.datacamp.com/courses/inference-for-numerical-data)
   - [Inference for Categorical Data](https://www.datacamp.com/courses/inference-for-categorical-data)
   - [Inference for Regression](https://www.datacamp.com/courses/inference-for-linear-regression)
-- Keep an eye on the [`tidymodels` metapackage](https://github.com/tidymodels/tidymodels)
+- Keep an eye on the [`tidymodels` meta-package](https://github.com/tidymodels/tidymodels)
 ---
 
 layout: false
