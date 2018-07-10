@@ -62,7 +62,7 @@ theme_set(theme_gray(base_size = 24))
 
 class: middle
 
-<small>Students at Virginia Tech studied which vehicles come to a complete stop at an intersection with four-way stop signs, selecting at random the cars to observe. <!--They looked at several factors to see which (if any) were associated with coming to a complete stop. (They defined a complete stop as “the speed of the vehicle will become zero at least for an [instant]”). Some of these variables included the age of the driver, how many passengers were in the vehicle, and type of vehicle.--> The <font color="green">explanatory</font> variable used here is the arrival position of vehicles approaching an intersection all traveling in the same direction. They classified this arrival pattern into three groups: whether the vehicle arrives alone (<font color="orange"><code><small>single</small></code></font>), is the <font color="orange"><code><small>lead</small></code></font> in a group of vehicles, or is a <font color="orange"><code><small>follow</small></code></font>er in a group of vehicles. Is there an association between <font color="green">arrival pattern</font> and whether a <code><font color="orange"><small>complete</small></font></code> stop or <code><font color="orange"><small>not_complete</small></font></code> was made?</small> <!--The students studied one specific intersection in Northern Virginia at a variety of different times. Because random assignment was not used, this is an observational study. Also note that no vehicle from one group is paired with a vehicle from another group.-->
+<small>Students at Virginia Tech studied which vehicles come to a <font color="mediumpurple">complete stop</font> at an intersection with four-way stop signs, selecting at random the cars to observe. <!--They looked at several factors to see which (if any) were associated with coming to a complete stop. (They defined a complete stop as “the speed of the vehicle will become zero at least for an [instant]”). Some of these variables included the age of the driver, how many passengers were in the vehicle, and type of vehicle.--> The <font color="lightgreen">explanatory</font> variable used here is the arrival position of vehicles approaching an intersection all traveling in the same direction. They classified this arrival pattern into three groups: whether the vehicle arrives alone (<code><small>single</small></code>), is the <code><small>lead</small></code> in a group of vehicles, or is a <code><small>follow</small></code>er in a group of vehicles. Is there an association between <font color="lightgreen">arrival pattern</font> and whether a <code><font color="purple"><small>complete</small></font></code> stop or <code><font color="purple"><small>not_complete</small></font></code> was made?</small> <!--The students studied one specific intersection in Northern Virginia at a variety of different times. Because random assignment was not used, this is an observational study. Also note that no vehicle from one group is paired with a vehicle from another group.-->
 
 <br>
 
@@ -227,7 +227,6 @@ car_stop %>%
 Is there an association between arrival pattern and whether or not a complete stop was made?
 
 ## The null hypothesis
---
 
 > No association exists between the arrival vehicle's position and whether
 or not it makes a complete stop.
@@ -287,7 +286,7 @@ car_stop %>% count(stop_type, vehicle_type)
 
 ---
 
-### Permute the sample data
+### Permute the sample data <br> - Shuffle `stop_type` across `vehicle_type`
 
 ```{r echo=FALSE}
 library(infer)
@@ -393,9 +392,8 @@ perm2 %>% infer::chisq_stat(vehicle_type ~ stop_type)
 layout: false
 
 <small>The distribution of multiple repetitions of the permuted data</small>
---
 
-```{r echo=FALSE, fig.height=3.5}
+```{r echo=FALSE, fig.height=3.7}
 ggplot(data = car_chisq, mapping = aes(x = stat)) +
   geom_density() +
   geom_vline(xintercept = chisq.test(car_stop$stop_type, car_stop$vehicle_type)$statistic, 
@@ -409,7 +407,7 @@ ggplot(data = car_chisq, mapping = aes(x = stat)) +
 
 <small>Recall the traditional method using the Chi-square distribution </small>
 
-```{r echo=FALSE, fig.height=3.5}
+```{r echo=FALSE, fig.height=3.7}
 chisq_dist
 ```
 

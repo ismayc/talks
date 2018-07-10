@@ -58,7 +58,7 @@ layout: true
 
 class: middle
 
-&lt;small&gt;Students at Virginia Tech studied which vehicles come to a complete stop at an intersection with four-way stop signs, selecting at random the cars to observe. &lt;!--They looked at several factors to see which (if any) were associated with coming to a complete stop. (They defined a complete stop as “the speed of the vehicle will become zero at least for an [instant]”). Some of these variables included the age of the driver, how many passengers were in the vehicle, and type of vehicle.--&gt; The &lt;font color="green"&gt;explanatory&lt;/font&gt; variable used here is the arrival position of vehicles approaching an intersection all traveling in the same direction. They classified this arrival pattern into three groups: whether the vehicle arrives alone (&lt;font color="orange"&gt;&lt;code&gt;&lt;small&gt;single&lt;/small&gt;&lt;/code&gt;&lt;/font&gt;), is the &lt;font color="orange"&gt;&lt;code&gt;&lt;small&gt;lead&lt;/small&gt;&lt;/code&gt;&lt;/font&gt; in a group of vehicles, or is a &lt;font color="orange"&gt;&lt;code&gt;&lt;small&gt;follow&lt;/small&gt;&lt;/code&gt;&lt;/font&gt;er in a group of vehicles. Is there an association between &lt;font color="green"&gt;arrival pattern&lt;/font&gt; and whether a &lt;code&gt;&lt;font color="orange"&gt;&lt;small&gt;complete&lt;/small&gt;&lt;/font&gt;&lt;/code&gt; stop or &lt;code&gt;&lt;font color="orange"&gt;&lt;small&gt;not_complete&lt;/small&gt;&lt;/font&gt;&lt;/code&gt; was made?&lt;/small&gt; &lt;!--The students studied one specific intersection in Northern Virginia at a variety of different times. Because random assignment was not used, this is an observational study. Also note that no vehicle from one group is paired with a vehicle from another group.--&gt;
+&lt;small&gt;Students at Virginia Tech studied which vehicles come to a &lt;font color="mediumpurple"&gt;complete stop&lt;/font&gt; at an intersection with four-way stop signs, selecting at random the cars to observe. &lt;!--They looked at several factors to see which (if any) were associated with coming to a complete stop. (They defined a complete stop as “the speed of the vehicle will become zero at least for an [instant]”). Some of these variables included the age of the driver, how many passengers were in the vehicle, and type of vehicle.--&gt; The &lt;font color="lightgreen"&gt;explanatory&lt;/font&gt; variable used here is the arrival position of vehicles approaching an intersection all traveling in the same direction. They classified this arrival pattern into three groups: whether the vehicle arrives alone (&lt;code&gt;&lt;small&gt;single&lt;/small&gt;&lt;/code&gt;), is the &lt;code&gt;&lt;small&gt;lead&lt;/small&gt;&lt;/code&gt; in a group of vehicles, or is a &lt;code&gt;&lt;small&gt;follow&lt;/small&gt;&lt;/code&gt;er in a group of vehicles. Is there an association between &lt;font color="lightgreen"&gt;arrival pattern&lt;/font&gt; and whether a &lt;code&gt;&lt;font color="purple"&gt;&lt;small&gt;complete&lt;/small&gt;&lt;/font&gt;&lt;/code&gt; stop or &lt;code&gt;&lt;font color="purple"&gt;&lt;small&gt;not_complete&lt;/small&gt;&lt;/font&gt;&lt;/code&gt; was made?&lt;/small&gt; &lt;!--The students studied one specific intersection in Northern Virginia at a variety of different times. Because random assignment was not used, this is an observational study. Also note that no vehicle from one group is paired with a vehicle from another group.--&gt;
 
 &lt;br&gt;
 
@@ -233,7 +233,6 @@ car_stop %&gt;%
 Is there an association between arrival pattern and whether or not a complete stop was made?
 
 ## The null hypothesis
---
 
 &gt; No association exists between the arrival vehicle's position and whether
 or not it makes a complete stop.
@@ -313,7 +312,7 @@ car_stop %&gt;% count(stop_type, vehicle_type)
 
 ---
 
-### Permute the sample data
+### Permute the sample data &lt;br&gt; - Shuffle `stop_type` across `vehicle_type`
 
 
 ```
@@ -471,7 +470,6 @@ perm2 %&gt;% infer::chisq_stat(vehicle_type ~ stop_type)
 layout: false
 
 &lt;small&gt;The distribution of multiple repetitions of the permuted data&lt;/small&gt;
---
 
 ![](slide_deck_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
 
