@@ -184,7 +184,6 @@ layout: false
 
 [![Chisq test image](chisq.png)](https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/chisq.test)
 
-
 ---
 
 class: inverse
@@ -266,7 +265,7 @@ Modeling the null hypothesis
 
 
 ```r
-car_stop %&gt;% count(stop_type, vehicle_type)
+car_stop %&gt;% dplyr::count(stop_type, vehicle_type)
 ```
 
 ```
