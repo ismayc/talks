@@ -199,15 +199,17 @@ chisq_dist +
 P-value is `r round(chisq.test(car_stop$stop_type, car_stop$vehicle_type)$p.value, 4)`.
 ---
 
-## `infer` Teaser
-
-Maybe a different approach?
+## `infer` Teaser - Maybe a different approach?
 
 ```{r}
 library(infer)
-car_stop %>% 
-  chisq_test(vehicle_type ~ stop_type)
+car_stop %>% chisq_test(vehicle_type ~ stop_type)
 ```
+
+```{r echo=FALSE}
+knitr::include_graphics("figure/v0.3.0.png")
+```
+
 
 ---
 

@@ -199,21 +199,21 @@ layout: true
 P-value is 0.1389.
 ---
 
-## `infer` Teaser
-
-Maybe a different approach?
+## `infer` Teaser - Maybe a different approach?
 
 
 ```r
 library(infer)
-car_stop %&gt;% 
-  chisq_test(vehicle_type ~ stop_type)
+car_stop %&gt;% chisq_test(vehicle_type ~ stop_type)
 ```
 
 ```
   statistic chisq_df   p_value
 1  3.947648        2 0.1389246
 ```
+
+&lt;img src="figure/v0.3.0.png" width="888" /&gt;
+
 
 ---
 
@@ -457,13 +457,13 @@ layout: false
 
 &lt;small&gt;The distribution of multiple repetitions of the permuted data&lt;/small&gt;
 
-![](slide_deck_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
 
 --
 
 &lt;small&gt;Recall the traditional method using the Chi-square distribution &lt;/small&gt;
 
-![](slide_deck_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -599,7 +599,7 @@ null_distn &lt;- car_stop %&gt;%
 null_distn %&gt;% visualize()
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -631,7 +631,7 @@ null_distn %&gt;%
   visualize(obs_stat = Chisq_obs, direction = "greater")
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -651,7 +651,7 @@ Warning: Check to make sure the conditions have been met for the
 theoretical method. `infer` currently does not check these for you.
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
 
 ---
 
