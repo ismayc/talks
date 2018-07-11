@@ -43,19 +43,6 @@ layout: true
 
 ---
 
-## Pre-requisites for this talk
-
-- Some experience with statistical inference (hypothesis testing / confidence intervals)
---
-
-- A ~~admiration~~, ~~abundance of love~~, ~~won't do anything without it~~ respect for the `tidyverse` and its power to get more users into doing data analysis/visualization quickly 
-  - The pit of success
---
-
-- ~~Ability~~ Desire to think differently about statistical inference using computational methods as the driver
-
----
-
 class: middle
 
 &lt;small&gt;Students at Virginia Tech studied which vehicles come to a &lt;font color="mediumpurple"&gt;complete stop&lt;/font&gt; at an intersection with four-way stop signs, selecting at random the cars to observe. &lt;!--They looked at several factors to see which (if any) were associated with coming to a complete stop. (They defined a complete stop as “the speed of the vehicle will become zero at least for an [instant]”). Some of these variables included the age of the driver, how many passengers were in the vehicle, and type of vehicle.--&gt; The &lt;font color="lightgreen"&gt;explanatory&lt;/font&gt; variable used here is the arrival position of vehicles approaching an intersection all traveling in the same direction. They classified this arrival pattern into three groups: whether the vehicle arrives alone (&lt;code&gt;&lt;small&gt;single&lt;/small&gt;&lt;/code&gt;), is the &lt;code&gt;&lt;small&gt;lead&lt;/small&gt;&lt;/code&gt; in a group of vehicles, or is a &lt;code&gt;&lt;small&gt;follow&lt;/small&gt;&lt;/code&gt;er in a group of vehicles. Is there an association between &lt;font color="lightgreen"&gt;arrival pattern&lt;/font&gt; and whether a &lt;code&gt;&lt;font color="purple"&gt;&lt;small&gt;complete&lt;/small&gt;&lt;/font&gt;&lt;/code&gt; stop or &lt;code&gt;&lt;font color="purple"&gt;&lt;small&gt;not_complete&lt;/small&gt;&lt;/font&gt;&lt;/code&gt; was made?&lt;/small&gt; &lt;!--The students studied one specific intersection in Northern Virginia at a variety of different times. Because random assignment was not used, this is an observational study. Also note that no vehicle from one group is paired with a vehicle from another group.--&gt;
@@ -672,8 +659,7 @@ theoretical method. `infer` currently does not check these for you.
 
 - Generalized input to `calculate()`
   - For example, `calculate(trimmed_mean)`
-- Implement list-columns in the `generate()` step
-- [More to-dos](https://github.com/andrewpbay/infer/blob/develop/TO-DO.md)
+- [More to-dos](https://infer-dev.netlify.com/to-do)
 - Feature requests and bug reports at https://github.com/andrewpbray/infer/issues
 
 ---

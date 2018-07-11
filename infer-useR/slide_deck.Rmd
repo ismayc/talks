@@ -47,19 +47,6 @@ theme_set(theme_gray(base_size = 24))
 
 ---
 
-## Pre-requisites for this talk
-
-- Some experience with statistical inference (hypothesis testing / confidence intervals)
---
-
-- A ~~admiration~~, ~~abundance of love~~, ~~won't do anything without it~~ respect for the `tidyverse` and its power to get more users into doing data analysis/visualization quickly 
-  - The pit of success
---
-
-- ~~Ability~~ Desire to think differently about statistical inference using computational methods as the driver
-
----
-
 class: middle
 
 <small>Students at Virginia Tech studied which vehicles come to a <font color="mediumpurple">complete stop</font> at an intersection with four-way stop signs, selecting at random the cars to observe. <!--They looked at several factors to see which (if any) were associated with coming to a complete stop. (They defined a complete stop as “the speed of the vehicle will become zero at least for an [instant]”). Some of these variables included the age of the driver, how many passengers were in the vehicle, and type of vehicle.--> The <font color="lightgreen">explanatory</font> variable used here is the arrival position of vehicles approaching an intersection all traveling in the same direction. They classified this arrival pattern into three groups: whether the vehicle arrives alone (<code><small>single</small></code>), is the <code><small>lead</small></code> in a group of vehicles, or is a <code><small>follow</small></code>er in a group of vehicles. Is there an association between <font color="lightgreen">arrival pattern</font> and whether a <code><font color="purple"><small>complete</small></font></code> stop or <code><font color="purple"><small>not_complete</small></font></code> was made?</small> <!--The students studied one specific intersection in Northern Virginia at a variety of different times. Because random assignment was not used, this is an observational study. Also note that no vehicle from one group is paired with a vehicle from another group.-->
@@ -566,8 +553,7 @@ null_distn %>%
 
 - Generalized input to `calculate()`
   - For example, `calculate(trimmed_mean)`
-- Implement list-columns in the `generate()` step
-- [More to-dos](https://github.com/andrewpbay/infer/blob/develop/TO-DO.md)
+- [More to-dos](https://infer-dev.netlify.com/to-do)
 - Feature requests and bug reports at https://github.com/andrewpbray/infer/issues
 
 ---
