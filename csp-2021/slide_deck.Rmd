@@ -223,7 +223,7 @@ Data frame
 ## Data types review
 
 ```{r eval=FALSE, purl=FALSE}
-library(tibble) 
+library(tibble) # tibble is the tidyverse data.frame
 library(lubridate)
 ex1 <- tibble(
   vec1 = c(1980, 1990, 2000, 2010),
@@ -239,7 +239,7 @@ ex1
 --
 
 ```{r echo=FALSE, purl=TRUE}
-library(tibble)
+library(tibble) # tibble is the tidyverse data.frame
 library(lubridate)
 ex1 <- tibble(
   vec1 = c(1980, 1990, 2000, 2010),
@@ -732,6 +732,7 @@ counter <- counter + 1
 ```
 1. Create a data frame that has the median life expectancy by year.
 2. Use `arrange()` on this data frame to see the top years with the highest median life expectancy. What about the year with the lowest median life expectancy?
+3. Create a new column that is median life expectancy rounded to the nearest integer, and remove the original un-rounded column with `select()`.
 
 ```{r soln2, include=FALSE}
 lifeyear <- gapminder %>%
@@ -740,6 +741,7 @@ lifeyear <- gapminder %>%
 
 lifeyear %>% arrange(desc(med_exp))
 lifeyear %>% arrange(med_exp)
+lifeyear %>% mutate(med_exp_round = round(med_exp)) %>% select(-med_exp)
 ```
 
 
