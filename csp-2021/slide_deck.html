@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Tidyverse Tools in R for Data Science and Statistical Inference</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.5/header-attrs.js"></script>
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="css/xaringan.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+
+class: middle, center
+
+# Tidyverse Tools in R for &lt;br&gt; Data Science and Statistical Inference
+
+## Dr. Jessica Minnier and Dr. Chester Ismay 
+
+&lt;img src="images/csp-logo-virtual.png" width="263" /&gt;
+
+### Slides available at &lt;http://bit.ly/csp-tidy&gt; 
+
+### PDF slides at &lt;http://bit.ly/csp-tidy-pdf&gt;
+
+---
+
+name: our-info
+class: middle
+
+&lt;h5&gt;&lt;/h5&gt;
+
+.pull-left[
+  &lt;img class="circle" src="https://github.com/jminnier.png" width="200px"/&gt;
+  
+  &lt;small&gt;Associate Professor of Biostatistics&lt;/small&gt;
+  
+  &lt;img src="images/ohsu_logo.jpg" width="80px"/&gt;
+
+  &lt;br&gt;
+
+  [&lt;svg style="height:0.8em;top:.04em;position:relative;" viewBox="0 0 512 512"&gt;&lt;path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/&gt;&lt;/svg&gt; @datapointier](http://twitter.com/datapointier)  
+  [&lt;svg style="height:0.8em;top:.04em;position:relative;" viewBox="0 0 496 512"&gt;&lt;path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/&gt;&lt;/svg&gt; @jminnier](http://github.com/jminnier)  
+  [&lt;svg style="height:0.8em;top:.04em;position:relative;" viewBox="0 0 512 512"&gt;&lt;path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/&gt;&lt;/svg&gt; jessicaminnier.com](https:/jessicaminnier.com)  
+&lt;!--  [&lt;svg style="height:0.8em;top:.04em;position:relative;" viewBox="0 0 512 512"&gt;&lt;path d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/&gt;&lt;/svg&gt; `minnier [at] ohsu [dot] edu`](mailto:minnier@ohsu.edu) --&gt;
+]
+
+.pull-right[
+  &lt;img class="circle" src="https://github.com/ismayc.png" width="200px"/&gt;
+  
+  &lt;small&gt;Data Science Evangelist&lt;/small&gt;
+  
+  &lt;br&gt;
+  
+  &lt;img src="images/datarobot_logo.png" width="150px"/&gt;
+  
+  &lt;br&gt;&lt;br&gt;
+  
+  [&lt;svg style="height:0.8em;top:.04em;position:relative;" viewBox="0 0 512 512"&gt;&lt;path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/&gt;&lt;/svg&gt; @old_man_chester](http://twitter.com/old_man_chester)  
+  [&lt;svg style="height:0.8em;top:.04em;position:relative;" viewBox="0 0 496 512"&gt;&lt;path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/&gt;&lt;/svg&gt; @ismayc](http://github.com/ismayc)  
+  [&lt;svg style="height:0.8em;top:.04em;position:relative;" viewBox="0 0 512 512"&gt;&lt;path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/&gt;&lt;/svg&gt; chester.rbind.io](https://chester.rbind.io)  
+&lt;!--  [&lt;svg style="height:0.8em;top:.04em;position:relative;" viewBox="0 0 512 512"&gt;&lt;path d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/&gt;&lt;/svg&gt; `chester [dot] ismay [at] datarobot [dot] com`](mailto:chester.ismay@datarobot.com) --&gt;
+]
+
+
+---
+
+name: toc
+  
+# Table of Contents
+
+Part 1
+- [Introduction and Setup](#getting-started)
+- [Data Wrangling](#wrangling)
+- [Data Visualization Basics](#viz)
+
+Part 2
+- [Sampling](#sampling)
+- [Inference](#inference)
+
+---
+
+layout: true
+
+&lt;div class="my-footer"&gt;&lt;span&gt;Slides at https://bit.ly/csp-tidy-slides &amp;emsp; &amp;emsp; &amp;emsp; &amp;emsp; &amp;emsp; &amp;emsp; &amp;emsp; &amp;emsp; &amp;emsp; Return to &lt;u&gt;&lt;a style="color:White;" href="slide_deck.html#toc"&gt;Table of Contents&lt;/a&gt;&lt;/u&gt;&lt;/span&gt;&lt;/div&gt;
+
+---
+
+name:getting-started
+
+## Prior Installation
+
+Make sure you have the current R, RStudio, &amp; R packages
+- [Novice's Guide](https://moderndive.com/1-getting-started.html) on ModernDive.com
+
+--
+
+***
+
+- [R (version 4.0.2 or greater)](https://cloud.r-project.org/)
+- [RStudio (version 1.4 or greater)](https://www.rstudio.com/products/rstudio/download3/)
+
+--
+
+- Run this in the RStudio Console
+
+
+```r
+pkgs &lt;- c(
+  "tidyverse", "moderndive", "gapminder", "nycflights13", 
+  "fivethirtyeight", "janitor","ggplot2movies", "usethis"
+)
+install.packages(pkgs)
+```
+
+
+
+---
+
+
+
+# Getting started
+
+1. Open HTML slides: &lt;https://bit.ly/csp-tidy&gt;
+1. Open RStudio  
+1. Download course materials to your preferred location by running
+   this in the RStudio Console: 
+   
+   &lt;br&gt;
+   
+  `usethis::use_course("bit.ly/csp-tidy")`
+
+  &lt;br&gt;
+
+1. Open the Rproj file in the folder that just opened
+1. Edit Google Doc to ask questions: &lt;https://csp-tidy-doc&gt;
+
+
+---
+
+class: inverse, center, middle
+
+# R Data Types
+
+---
+
+## Data types review
+
+Vector/variable
+  - Type of vector (`int`, `num` or `dbl`, `chr`, `lgl`, `date`)
+
+--
+
+Data frame
+  - Vectors of (potentially) different types
+  - Each vector has the same number of rows
+
+---
+
+## Data types review
+
+
+```r
+library(tibble) 
+library(lubridate)
+ex1 &lt;- tibble(
+  vec1 = c(1980, 1990, 2000, 2010),
+  vec2 = c(1L, 2L, 3L, 4L),
+  vec3 = c("low", "low", "high", "high"),
+  vec4 = c(TRUE, FALSE, FALSE, FALSE),
+  vec5 = ymd(c("2017-05-23", "1776/07/04", 
+               "1983-05/31", "1908/04-01"))
+)
+ex1
+```
+
+--
+
+
+```
+# A tibble: 4 x 5
+   vec1  vec2 vec3  vec4  vec5      
+  &lt;dbl&gt; &lt;int&gt; &lt;chr&gt; &lt;lgl&gt; &lt;date&gt;    
+1  1980     1 low   TRUE  2017-05-23
+2  1990     2 low   FALSE 1776-07-04
+3  2000     3 high  FALSE 1983-05-31
+4  2010     4 high  FALSE 1908-04-01
+```
+  
+---
+
+## Learning objectives
+
+### Part 1
+
+- Distinguish between different {tidyverse} packages
+- Assess different {dplyr} functions for wrangling data
+- Discuss the power of "tidy data"
+- Develop an intuition behind {ggplot2} plotting syntax
+
+---
+
+class: center, middle
+
+### Shameless plug
+
+&lt;img src="images/flowchart.png" style="width: 720px"/&gt;
+
+---
+
+class: center, middle, inverse
+
+# Getting started with {dplyr}
+
+.pull-left[
+&lt;img src="images/dplyr_wrangling.png" width="85%" height="55%"&gt;
+
+&lt;br&gt;
+
+[Alison Horst](https://github.com/allisonhorst/stats-illustrations) 
+]
+
+.pull-right[
+&lt;img src="images/dplyr_hex.png" width="70%" height="55%"&gt;
+
+&lt;!-- New hex is fine here too --&gt;
+
+[dplyr package](https://dplyr.tidyverse.org)
+]
+
+---
+
+class: center, middle  
+  
+## Welcome to the [tidyverse](https://blog.rstudio.org/2016/09/15/tidyverse-1-0-0/)!
+  
+The {tidyverse} is a collection of R packages that share common philosophies 
+and are designed to work together. &lt;br&gt;&lt;br&gt; 
+  
+&lt;center&gt;
+&lt;a href="https://tidyverse.tidyverse.org"&gt;
+&lt;img src="images/tidyverse_hex.png" style = "width: 200px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+## First motivating example for today
+
+&lt;center&gt;
+&lt;a href="http://gitsense.github.io/images/wealth.gif"&gt;
+&lt;img src="images/wealth.gif" style = "width: 700px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+
+- Inspired by the late, great [Hans Rosling](https://www.youtube.com/watch?v=jbkSRLYSojo)
+
+---
+
+## The `gapminder` data set in {dslabs}
+
+
+```r
+library(dslabs)
+library(dplyr)
+gapminder &lt;- tibble(gapminder)
+glimpse(gapminder)
+```
+
+```
+Rows: 10,545
+Columns: 9
+$ country          &lt;fct&gt; Albania, Algeria, Angola, Antigua and Barb…
+$ year             &lt;int&gt; 1960, 1960, 1960, 1960, 1960, 1960, 1960, …
+$ infant_mortality &lt;dbl&gt; 115.40, 148.20, 208.00, NA, 59.87, NA, NA,…
+$ life_expectancy  &lt;dbl&gt; 62.87, 47.50, 35.98, 62.97, 65.39, 66.86, …
+$ fertility        &lt;dbl&gt; 6.19, 7.65, 7.32, 4.43, 3.11, 4.55, 4.82, …
+$ population       &lt;dbl&gt; 1636054, 11124892, 5270844, 54681, 2061907…
+$ gdp              &lt;dbl&gt; NA, 1.3828e+10, NA, NA, 1.0832e+11, NA, NA…
+$ continent        &lt;fct&gt; Europe, Africa, Africa, Americas, Americas…
+$ region           &lt;fct&gt; Southern Europe, Northern Africa, Middle A…
+```
+
+
+- Also check out [the {gapminder} package](https://github.com/jennybc/gapminder)
+
+---
+
+name: wrangling
+
+## What is data wrangling?
+
+.pull-left[
+- "data janitor work"
+- importing data
+- cleaning data
+- changing shape of data
+]
+.pull-right[
+- fixing errors and poorly formatted data elements
+- transforming columns and rows
+- filtering, subsetting
+]
+
+&lt;br&gt;
+
+&lt;center&gt;
+&lt;a href="https://r4ds.had.co.nz/introduction.html"&gt;
+&lt;img src="images/r4ds_tidyverse.png" style = "width: 600px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+## Base R versus the {tidyverse}
+
+- The mean life expectancy across all years for Asia
+--
+
+
+```r
+# Base R
+asia &lt;- gapminder[gapminder$continent == "Asia", ]
+mean(asia$life_expectancy)
+```
+
+```
+[1] 65.901
+```
+--
+ 
+
+```r
+library(dplyr)
+gapminder %&gt;%
+  filter(continent == "Asia") %&gt;%
+  summarize(mean_exp = mean(life_expectancy))
+```
+
+```
+# A tibble: 1 x 1
+  mean_exp
+     &lt;dbl&gt;
+1     65.9
+```
+
+---
+
+## The pipe `%&gt;%`
+
+&lt;img src="images/pipe.png" style="width: 240px;"/&gt; &amp;emsp; &amp;emsp; &amp;emsp; &lt;img src="images/MagrittePipe.jpg" style="width: 300px;"/&gt;
+--
+
+- A way to chain together commands
+- Can be read as "and then" when reading over code
+--
+
+
+```r
+library(dplyr)
+gapminder %&gt;%
+  filter(continent == "Asia") %&gt;%
+  summarize(mean_exp = mean(life_expectancy))
+```
+
+---
+
+class: inverse
+
+## `filter()` rows that satisfy specified conditions
+
+&lt;center&gt;
+&lt;a href="https://github.com/allisonhorst/stats-illustrations"&gt;
+&lt;img src="images/dplyr_filter.jpg" style = "width: 1100px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+
+---
+
+name: filter
+
+## `dplyr::filter()`
+
+- Arguments are "filters" that you'd like to apply.
+--
+
+
+```r
+gap_2014 &lt;- gapminder %&gt;% filter(year == 2014)
+gap_2014
+```
+
+```
+# A tibble: 185 x 9
+  country              year infant_mortality life_expectancy fertility
+  &lt;fct&gt;               &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;
+1 Albania              2014             12.9            77.9      1.78
+2 Algeria              2014             22              76.3      2.76
+3 Angola               2014             98.8            59.2      5.75
+4 Antigua and Barbuda  2014              6.1            76.3      2.08
+5 Argentina            2014             11.5            76.3      2.16
+# … with 180 more rows, and 4 more variables: population &lt;dbl&gt;,
+#   gdp &lt;dbl&gt;, continent &lt;fct&gt;, region &lt;fct&gt;
+```
+
+- Use `==` to compare a variable to a value
+
+---
+
+## Logical operators
+
+- Use `|` to check for any in multiple filters being true:
+--
+
+
+```r
+gapminder %&gt;%
+  filter(life_expectancy &lt; 50 | fertility &gt; 4) %&gt;%
+  slice_sample(n = 8)
+```
+--
+
+
+```
+# A tibble: 8 x 9
+  country        year infant_mortality life_expectancy fertility
+  &lt;fct&gt;         &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;
+1 Nepal          1996             73.1            62.5      4.6 
+2 Uganda         2010             49.5            57.8      6.16
+3 Nicaragua      1988             54.5            71.4      4.99
+4 Guinea-Bissau  1962             NA              43.6      5.67
+5 Oman           1985             50.4            68.4      8.22
+6 Comoros        1970            152.             48.6      7.06
+7 Tajikistan     1980            100.             64.3      5.66
+8 Gabon          1990             60.5            59.5      5.42
+# … with 4 more variables: population &lt;dbl&gt;, gdp &lt;dbl&gt;,
+#   continent &lt;fct&gt;, region &lt;fct&gt;
+```
+
+---
+
+## Logical operators
+
+- Use `,` to check for all of multiple filters being true:
+--
+
+
+```r
+gapminder %&gt;%
+  filter(life_expectancy &lt; 50, fertility &gt; 4)
+```
+
+
+```
+# A tibble: 8 x 9
+  country       year infant_mortality life_expectancy fertility
+  &lt;fct&gt;        &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;
+1 Algeria       1960             148.            47.5      7.65
+2 Angola        1960             208             36.0      7.32
+3 Bangladesh    1960             176.            46.2      6.73
+4 Benin         1960             187.            38.3      6.28
+5 Bhutan        1960             175             35.9      6.67
+6 Bolivia       1960             173.            43.8      6.7 
+7 Burkina Faso  1960             161.            35.2      6.29
+8 Burundi       1960             145.            40.6      6.95
+# … with 4 more variables: population &lt;dbl&gt;, gdp &lt;dbl&gt;,
+#   continent &lt;fct&gt;, region &lt;fct&gt;
+```
+
+---
+
+## Logical operators
+
+- Use `%in%` to check for any being true &lt;br&gt; (shortcut to using `|` repeatedly with `==`)
+--
+
+
+```r
+gapminder %&gt;%
+  filter(country %in% c("Argentina", "Belgium", "Mexico"),
+         year %in% c(2012, 2015))
+```
+--
+
+
+```
+# A tibble: 6 x 9
+  country    year infant_mortality life_expectancy fertility
+  &lt;fct&gt;     &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;
+1 Argentina  2012             12.3            76.1      2.19
+2 Belgium    2012              3.5            80.3      1.85
+3 Mexico     2012             13.1            75.7      2.22
+4 Argentina  2015             11.1            76.5      2.15
+5 Belgium    2015              3.3            80.5      1.86
+6 Mexico     2015             11.3            75.9      2.13
+# … with 4 more variables: population &lt;dbl&gt;, gdp &lt;dbl&gt;,
+#   continent &lt;fct&gt;, region &lt;fct&gt;
+```
+
+---
+
+class: center, middle
+background-color: coral
+
+# Your Turn
+---
+
+name: yourturnA
+
+
+
+
+## Exercise A
+## 5:00 minutes
+
+
+1. 
+
+---
+
+name: summarize
+
+## `summarize()`
+
+- Any numerical summary that you want to apply to a column of a data frame is specified within `summarize()`.
+
+
+```r
+stats_2015 &lt;- gapminder %&gt;%
+  filter(year == 2015) %&gt;%
+  summarize(
+    max_exp = max(life_expectancy),
+    sd_exp = sd(life_expectancy)
+  )
+stats_2015
+```
+--
+
+
+```
+# A tibble: 1 x 2
+  max_exp sd_exp
+    &lt;dbl&gt;  &lt;dbl&gt;
+1    83.7   7.79
+```
+
+---
+
+name: groupby
+
+### Combining `summarize()` with `group_by()`
+
+- When you'd like to determine a numerical summary for all
+levels of a different categorical variable
+
+
+```r
+max_exp_2015_by_cont &lt;- gapminder %&gt;%
+  filter(year == 2015) %&gt;%
+  group_by(continent) %&gt;%
+  summarize(max_exp = max(life_expectancy),
+            sd_exp = sd(life_expectancy))
+max_exp_2015_by_cont
+```
+
+--
+
+```
+# A tibble: 5 x 3
+  continent max_exp sd_exp
+  &lt;fct&gt;       &lt;dbl&gt;  &lt;dbl&gt;
+1 Africa       77.6   6.52
+2 Americas     81.7   3.58
+3 Asia         83.7   5.12
+4 Europe       83.3   3.43
+5 Oceania      82.3   7.32
+```
+
+---
+
+class: inverse
+
+## `mutate()` changes the data
+
+&lt;center&gt;
+&lt;a href="https://github.com/allisonhorst/stats-illustrations"&gt;
+&lt;img src="images/dplyr_mutate.png" style = "width: 600px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+name: mutate
+
+## `mutate()`
+
+- Most importantly, allows you to create a new variable based on other variables
+
+--
+
+
+```r
+gapminder_plus &lt;- gapminder %&gt;% 
+  mutate(gdp_per_capita = gdp / population)
+slice_sample(gapminder_plus, n = 4)
+```
+
+```
+# A tibble: 4 x 10
+  country    year infant_mortality life_expectancy fertility
+  &lt;fct&gt;     &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;
+1 Suriname   1979             NA              67.4      4.04
+2 Lithuania  2007              7.2            71.4      1.39
+3 Ghana      1967            121.             49.1      6.95
+4 Romania    1978             37.8            70.0      2.51
+# … with 5 more variables: population &lt;dbl&gt;, gdp &lt;dbl&gt;,
+#   continent &lt;fct&gt;, region &lt;fct&gt;, gdp_per_capita &lt;dbl&gt;
+```
+
+---
+
+class: center, middle
+
+&lt;h5&gt;&lt;/h5&gt;
+
+&lt;center&gt;
+&lt;a href="https://github.com/allisonhorst/stats-illustrations"&gt;
+&lt;img src="images/tidydata_1.jpg" style = "width: 1200px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+class: center, middle
+
+&lt;h5&gt;&lt;/h5&gt;
+
+&lt;center&gt;
+&lt;a href="https://github.com/allisonhorst/stats-illustrations"&gt;
+&lt;img src="images/tidydata_2.jpg" style = "width: 1200px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+name: arrange
+
+## `arrange()`
+
+- Reorders the rows in a data frame based on the values of one or more variables
+--
+
+
+```r
+gapminder_plus %&gt;%
+  arrange(year, country)
+```
+
+```
+# A tibble: 10,545 x 10
+  country              year infant_mortality life_expectancy fertility
+  &lt;fct&gt;               &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;
+1 Albania              1960            115.             62.9      6.19
+2 Algeria              1960            148.             47.5      7.65
+3 Angola               1960            208              36.0      7.32
+4 Antigua and Barbuda  1960             NA              63.0      4.43
+5 Argentina            1960             59.9            65.4      3.11
+# … with 10,540 more rows, and 5 more variables: population &lt;dbl&gt;,
+#   gdp &lt;dbl&gt;, continent &lt;fct&gt;, region &lt;fct&gt;, gdp_per_capita &lt;dbl&gt;
+```
+
+---
+
+## `arrange()`
+
+- Can also put into descending order
+--
+
+
+```r
+gapminder_plus %&gt;%
+  filter(year &gt; 2000) %&gt;%
+  arrange(desc(life_expectancy))
+```
+
+```
+# A tibble: 2,960 x 10
+  country           year infant_mortality life_expectancy fertility
+  &lt;fct&gt;            &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;
+1 Hong Kong, China  2016             NA              83.9     NA   
+2 Hong Kong, China  2015             NA              83.7      1.17
+3 Hong Kong, China  2014             NA              83.6      1.15
+4 Hong Kong, China  2013             NA              83.4      1.14
+5 Iceland           2014              1.6            83.3      2.07
+# … with 2,955 more rows, and 5 more variables: population &lt;dbl&gt;,
+#   gdp &lt;dbl&gt;, continent &lt;fct&gt;, region &lt;fct&gt;, gdp_per_capita &lt;dbl&gt;
+```
+
+---
+
+## Don't mix up `arrange()` and `group_by()`
+
+- `group_by()` is used (mostly) with `summarize()` to calculate summaries 
+over groups
+
+- `arrange()` is used for sorting
+
+---
+
+## Don't mix up `arrange()` and `group_by()`
+
+This doesn't really do anything useful by itself
+
+
+```r
+gapminder %&gt;% group_by(country)
+```
+
+```
+# A tibble: 10,545 x 9
+# Groups:   country [185]
+  country              year infant_mortality life_expectancy fertility
+  &lt;fct&gt;               &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;
+1 Albania              1960            115.             62.9      6.19
+2 Algeria              1960            148.             47.5      7.65
+3 Angola               1960            208              36.0      7.32
+4 Antigua and Barbuda  1960             NA              63.0      4.43
+5 Argentina            1960             59.9            65.4      3.11
+# … with 10,540 more rows, and 4 more variables: population &lt;dbl&gt;,
+#   gdp &lt;dbl&gt;, continent &lt;fct&gt;, region &lt;fct&gt;
+```
+
+---
+
+## Don't mix up `arrange()` and `group_by()`
+
+But this does
+
+
+```r
+gapminder %&gt;% arrange(country)
+```
+
+```
+# A tibble: 10,545 x 9
+  country  year infant_mortality life_expectancy fertility population
+  &lt;fct&gt;   &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+1 Albania  1960            115.             62.9      6.19    1636054
+2 Albania  1961            111.             63.9      6.08    1685901
+3 Albania  1962            106.             64.8      5.96    1737645
+4 Albania  1963            102.             65.6      5.83    1790533
+5 Albania  1964             97.9            66.2      5.71    1843596
+# … with 10,540 more rows, and 3 more variables: gdp &lt;dbl&gt;,
+#   continent &lt;fct&gt;, region &lt;fct&gt;
+```
+
+---
+
+name: select
+
+## `select()`
+
+- Chooses a subset of _columns_ (don't mix up with `filter()`)
+
+
+```r
+gapminder_plus %&gt;% 
+  select(country, region, gdp_per_capita)
+```
+
+```
+# A tibble: 10,545 x 3
+  country             region          gdp_per_capita
+  &lt;fct&gt;               &lt;fct&gt;                    &lt;dbl&gt;
+1 Albania             Southern Europe            NA 
+2 Algeria             Northern Africa          1243.
+3 Angola              Middle Africa              NA 
+4 Antigua and Barbuda Caribbean                  NA 
+5 Argentina           South America            5254.
+# … with 10,540 more rows
+```
+
+---
+
+
+
+class: center, middle
+background-color: coral
+
+# Your Turn
+---
+
+name: yourturnB
+
+## Exercise B
+## 5 minutes
+
+
+1. 
+
+---
+
+name: viz
+class: center, middle, inverse
+
+##  Basics of {ggplot2}
+
+
+.pull-left[
+&lt;img src="images/ggplot2_exploratory.png" width="105%" height="55%"&gt;
+
+&lt;br&gt;
+
+[Alison Horst](https://github.com/allisonhorst/stats-illustrations) 
+]
+
+.pull-right[
+&lt;img src="images/ggplot2_hex.png" width="85%" height="55%"&gt;
+
+&lt;br&gt;
+
+[ggplot2 package](https://ggplot2.tidyverse.org)
+]
+
+---
+
+class: center, middle
+
+&lt;center&gt;
+&lt;a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf"&gt;
+&lt;img src="images/ggplot_basics_from_ppt.png" style = "width: 1000px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+
+
+---
+
+## Learning objectives
+
+### Part 2
+
+- Build a sampling distribution by repeatedly sampling from a population using the {moderndive} package
+- Compose a visualization of a sampling distribution
+- Construct a bootstrap distributions for a basic confidence interval of a statistic
+- Perform tidy hypothesis testing using the {infer} package
+
+---
+
+name: sampling
+
+## Extending this {tidyverse} knowledge to something new
+
+- How can we now learn about &lt;u&gt;sampling distributions&lt;/u&gt;?
+
+--
+
+&lt;center&gt;
+&lt;a href="https://moderndive.com/7-sampling.html"&gt;
+&lt;img src="images/sampling_bowl.jpeg" style = "width: 380px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+class: middle
+
+
+```r
+library(moderndive)
+bowl %&gt;% slice_head(n = 15)
+```
+
+```
+# A tibble: 15 x 2
+   ball_ID color
+     &lt;int&gt; &lt;chr&gt;
+ 1       1 white
+ 2       2 white
+ 3       3 white
+ 4       4 red  
+ 5       5 white
+ 6       6 white
+ 7       7 red  
+ 8       8 white
+ 9       9 red  
+10      10 white
+11      11 white
+12      12 white
+13      13 white
+14      14 white
+15      15 red  
+```
+
+---
+
+## One virtual scoop of 50 balls (one sample)
+
+
+```r
+set.seed(8675309)
+(jennys_sample &lt;- bowl %&gt;% slice_sample(n = 50))
+```
+
+```
+# A tibble: 50 x 2
+  ball_ID color
+    &lt;int&gt; &lt;chr&gt;
+1    2260 white
+2     970 white
+3    1291 white
+4    1216 white
+5    2217 red  
+# … with 45 more rows
+```
+
+---
+
+## Proportion that are red
+
+
+```r
+jennys_sample %&gt;%
+  summarize(prop_red = mean(color == "red")) %&gt;%
+  pull()
+```
+
+```
+[1] 0.32
+```
+
+--
+
+## Is this how many are in the full bowl?
+
+---
+
+## Sampling variability
+
+### What does `rep_bowl_samples` look like?
+
+
+```r
+library(moderndive)
+rep_bowl_samples &lt;- bowl %&gt;%
+  rep_slice_sample(n = 50, reps = 10000)
+```
+
+--
+
+### How about `bowl_props`?
+
+
+```r
+bowl_props &lt;- rep_bowl_samples %&gt;%
+  group_by(replicate) %&gt;%
+  summarize(prop_red = mean(color == "red"))
+```
+
+
+---
+
+## The sampling distribution
+
+
+```r
+ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
+  geom_histogram(binwidth = 0.02, color = "white")
+```
+
+![](slide_deck_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
+
+---
+
+## Shifting focus
+
+### What about if all we had was the one sample of balls (not the whole bowl)?
+
+
+```r
+jennys_sample %&gt;% count(color)
+```
+
+```
+# A tibble: 2 x 2
+  color     n
+  &lt;chr&gt; &lt;int&gt;
+1 red      16
+2 white    34
+```
+
+--
+
+### How could we use this sample to make a guess about the sampling variability from other samples?
+
+---
+
+## Building up to statistical inference!
+
+
+```r
+library(infer)
+jennys_sample %&gt;%
+  specify(formula = color ~ NULL, success = "red")
+```
+
+```
+Response: color (factor)
+# A tibble: 50 x 1
+  color
+  &lt;fct&gt;
+1 white
+2 white
+3 white
+4 white
+5 red  
+# … with 45 more rows
+```
+
+---
+
+## Bootstrapping?
+
+
+```r
+library(infer)
+(bootstrap_samples &lt;- jennys_sample %&gt;%
+  specify(formula = color ~ NULL, success = "red") %&gt;%
+  generate(reps = 48, type = "bootstrap"))
+```
+
+```
+Response: color (factor)
+# A tibble: 2,400 x 2
+# Groups:   replicate [48]
+  replicate color
+      &lt;int&gt; &lt;fct&gt;
+1         1 red  
+2         1 white
+3         1 white
+4         1 white
+5         1 white
+# … with 2,395 more rows
+```
+
+---
+
+## What does `bootstrap_samples` represent?
+
+- Remember we assumed that all we had was the original sample of 19 red and 31 white to start.
+--
+
+- Hope each selection in `bootstrap_samples` is similar to:
+
+&lt;center&gt;
+&lt;a href="http://moderndive.netlify.com/images/sampling_bowl.jpeg"&gt;
+&lt;img src="images/big_sampling_bowl.jpeg" style = "width: 500px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+## Bootstrap statistics
+
+
+```r
+jennys_sample %&gt;%
+  specify(formula = color ~ NULL, success = "red") %&gt;%
+  generate(reps = 48, type = "bootstrap") %&gt;%
+  calculate(stat = "prop")
+```
+
+```
+# A tibble: 48 x 2
+  replicate  stat
+      &lt;int&gt; &lt;dbl&gt;
+1         1  0.24
+2         2  0.34
+3         3  0.34
+4         4  0.4 
+5         5  0.28
+# … with 43 more rows
+```
+
+---
+
+## Do 10,000 reps to get a better sense for variability
+
+### Just as we did with the sampling distribution
+
+
+```r
+bootstrap_stats &lt;- jennys_sample %&gt;%
+  specify(formula = color ~ NULL, success = "red") %&gt;%
+  generate(reps = 10000, type = "bootstrap") %&gt;%
+  calculate(stat = "prop")
+```
+
+---
+
+### The bootstrap distribution
+
+![](slide_deck_files/figure-html/unnamed-chunk-48-1.png)&lt;!-- --&gt;
+
+### The sampling distribution
+
+![](slide_deck_files/figure-html/unnamed-chunk-49-1.png)&lt;!-- --&gt;
+
+---
+
+## Get a confidence interval
+
+
+```r
+get_ci(bootstrap_stats, level = 0.95)
+```
+
+```
+# A tibble: 1 x 2
+  lower_ci upper_ci
+     &lt;dbl&gt;    &lt;dbl&gt;
+1      0.2     0.44
+```
+
+- We are 95% "confident" the true proportion of red balls in the hopper/bowl is
+between 0.2 and 0.44.
+
+--
+***
+
+- In the population:
+
+
+```r
+mean(bowl$color == "red")
+```
+
+```
+[1] 0.375
+```
+
+
+---
+
+## {infer} verbs
+
+&lt;center&gt;
+&lt;a href="https://iinfer.tidymodels.org"&gt;
+&lt;img src="images/infer_ci.jpg" style = "width: 750px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+## {infer} verbs
+
+&lt;center&gt;
+&lt;a href="https://iinfer.tidymodels.org"&gt;
+&lt;img src="images/infer_ht.jpg" style = "width: 750px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+
+---
+
+class: middle, center
+
+# Statistical Inference
+
+&lt;center&gt;
+&lt;a href="https://infer-dev.netlify.com"&gt;
+&lt;img src="images/infer_gnome.png" style = "width: 400px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+&lt;br&gt;
+
+.footnote[{infer} hex sticker designs kindly created by [Thomas Mock](https://www.linkedin.com/in/jthomasmock/)]
+
+---
+
+
+# Research Question
+
+If you see someone else yawn, are you more likely to yawn?
+
+In an episode of the show *Mythbusters*, they tested the myth that yawning is contagious. 
+
+--
+- 50 adults who thought they were being considered for an appearance on the show. 
+
+--
+
+- Each participant was interviewed individually by a show recruiter ("confederate") who either yawned or did not.
+
+--
+
+- Participants then sat by themselves in a large van and were asked to wait. 
+
+--
+
+- While in the van, the Mythbusters watched to see if the unaware participants yawned.
+
+
+
+---
+
+### Data
+
+- 34 saw the confederate yawn ( *seed* )
+- 16 did not see the confederate yawn ( *control* )
+- `Yawn` - participant yawn, `No Yawn` - participant did not
+
+--
+
+
+```r
+group &lt;- c(rep("control", 12), rep("seed", 24),
+  rep("control", 4), rep("seed", 10))
+yawn &lt;- c(rep("No Yawn", 12 + 24), rep("Yawn", 4 + 10))
+yawn_myth &lt;- tibble(subj = seq(1, 50), group, yawn) %&gt;%
+  mutate(yawn = factor(yawn))
+yawn_myth %&gt;% slice(c(5, 17, 37, 49))
+```
+
+```
+# A tibble: 4 x 3
+   subj group   yawn   
+  &lt;int&gt; &lt;chr&gt;   &lt;fct&gt;  
+1     5 control No Yawn
+2    17 seed    No Yawn
+3    37 control Yawn   
+4    49 seed    Yawn   
+```
+
+---
+
+# Results
+
+&lt;center&gt;
+&lt;a href="https://github.com/sfirke/janitor"&gt;
+&lt;img src="images/janitor_hex.png" style = "width: 150px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+
+```r
+library(janitor)
+yawn_myth %&gt;%
+  tabyl(group, yawn) %&gt;%
+  adorn_percentages() %&gt;%
+  adorn_pct_formatting() %&gt;%
+  adorn_ns()
+```
+
+```
+   group    No Yawn       Yawn
+ control 75.0% (12) 25.0%  (4)
+    seed 70.6% (24) 29.4% (10)
+```
+
+---
+
+## *Finding: CONFIRMED*
+
+&gt; "Though that's not an enormous increase, since they tested 50 people in the field, the gap was still wide enough for the MythBusters to confirm that yawning is indeed contagious." &lt;sup&gt;1&lt;/sup&gt;
+
+.footnote[
+[1] http://www.discovery.com/tv-shows/mythbusters/mythbusters-database/yawning-contagious/]
+
+
+---
+
+## Really? Let's formally check this
+
+- State the hypotheses
+
+--
+
+&lt;br&gt;
+
+Null hypothesis:  
+
+&gt; There is no difference between the seed and control groups in the proportion of people who yawned.
+
+--
+
+Alternative hypothesis (directional): 
+
+&gt; More people (relatively) yawned in the seed group than in the control group.
+
+---
+
+## Test the hypothesis
+
+Which type of hypothesis test would you conduct here?
+
+- A. Independent samples t-test  
+- B. Two proportion test  
+- C. Chi-square Goodness of Fit  
+- D. Analysis of Variance
+
+--
+
+### B. Two proportion test
+
+---
+
+## Two proportion test
+
+`$$H_0: p_{seed} - p_{control} = 0$$`
+
+--
+
+`$$H_A: p_{seed} - p_{control} &gt; 0$$`
+
+---
+
+## The observed difference
+
+
+```r
+obs_diff &lt;- yawn_myth %&gt;% 
+  specify(yawn ~ group, success = "Yawn") %&gt;%
+  calculate(
+    stat = "diff in props",
+    order = c("seed", "control")
+  )
+obs_diff
+```
+
+```
+# A tibble: 1 x 1
+    stat
+   &lt;dbl&gt;
+1 0.0441
+```
+
+---
+class: middle, center
+
+## Is this difference *meaningful*?
+
+--
+
+## Different question: 
+
+--
+
+## Is this difference *significant*?
+
+---
+
+# Modeling the null hypothesis
+
+If... 
+
+&lt;br&gt;
+
+&amp;emsp;&amp;emsp; `\(H_0: p_{seed} = p_{control}\)` &amp;emsp;&amp;emsp;
+
+&lt;br&gt;
+
+is true, then whether or not the participant saw someone else yawn does not matter.
+
+--
+
+&lt;br&gt;
+
+In other words, there is no association between exposure and yawning.
+
+
+---
+class: center, middle
+
+![](http://directorsnotes.com/wp-content/uploads/2011/11/another_earth_03.jpg)
+---
+
+
+
+.pull-left[
+### Original universe
+
+
+```
+# A tibble: 12 x 3
+    subj group   yawn   
+   &lt;int&gt; &lt;chr&gt;   &lt;fct&gt;  
+ 1     1 control No Yawn
+ 2     2 control No Yawn
+ 3     3 control No Yawn
+ 4     4 control No Yawn
+ 5     5 control No Yawn
+ 6     6 control No Yawn
+ 7    15 seed    No Yawn
+ 8    16 seed    No Yawn
+ 9    17 seed    No Yawn
+10    18 seed    No Yawn
+11    19 seed    No Yawn
+12    20 seed    No Yawn
+```
+
+```
+   group No Yawn Yawn Total
+ control      12    4    16
+    seed      24   10    34
+   Total      36   14    50
+```
+]
+
+--
+
+.pull-right[
+### Parallel universe
+
+```
+# A tibble: 12 x 3
+    subj group   alt_yawn
+   &lt;int&gt; &lt;fct&gt;   &lt;fct&gt;   
+ 1     1 control No Yawn 
+ 2     2 control No Yawn 
+ 3     3 control No Yawn 
+ 4     4 control Yawn    
+ 5     5 control No Yawn 
+ 6     6 control No Yawn 
+ 7    15 seed    Yawn    
+ 8    16 seed    No Yawn 
+ 9    17 seed    No Yawn 
+10    18 seed    No Yawn 
+11    19 seed    Yawn    
+12    20 seed    No Yawn 
+```
+
+```
+   group No Yawn Yawn Total
+ control      13    3    16
+    seed      23   11    34
+   Total      36   14    50
+```
+]
+
+---
+
+# 1000 parallel universes
+
+.pull-left[
+
+```
+# A tibble: 10 x 2
+   replicate    stat
+       &lt;int&gt;   &lt;dbl&gt;
+ 1         1  0.136 
+ 2         2  0.136 
+ 3         3  0.0441
+ 4         4 -0.140 
+ 5         5  0.136 
+ 6         6 -0.232 
+ 7         7  0.136 
+ 8         8  0.136 
+ 9         9  0.136 
+10        10  0.0441
+```
+]
+
+--
+
+.pull-right[
+
+```
+# A tibble: 10 x 2
+   replicate    stat
+       &lt;int&gt;   &lt;dbl&gt;
+ 1       991 -0.0478
+ 2       992 -0.140 
+ 3       993  0.0441
+ 4       994  0.0441
+ 5       995 -0.0478
+ 6       996 -0.140 
+ 7       997 -0.140 
+ 8       998  0.0441
+ 9       999  0.136 
+10      1000 -0.0478
+```
+]
+
+---
+## The parallel universe distribution
+
+![](slide_deck_files/figure-html/unnamed-chunk-59-1.png)&lt;!-- --&gt;
+
+
+The distribution of 1000 differences in proportions, if the null hypothesis were *true* and yawning was not contagious. 
+
+
+---
+## Calculating the p-value
+
+&lt;!--
+In how many of our "parallel universes" is the difference as big or bigger than the one we observed (`obs_diff`)?
+--&gt;
+
+--
+
+&lt;br&gt;
+
+The shaded proportion is the p-value!
+
+
+```r
+null_distn %&gt;% 
+  get_p_value(obs_stat = obs_diff, direction = "right")
+```
+
+```
+# A tibble: 1 x 1
+  p_value
+    &lt;dbl&gt;
+1   0.489
+```
+
+---
+class: middle, center
+layout: false
+
+## There is Only One Test!
+
+[![Only One Test](images/downey.png)](http://allendowney.blogspot.com/2016/06/there-is-still-only-one-test.html)
+
+---
+
+![](images/infer.073.jpeg)
+
+---
+
+![](images/infer.074.jpeg)
+
+---
+
+![](images/infer.075.jpeg)
+
+---
+
+![](images/infer.076.jpeg)
+
+---
+
+![](images/infer.077.jpeg)
+
+---
+
+![](images/infer.078.jpeg)
+
+---
+
+![](images/infer.079.jpeg)
+
+---
+
+![](images/infer.080.jpeg)
+
+---
+
+![](images/infer.081.jpeg)
+
+---
+
+![](images/infer.082.jpeg)
+
+---
+
+![](images/infer.084.jpeg)
+
+---
+
+
+## {infer}
+
+Five main functions:
+
+- `specify()`
+- `hypothesize()`
+- `generate()`
+- `calculate()`
+- `visualize()`
+
+---
+
+## {infer}
+&lt;small&gt;
+- `specify()` the response and explanatory variables (`y ~ x`)
+- `hypothesize()` what the null hypothesis is (here, `independence` of `y` and `x`)
+- `generate()` new samples from parallel universes under the null hypothesis model:
+    - &lt;small&gt;Resample from our original data &lt;u&gt;without replacement&lt;/u&gt;, each time shuffling the `group` (`type = "permute"`)&lt;/small&gt;
+    - &lt;small&gt;Do this &lt;u&gt;a ton of times&lt;/u&gt; (`reps = 1000`)&lt;/small&gt;
+- `calculate()` the statistic (`stat = "diff in props"`) for each of the `reps`
+&lt;/small&gt;
+
+---
+
+## {infer} example
+
+
+```r
+set.seed(8)
+null_distn &lt;- yawn_myth %&gt;%
+  specify(formula = yawn ~ group, success = "Yawn") %&gt;%
+  hypothesize(null = "independence") %&gt;%
+  generate(reps = 1000, type = "permute") %&gt;%
+  calculate(stat = "diff in props", order = c("seed", "control"))
+```
+
+---
+
+## Visualize the null distribution
+
+- `visualize()` the distribution of the `stat` &lt;br&gt; (here, `diff in props`)
+
+
+
+
+
+```r
+null_distn %&gt;%
+  visualize(bins = 10) +
+  shade_p_value(obs_stat = obs_diff, direction = "right")
+```
+
+![](slide_deck_files/figure-html/unnamed-chunk-63-1.png)&lt;!-- --&gt;
+
+---
+
+## Classical inference
+
+Rely on theory to tell us what the null distribution looks like.
+
+
+
+
+```r
+obs_z &lt;- yawn_myth %&gt;%
+  specify(yawn ~ group, success = "Yawn") %&gt;%
+* calculate(stat = "z", order = c("seed", "control"))
+yawn_myth %&gt;%
+  specify(yawn ~ group, success = "Yawn") %&gt;%
+  hypothesize(null = "independence") %&gt;%
+  # generate() is not needed since we are not simulating
+  calculate(stat = "z", order = c("seed", "control")) %&gt;%
+* visualize(method = "theoretical") +
+  shade_p_value(obs_stat = obs_z, direction = "right")
+```
+
+---
+
+## Classical inference
+
+
+```
+Warning: Check to make sure the conditions have been met for the
+theoretical method. {infer} currently does not check these for you.
+```
+
+![](slide_deck_files/figure-html/unnamed-chunk-66-1.png)&lt;!-- --&gt;
+
+---
+
+# Simulation-based vs Classical (`stat = "z"`) 
+
+
+```r
+yawn_myth %&gt;%
+  specify(yawn ~ group, success = "Yawn") %&gt;%
+  hypothesize(null = "independence") %&gt;%
+  generate(reps = 1000, type = "permute") %&gt;%
+  calculate(stat = "z", order = c("seed", "control")) %&gt;%
+* visualize(method = "both", bins = 10) +
+  shade_p_value(obs_stat = obs_z, direction = "right")
+```
+
+```
+Warning: Check to make sure the conditions have been met for the
+theoretical method. {infer} currently does not check these for you.
+```
+
+![](slide_deck_files/figure-html/unnamed-chunk-67-1.png)&lt;!-- --&gt;
+
+---
+
+## More info and resources
+
+- https://infer.tidymodels.org/
+  - Many examples under Articles
+  - Discussed in [www.ModernDive.com](https://www.ModernDive.com)
+      - [Sign up](http://eepurl.com/cBkItf) to the mailing list for updates
+- [Learn the tidyverse](https://www.tidyverse.org/learn/)
+
+---
+
+layout: false
+class: middle
+
+&lt;center&gt;
+&lt;a href="https://www.tidyverse.org"&gt;
+&lt;img src="https://github.com/rstudio/hex-stickers/blob/master/PNG/tidyverse.png?raw=true" style="width: 200px;"/&gt;
+&lt;/a&gt;&amp;emsp;&amp;emsp;&lt;a href="https://moderndive.netlify.com"&gt; 
+&lt;img src="https://github.com/moderndive/moderndive/blob/master/images/hex_blue_text.png?raw=true" style="width: 200px;"/&gt;&lt;/a&gt;&amp;emsp;&amp;emsp;&lt;a href="https://infer.tidymodels.org"&gt; 
+&lt;img src="images/infer_oregon3.png" style="width: 200px;"/&gt;&lt;/a&gt;&lt;/center&gt;
+
+## Any questions?
+
+&lt;!-- - Special thanks to --&gt;
+
+- Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
+- Slides' source code at &lt;https://github.com/ismayc/talks/&gt;
+- R code from throughout the slides as an R script [here](https://raw.githubusercontent.com/ismayc/talks/master/csp-2021/slide_code.R)
+
+---
+class: inverse, center, middle
+
+# Appendix
+
+---
+
+name: plug
+
+## Freely available information
+
+&lt;center&gt;
+&lt;a href="https://moderndive.com"&gt;
+&lt;img src="images/wide_format.png" style = "width: 650px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+&lt;center&gt;&lt;h2&gt;Statistical Inference via Data Science &lt;br&gt; A ModernDive into R and the Tidyverse&lt;/h2&gt;&lt;/center&gt;
+
+* Webpage: &lt;https://moderndive.com&gt;
+* Developmental version: &lt;https://moderndive.netlify.app&gt;
+* [GitHub Repo](https://github.com/moderndive/ModernDive_book)
+* Please [signup](http://eepurl.com/cBkItf) for our mailing list!
+
+---
+
+## Good practices in RStudio
+
+__Use projects__ ([read this](https://r4ds.had.co.nz/workflow-projects.html))
+- Create an RStudio project for each data analysis project
+- A project is associated with a directory folder
+    + Keep data files there
+    + Keep scripts there; edit them, run them in bits or as a whole
+    + Save your outputs (plots and cleaned data) there
+
+- Only use relative paths, never absolute paths
+    + relative (good): `read_csv("data/mydata.csv")`
+    + absolute (bad): 
+    
+    &lt;code&gt;&lt;small&gt;read_csv("/home/yourname/Documents/stuff/mydata.csv")&lt;/small&gt;&lt;/code&gt;
+    
+---
+
+## Advantages of using RStudio projects
+
+- standardize file paths
+- keep everything together
+- a whole folder can be shared and run on another computer
+
+---
+
+# Useful keyboard shortcuts
+
+.pull-left[
+
+action | mac | windows/linux
+---| ---| ---
+run code in script | cmd + enter | ctrl + enter 
+`&lt;-`| option + - | alt + -
+`%&gt;%` | cmd + shift + m | ctrl + shift + m
+]
+
+.pull-right[
+Try typing (with shortcut) and running
+
+```r
+y &lt;- 5
+y
+```
+Now, in the console, press the up arrow.
+]
+
+---
+
+## Other keyboard shortcuts: ([see full list](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts))
+
+action | mac | windows/linux
+---| ---| ---
+interrupt currently executing command | esc | esc
+in console, go to previously run code | up/down | up/down
+keyboard shortcut help | option + shift + k | alt + shift + k
+
+---
+
+
+class: middle, center
+
+# Thanks!
+
+.pull-left[
+  &lt;img class="circle" src="https://github.com/jminnier.png" width="280px"/&gt;
+
+  [&lt;svg style="height:0.8em;top:.04em;position:relative;" viewBox="0 0 512 512"&gt;&lt;path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/&gt;&lt;/svg&gt; @datapointier](http://twitter.com/datapointier)  
+  [&lt;svg style="height:0.8em;top:.04em;position:relative;" viewBox="0 0 496 512"&gt;&lt;path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/&gt;&lt;/svg&gt; @jminnier](http://github.com/jminnier)  
+  [&lt;svg style="height:0.8em;top:.04em;position:relative;" viewBox="0 0 512 512"&gt;&lt;path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/&gt;&lt;/svg&gt; jessicaminnier.com](https:/jessicaminnier.com)  
+&lt;!--  [&lt;svg style="height:0.8em;top:.04em;position:relative;" viewBox="0 0 512 512"&gt;&lt;path d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/&gt;&lt;/svg&gt; `minnier [at] ohsu [dot] edu`](mailto:minnier@ohsu.edu) --&gt;
+]
+
+.pull-right[
+  &lt;img class="circle" src="https://github.com/ismayc.png" width="280px"/&gt;
+  
+  
+  [&lt;svg style="height:0.8em;top:.04em;position:relative;" viewBox="0 0 512 512"&gt;&lt;path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/&gt;&lt;/svg&gt; @old_man_chester](http://twitter.com/old_man_chester)  
+  [&lt;svg style="height:0.8em;top:.04em;position:relative;" viewBox="0 0 496 512"&gt;&lt;path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/&gt;&lt;/svg&gt; @ismayc](http://github.com/ismayc)  
+  [&lt;svg style="height:0.8em;top:.04em;position:relative;" viewBox="0 0 512 512"&gt;&lt;path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/&gt;&lt;/svg&gt; chester.rbind.io](https://chester.rbind.io)  
+&lt;!--  [&lt;svg style="height:0.8em;top:.04em;position:relative;" viewBox="0 0 512 512"&gt;&lt;path d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/&gt;&lt;/svg&gt; `chester [dot] ismay [at] datarobot [dot] com`](mailto:chester.ismay@datarobot.com) --&gt;
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true,
+"highlightLanguage": "r"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

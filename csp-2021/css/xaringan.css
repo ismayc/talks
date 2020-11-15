@@ -1,0 +1,272 @@
+@import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700);
+@import url('https://fonts.googleapis.com/css?family=Inconsolata:400');
+@import url('https://fonts.googleapis.com/css?family=Cormorant+Upright:700');
+
+body { 
+  font-family: 'Droid Serif', 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif; 
+}
+p {
+  font-family: 'Yanone Kaffeesatz';
+  font-size: 40px;
+  margin: 0;
+  padding: 0;
+}
+h1, h2, h3 {
+  font-family: 'Yanone Kaffeesatz';
+  font-weight: normal;
+
+}
+a, a > code {
+  color: #0094C1;
+  text-decoration: none; 
+}
+
+li {
+  color: Black;
+}
+
+.remark-code, .remark-inline-code {
+  font-family: 'Inconsolata', 'Lucida Console', Monaco, monospace;
+}
+
+.fancy{
+  font-family: 'Cormorant Upright', serif;
+  font-weight: 700;
+}
+
+/*
+.title-slide {
+  background-image: url(img/DataCamp_Vertical_White.png);
+  background-position: 95% 95%;
+  background-size: 180px;
+  background-color: white;
+}
+*/
+
+.remark-code, .remark-inline-code { font-family: 'Source Code Pro', 'Lucida Console', Monaco, monospace;
+  font-size: 95%;
+}
+.remark-code-line-highlighted     { background-color: Yellow; }
+
+.inverse {
+  background-color: #272822;
+  color: white;
+  text-shadow: 0 0 20px #333;
+}
+.inverse h1, .inverse h2, .inverse h3 {
+  color: #f3f3f3;
+  line-height: 1.0em;
+}
+.inverse body, ul, ol {
+  color: #f3f3f3;
+  font-size: 90%;
+}
+.inverse .remark-code, .remark-inline-code { font-family: 'Source Code Pro', 'Lucida Console', Monaco, monospace;
+  font-size: 85%;
+}
+.inverse .remark-code-line-highlighted     { background-color: gray; }
+
+/* Two-column layout */
+.left-column {
+  width: 57%;
+  height: 100%;
+  float: left;
+}
+/*.left-column h2:last-of-type, .left-column h3:last-child {
+  color: #000;
+} */
+.right-column {
+  width: 41%;
+  float: right;
+}
+.pull-left {
+  float: left;
+  width: 48%;
+}
+.pull-right {
+  float: right;
+  width: 48%;
+}
+.pull-right ~ * {
+  clear: both;
+}
+img {
+  max-width: 100%;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+    margin: 0 auto; 
+}
+
+th, td {
+    padding: 3px;
+    text-align: left;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2}
+tr:hover {background-color: skyblue}
+
+  /* I'm cheating here. The ioslides pipeline wants to treat every h1 and h2
+     in a special way, so I can't demo what they look like as a part of a page.
+     I'm just emulating it here.*/
+  #faux-h1 {
+    font-size: 1.5em; margin: .67em 0;
+  }
+  
+  #faux-h2 {
+    font-size: 1.0em; margin: .75em 0;
+  }
+  
+  #questions {
+    text-align: center;
+    font-size: 2em;
+    padding-top: 1em;
+    padding-bottom: 2em;
+  }
+
+.footer {
+    color: white;
+    position: fixed;
+    top: 93%;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    font-size: 26px;
+}
+
+.nearfooter {
+    color: black;
+    position: fixed;
+    top: 90%;
+    left: 10;
+ #   text-align: center;
+    width: 100%;
+    font-size: 22px;
+}
+
+.remark-slide-number {
+  opacity: 0; /* default: 0.5 */
+}
+
+.remark-code, .remark-inline-code { font-family: 'Source Code Pro', 'Lucida Console', Monaco, monospace;
+                                    font-size: 95%;
+                                  }
+
+ul{
+    font-family: 'Yanone Kaffeesatz';
+    font-weight: normal;
+    font-size: 40px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0px 0px 0px 60px;
+}
+
+ol{
+    font-family: 'Yanone Kaffeesatz';
+    font-weight: normal;
+    font-size: 40px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0px 0px 0px 60px;
+}
+
+.videoWrapper {
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 */
+	padding-top: 25px;
+	height: 0;
+}
+.videoWrapper iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.column:first-of-type {float:left}
+.column:last-of-type {float:right}
+
+.split-50 .column:first-of-type {width: 50%}
+.split-50 .column:last-of-type {width: 50%}
+
+/* unvisited link */
+a:link {
+    color: #0094C1;
+}
+
+/* visited link */
+a:visited {
+    color: gray;
+}
+
+/* mouse over link */
+a:hover {
+    color: hotpink;
+}
+
+/* selected link */
+a:active {
+    color: red;
+}
+.pull-left {
+  float: left;
+  width: 47%;
+}
+.pull-right {
+  float: right;
+  width: 47%;
+}
+.pull-right ~ * {
+  clear: both;
+}
+
+.mjx-chtml{ font-size: 120% !important; }
+
+
+.remark-inline-code{
+  /*background: #F5F5F5;/* /* lighter */
+  background: #e7e8e2; /* darker */
+  border-radius: 3px;
+  padding: 4px;
+  font-size: 26px;
+  color: green;
+}
+
+/* footer */
+/* From https://github.com/rstudio-education/arm-workshop-rsc2019/blob/master/static/slides/css/sfah.css */
+
+div.my-footer {
+    background-color: #1a1917;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    height: 30px;
+    width: 100%;
+}
+
+div.my-footer span {
+    font-size: 14pt;
+    color: #F7F8FA;
+    position: absolute;
+    left: 30px;
+    bottom: 4px;
+}
+
+.remark-slide-number {
+  bottom: 40px;
+  opacity: 0.5;
+  position: absolute;
+  right: 20px;
+}
+
+img.circle {
+  border-radius:50%;
+}
