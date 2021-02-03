@@ -191,7 +191,7 @@ Data frame
 
 
 ```r
-library(tibble) 
+library(tibble) # tibble is the tidyverse data.frame
 library(lubridate)
 ex1 &lt;- tibble(
   vec1 = c(1980, 1990, 2000, 2010),
@@ -546,7 +546,11 @@ name: yourturnA
 ## 5:00 minutes
 
 
-1. 
+1. Filter observations from either Europe or Africa using the `|`.
+2. Filter observations from either Europe or Africa using `%in%`.
+3. How many countries had life expectancy greater than 80 years in 1996?
+
+
 
 ---
 
@@ -835,7 +839,12 @@ name: yourturnB
 ## 5 minutes
 
 
-1. 
+1. Create a data frame that has the median life expectancy by year.
+2. Use `arrange()` on this data frame to see the top years with the highest median life expectancy. What about the year with the lowest median life expectancy?
+3. Create a new column that is median life expectancy rounded to the nearest integer, and remove the original un-rounded column with `select()`.
+
+
+
 
 ---
 

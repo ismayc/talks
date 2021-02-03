@@ -238,7 +238,7 @@ Data frame
 ## Data types review
 
 ```{r eval=FALSE, purl=FALSE}
-library(tibble) 
+library(tibble) # tibble is the tidyverse data.frame
 library(lubridate)
 ex1 <- tibble(
   vec1 = c(1980, 1990, 2000, 2010),
@@ -254,7 +254,7 @@ ex1
 --
 
 ```{r echo=FALSE, purl=TRUE}
-library(tibble)
+library(tibble) # tibble is the tidyverse data.frame
 library(lubridate)
 ex1 <- tibble(
   vec1 = c(1980, 1990, 2000, 2010),
@@ -533,7 +533,15 @@ counter <- 1
 ```{r echo=FALSE}
 counter <- counter + 1
 ```
-1. 
+1. Filter observations from either Europe or Africa using the `|`.
+2. Filter observations from either Europe or Africa using `%in%`.
+3. How many countries had life expectancy greater than 80 years in 1996?
+
+```{r soln1, include = FALSE}
+gapminder %>% filter(continent=="Europe" | continent=="Africa")
+gapminder %>% filter(continent %in% c("Europe", "Africa"))
+gapminder %>% filter(life_expectancy > 80, year==1996)
+```
 
 ---
 
@@ -744,7 +752,20 @@ name: yourturnB
 ```{r echo=FALSE}
 counter <- counter + 1
 ```
-1. 
+1. Create a data frame that has the median life expectancy by year.
+2. Use `arrange()` on this data frame to see the top years with the highest median life expectancy. What about the year with the lowest median life expectancy?
+3. Create a new column that is median life expectancy rounded to the nearest integer, and remove the original un-rounded column with `select()`.
+
+```{r soln2, include=FALSE}
+lifeyear <- gapminder %>%
+  group_by(year) %>%
+  summarize(med_exp = median(life_expectancy))
+
+lifeyear %>% arrange(desc(med_exp))
+lifeyear %>% arrange(med_exp)
+lifeyear %>% mutate(med_exp_round = round(med_exp)) %>% select(-med_exp)
+```
+
 
 ---
 
