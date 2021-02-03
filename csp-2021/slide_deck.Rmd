@@ -81,7 +81,7 @@ class: middle, center
 
 ## Dr. Jessica Minnier and Dr. Chester Ismay 
 
-`r knitr::include_graphics("images/csp-logo-virtual.png", dpi = 100)`
+`r knitr::include_graphics("images/csp-logo-virtual.png", dpi = 200)`
 
 ### Slides available at <http://bit.ly/csp-tidy> 
 
@@ -164,16 +164,30 @@ Make sure you have the current R, RStudio, & R packages
 - [R (version 4.0.2 or greater)](https://cloud.r-project.org/)
 - [RStudio (version 1.4 or greater)](https://www.rstudio.com/products/rstudio/download3/)
 
---
+***
+
+<!--
+These slides were built using
+
+```{r}
+R.version.string
+```
+
+```{r}
+rstudioapi::versionInfo()$version
+```
+-->
 
 - Run this in the RStudio Console
 
 ```{r, eval=FALSE, purl=FALSE}
 pkgs <- c(
   "tidyverse", "moderndive", "gapminder", "nycflights13", 
-  "fivethirtyeight", "janitor","ggplot2movies", "usethis"
+  "fivethirtyeight", "janitor", "ggplot2movies", "usethis",
+  "remotes"
 )
 install.packages(pkgs)
+remotes::install_github("apreshill/bakeoff")
 ```
 
 
@@ -196,7 +210,8 @@ install.packages(pkgs)
   <br>
 
 1. Open the Rproj file in the folder that just opened
-1. Edit Google Doc to ask questions: <https://csp-tidy-doc>
+1. Edit Google Doc to ask and answer questions:
+[https://bit.ly/csp-tidy-doc](https://docs.google.com/document/d/1Qsf1-GNMkjkP7lQAdiuhuu-gEP2reS2vkxRwfdXdYUI/edit)
 
 
 ---
@@ -522,6 +537,13 @@ counter <- counter + 1
 
 ---
 
+class: center, middle
+background-color: turquoise
+
+# Walk through exercise in RStudio
+
+---
+
 name: summarize
 
 ## `summarize()`
@@ -723,6 +745,13 @@ name: yourturnB
 counter <- counter + 1
 ```
 1. 
+
+---
+
+class: center, middle
+background-color: turquoise
+
+# Walk through exercise in RStudio
 
 ---
 
@@ -1025,17 +1054,13 @@ In an episode of the show *Mythbusters*, they tested the myth that yawning is co
 
 - 34 saw the confederate yawn ( *seed* )
 - 16 did not see the confederate yawn ( *control* )
-- `Yawn` - participant yawn, `No Yawn` - participant did not
+- `yawn`: `yes` - participant yawn, `no` - participant did not
 
 --
 
 ```{r purl=TRUE}
-group <- c(rep("control", 12), rep("seed", 24),
-  rep("control", 4), rep("seed", 10))
-yawn <- c(rep("No Yawn", 12 + 24), rep("Yawn", 4 + 10))
-yawn_myth <- tibble(subj = seq(1, 50), group, yawn) %>%
-  mutate(yawn = factor(yawn))
-yawn_myth %>% slice(c(5, 17, 37, 49))
+library(moderndive)
+mythbusters_yawn %>% slice(c(1, 3, 6, 19))
 ```
 
 ---
@@ -1046,7 +1071,7 @@ yawn_myth %>% slice(c(5, 17, 37, 49))
 
 ```{r purl=TRUE}
 library(janitor)
-yawn_myth %>%
+mythbusters_yawn %>%
   tabyl(group, yawn) %>%
   adorn_percentages() %>%
   adorn_pct_formatting() %>%
@@ -1113,8 +1138,8 @@ $$H_A: p_{seed} - p_{control} > 0$$
 ## The observed difference
 
 ```{r purl=TRUE}
-obs_diff <- yawn_myth %>% 
-  specify(yawn ~ group, success = "Yawn") %>%
+obs_diff <- mythbusters_yawn %>% 
+  specify(yawn ~ group, success = "yes") %>%
   calculate(
     stat = "diff in props",
     order = c("seed", "control")
@@ -1168,9 +1193,7 @@ class: center, middle
 ### Original universe
 
 ```{r echo=FALSE, purl=TRUE}
-yawn_myth %>%
-  slice(c(1:6, 15:20))
-yawn_myth %>%
+mythbusters_yawn %>%
   tabyl(group, yawn) %>%
   adorn_totals(where = c("row", "col"))
 ```
@@ -1182,10 +1205,10 @@ yawn_myth %>%
 ### Parallel universe
 ```{r echo=FALSE, purl=TRUE}
 set.seed(2018)
-perm1 <- yawn_myth %>%
+perm1 <- mythbusters_yawn %>%
   specify(
     formula = yawn ~ group,
-    success = "Yawn"
+    success = "yes"
   ) %>%
   hypothesize(null = "independence") %>%
   generate(reps = 1, type = "permute") %>%
@@ -1206,8 +1229,8 @@ perm1 %>%
 
 .pull-left[
 ```{r echo=FALSE, purl=TRUE, cache=TRUE}
-yawn_universes <- yawn_myth %>%
-  specify(yawn ~ group, success = "Yawn") %>%
+yawn_universes <- mythbusters_yawn %>%
+  specify(yawn ~ group, success = "yes") %>%
   hypothesize(null = "independence") %>%
   generate(reps = 1000, type = "permute") %>%
   calculate(
@@ -1233,10 +1256,10 @@ yawn_universes %>%
 
 ```{r echo=FALSE, purl=TRUE, cache=TRUE}
 set.seed(2)
-null_distn <- yawn_myth %>%
+null_distn <- mythbusters_yawn %>%
   specify(
     formula = yawn ~ group,
-    success = "Yawn"
+    success = "yes"
   ) %>%
   hypothesize(null = "independence") %>%
   generate(reps = 1000, type = "permute") %>%
@@ -1356,8 +1379,8 @@ Five main functions:
 
 ```{r eval=FALSE, purl=FALSE, cache=TRUE}
 set.seed(8)
-null_distn <- yawn_myth %>%
-  specify(formula = yawn ~ group, success = "Yawn") %>%
+null_distn <- mythbusters_yawn %>%
+  specify(formula = yawn ~ group, success = "yes") %>%
   hypothesize(null = "independence") %>%
   generate(reps = 1000, type = "permute") %>%
   calculate(stat = "diff in props", order = c("seed", "control"))
@@ -1371,8 +1394,8 @@ null_distn <- yawn_myth %>%
 
 ```{r include=FALSE, purl=TRUE}
 set.seed(8)
-null_distn <- yawn_myth %>%
-  specify(formula = yawn ~ group, success = "Yawn") %>%
+null_distn <- mythbusters_yawn %>%
+  specify(formula = yawn ~ group, success = "yes") %>%
   hypothesize(null = "independence") %>%
   generate(reps = 1000, type = "permute") %>%
   calculate(stat = "diff in props", order = c("seed", "control"))
@@ -1395,7 +1418,7 @@ Rely on theory to tell us what the null distribution looks like.
 theme_set(theme_gray(base_size = 22))
 yawn_table <- table(group, yawn)
 yz <- prop.test(
-  x = yawn_table, n = nrow(yawn_myth),
+  x = yawn_table, n = nrow(mythbusters_yawn),
   alternative = "greater", correct = FALSE
 )
 obs_z <- yz %>%
@@ -1404,11 +1427,11 @@ obs_z <- yz %>%
 ```
 
 ```{r eval=FALSE, purl=FALSE}
-obs_z <- yawn_myth %>%
-  specify(yawn ~ group, success = "Yawn") %>%
+obs_z <- mythbusters_yawn %>%
+  specify(yawn ~ group, success = "yes") %>%
   calculate(stat = "z", order = c("seed", "control")) #<<
-yawn_myth %>%
-  specify(yawn ~ group, success = "Yawn") %>%
+mythbusters_yawn %>%
+  specify(yawn ~ group, success = "yes") %>%
   hypothesize(null = "independence") %>%
   # generate() is not needed since we are not simulating
   calculate(stat = "z", order = c("seed", "control")) %>%
@@ -1421,11 +1444,11 @@ yawn_myth %>%
 ## Classical inference
 
 ```{r echo=FALSE, purl=TRUE, warning=TRUE, fig.height=4.5}
-obs_z <- yawn_myth %>%
-  specify(yawn ~ group, success = "Yawn") %>%
+obs_z <- mythbusters_yawn %>%
+  specify(yawn ~ group, success = "yes") %>%
   calculate(stat = "z", order = c("seed", "control"))
-yawn_myth %>%
-  specify(yawn ~ group, success = "Yawn") %>%
+mythbusters_yawn %>%
+  specify(yawn ~ group, success = "yes") %>%
   hypothesize(null = "independence") %>%
   # generate() is not needed since we are not doing simulation
   calculate(stat = "z", order = c("seed", "control")) %>%
@@ -1438,8 +1461,8 @@ yawn_myth %>%
 # Simulation-based vs Classical (`stat = "z"`) 
 
 ```{r fig.height=2.8, warning=TRUE, purl=TRUE, cache=TRUE}
-yawn_myth %>%
-  specify(yawn ~ group, success = "Yawn") %>%
+mythbusters_yawn %>%
+  specify(yawn ~ group, success = "yes") %>%
   hypothesize(null = "independence") %>%
   generate(reps = 1000, type = "permute") %>%
   calculate(stat = "z", order = c("seed", "control")) %>%
@@ -1556,14 +1579,13 @@ keyboard shortcut help | option + shift + k | alt + shift + k
 
 ---
 
-
 class: middle, center
 
 # Thanks!
 
-.pull-left[
-  <img class="circle" src="https://github.com/jminnier.png" width="280px"/>
+<img src="images/jessica_chester.jpg" width="600">
 
+.pull-left[
   [`r fa(name = "twitter")` @datapointier](http://twitter.com/datapointier)  
   [`r fa(name = "github")` @jminnier](http://github.com/jminnier)  
   [`r fa(name = "link")` jessicaminnier.com](https:/jessicaminnier.com)  
@@ -1571,11 +1593,29 @@ class: middle, center
 ]
 
 .pull-right[
-  <img class="circle" src="https://github.com/ismayc.png" width="280px"/>
-  
-  
   [`r fa(name = "twitter")` @old_man_chester](http://twitter.com/old_man_chester)  
   [`r fa(name = "github")` @ismayc](http://github.com/ismayc)  
   [`r fa(name = "link")` chester.rbind.io](https://chester.rbind.io)  
 <!--  [`r fa(name = "paper-plane")` `chester [dot] ismay [at] datarobot [dot] com`](mailto:chester.ismay@datarobot.com) -->
 ]
+
+---
+
+# Our environment info
+
+For error debugging purposes
+
+```{r}
+#install.packages("sessioninfo")
+sessioninfo::session_info()$platform
+```
+
+---
+
+```{r eval=FALSE}
+#install.packages("rmarkdown")
+sessioninfo::session_info()$packages %>% 
+  select(package, version, date, source) %>% 
+  rmarkdown::paged_table()
+```
+
