@@ -5,10 +5,10 @@ output:
     seal: false
     chakra: https://remarkjs.com/downloads/remark-latest.min.js
     lib_dir: libs
-#    nature:
- #     highlightStyle: tomorrow-night-bright
+    nature:
+#      highlightStyle: tomorrow-night-bright
 #      highlightLines: true
-#      highlightLanguage: r
+      highlightLanguage: r
     includes:
       in_header: header.html      
     countIncrementalSlides: false
