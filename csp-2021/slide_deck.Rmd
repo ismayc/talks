@@ -534,7 +534,7 @@ counter <- counter + 1
 
 ```{r soln1, include = FALSE}
 gapminder %>% filter(continent=="Europe" | continent=="Africa")
-gapminder %>% filter(continent %in% c("Europe", "Africa"))
+gapminder %>% filter(continent %in% c("Africa", "Asia"))
 gapminder %>% filter(life_expectancy > 80, year == 1996)
 ```
 ```{r include=FALSE}
