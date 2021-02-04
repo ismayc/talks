@@ -303,15 +303,15 @@ glimpse(gapminder)
 ```
 Rows: 10,545
 Columns: 9
-$ country          &lt;fct&gt; Albania, Algeria, Angola, Antigua and Barb…
-$ year             &lt;int&gt; 1960, 1960, 1960, 1960, 1960, 1960, 1960, …
-$ infant_mortality &lt;dbl&gt; 115.40, 148.20, 208.00, NA, 59.87, NA, NA,…
-$ life_expectancy  &lt;dbl&gt; 62.87, 47.50, 35.98, 62.97, 65.39, 66.86, …
-$ fertility        &lt;dbl&gt; 6.19, 7.65, 7.32, 4.43, 3.11, 4.55, 4.82, …
-$ population       &lt;dbl&gt; 1636054, 11124892, 5270844, 54681, 2061907…
-$ gdp              &lt;dbl&gt; NA, 1.3828e+10, NA, NA, 1.0832e+11, NA, NA…
-$ continent        &lt;fct&gt; Europe, Africa, Africa, Americas, Americas…
-$ region           &lt;fct&gt; Southern Europe, Northern Africa, Middle A…
+$ country          &lt;fct&gt; Albania, Algeria, Angola, Antigua and…
+$ year             &lt;int&gt; 1960, 1960, 1960, 1960, 1960, 1960, 1…
+$ infant_mortality &lt;dbl&gt; 115.40, 148.20, 208.00, NA, 59.87, NA…
+$ life_expectancy  &lt;dbl&gt; 62.87, 47.50, 35.98, 62.97, 65.39, 66…
+$ fertility        &lt;dbl&gt; 6.19, 7.65, 7.32, 4.43, 3.11, 4.55, 4…
+$ population       &lt;dbl&gt; 1636054, 11124892, 5270844, 54681, 20…
+$ gdp              &lt;dbl&gt; NA, 1.3828e+10, NA, NA, 1.0832e+11, N…
+$ continent        &lt;fct&gt; Europe, Africa, Africa, Americas, Ame…
+$ region           &lt;fct&gt; Southern Europe, Northern Africa, Mid…
 ```
 
 
@@ -426,15 +426,15 @@ gap_2014
 
 ```
 # A tibble: 185 x 9
-  country              year infant_mortality life_expectancy fertility
-  &lt;fct&gt;               &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;
-1 Albania              2014             12.9            77.9      1.78
-2 Algeria              2014             22              76.3      2.76
-3 Angola               2014             98.8            59.2      5.75
-4 Antigua and Barbuda  2014              6.1            76.3      2.08
-5 Argentina            2014             11.5            76.3      2.16
-# … with 180 more rows, and 4 more variables: population &lt;dbl&gt;,
-#   gdp &lt;dbl&gt;, continent &lt;fct&gt;, region &lt;fct&gt;
+  country              year infant_mortality life_expectancy
+  &lt;fct&gt;               &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;
+1 Albania              2014             12.9            77.9
+2 Algeria              2014             22              76.3
+3 Angola               2014             98.8            59.2
+4 Antigua and Barbuda  2014              6.1            76.3
+5 Argentina            2014             11.5            76.3
+# … with 180 more rows, and 5 more variables: fertility &lt;dbl&gt;,
+#   population &lt;dbl&gt;, gdp &lt;dbl&gt;, continent &lt;fct&gt;, region &lt;fct&gt;
 ```
 
 - Use `==` to compare a variable to a value
@@ -706,15 +706,16 @@ gapminder_plus %&gt;%
 
 ```
 # A tibble: 10,545 x 10
-  country              year infant_mortality life_expectancy fertility
-  &lt;fct&gt;               &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;
-1 Albania              1960            115.             62.9      6.19
-2 Algeria              1960            148.             47.5      7.65
-3 Angola               1960            208              36.0      7.32
-4 Antigua and Barbuda  1960             NA              63.0      4.43
-5 Argentina            1960             59.9            65.4      3.11
-# … with 10,540 more rows, and 5 more variables: population &lt;dbl&gt;,
-#   gdp &lt;dbl&gt;, continent &lt;fct&gt;, region &lt;fct&gt;, gdp_per_capita &lt;dbl&gt;
+  country              year infant_mortality life_expectancy
+  &lt;fct&gt;               &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;
+1 Albania              1960            115.             62.9
+2 Algeria              1960            148.             47.5
+3 Angola               1960            208              36.0
+4 Antigua and Barbuda  1960             NA              63.0
+5 Argentina            1960             59.9            65.4
+# … with 10,540 more rows, and 6 more variables:
+#   fertility &lt;dbl&gt;, population &lt;dbl&gt;, gdp &lt;dbl&gt;,
+#   continent &lt;fct&gt;, region &lt;fct&gt;, gdp_per_capita &lt;dbl&gt;
 ```
 
 ---
@@ -733,15 +734,16 @@ gapminder_plus %&gt;%
 
 ```
 # A tibble: 2,960 x 10
-  country           year infant_mortality life_expectancy fertility
-  &lt;fct&gt;            &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;
-1 Hong Kong, China  2016             NA              83.9     NA   
-2 Hong Kong, China  2015             NA              83.7      1.17
-3 Hong Kong, China  2014             NA              83.6      1.15
-4 Hong Kong, China  2013             NA              83.4      1.14
-5 Iceland           2014              1.6            83.3      2.07
-# … with 2,955 more rows, and 5 more variables: population &lt;dbl&gt;,
-#   gdp &lt;dbl&gt;, continent &lt;fct&gt;, region &lt;fct&gt;, gdp_per_capita &lt;dbl&gt;
+  country           year infant_mortality life_expectancy
+  &lt;fct&gt;            &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;
+1 Hong Kong, China  2016             NA              83.9
+2 Hong Kong, China  2015             NA              83.7
+3 Hong Kong, China  2014             NA              83.6
+4 Hong Kong, China  2013             NA              83.4
+5 Iceland           2014              1.6            83.3
+# … with 2,955 more rows, and 6 more variables: fertility &lt;dbl&gt;,
+#   population &lt;dbl&gt;, gdp &lt;dbl&gt;, continent &lt;fct&gt;, region &lt;fct&gt;,
+#   gdp_per_capita &lt;dbl&gt;
 ```
 
 ---
@@ -767,15 +769,16 @@ gapminder %&gt;% group_by(country)
 ```
 # A tibble: 10,545 x 9
 # Groups:   country [185]
-  country              year infant_mortality life_expectancy fertility
-  &lt;fct&gt;               &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;
-1 Albania              1960            115.             62.9      6.19
-2 Algeria              1960            148.             47.5      7.65
-3 Angola               1960            208              36.0      7.32
-4 Antigua and Barbuda  1960             NA              63.0      4.43
-5 Argentina            1960             59.9            65.4      3.11
-# … with 10,540 more rows, and 4 more variables: population &lt;dbl&gt;,
-#   gdp &lt;dbl&gt;, continent &lt;fct&gt;, region &lt;fct&gt;
+  country              year infant_mortality life_expectancy
+  &lt;fct&gt;               &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;
+1 Albania              1960            115.             62.9
+2 Algeria              1960            148.             47.5
+3 Angola               1960            208              36.0
+4 Antigua and Barbuda  1960             NA              63.0
+5 Argentina            1960             59.9            65.4
+# … with 10,540 more rows, and 5 more variables:
+#   fertility &lt;dbl&gt;, population &lt;dbl&gt;, gdp &lt;dbl&gt;,
+#   continent &lt;fct&gt;, region &lt;fct&gt;
 ```
 
 ---
@@ -791,15 +794,15 @@ gapminder %&gt;% arrange(country)
 
 ```
 # A tibble: 10,545 x 9
-  country  year infant_mortality life_expectancy fertility population
-  &lt;fct&gt;   &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
-1 Albania  1960            115.             62.9      6.19    1636054
-2 Albania  1961            111.             63.9      6.08    1685901
-3 Albania  1962            106.             64.8      5.96    1737645
-4 Albania  1963            102.             65.6      5.83    1790533
-5 Albania  1964             97.9            66.2      5.71    1843596
-# … with 10,540 more rows, and 3 more variables: gdp &lt;dbl&gt;,
-#   continent &lt;fct&gt;, region &lt;fct&gt;
+  country  year infant_mortality life_expectancy fertility
+  &lt;fct&gt;   &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;
+1 Albania  1960            115.             62.9      6.19
+2 Albania  1961            111.             63.9      6.08
+3 Albania  1962            106.             64.8      5.96
+4 Albania  1963            102.             65.6      5.83
+5 Albania  1964             97.9            66.2      5.71
+# … with 10,540 more rows, and 4 more variables:
+#   population &lt;dbl&gt;, gdp &lt;dbl&gt;, continent &lt;fct&gt;, region &lt;fct&gt;
 ```
 
 ---
@@ -1005,6 +1008,7 @@ jennys_sample %&gt;%
 
 ```r
 library(moderndive)
+library(infer)
 rep_bowl_samples &lt;- bowl %&gt;%
   rep_slice_sample(n = 50, reps = 10000)
 ```
@@ -1208,20 +1212,24 @@ mean(bowl$color == "red")
 ## {infer} verbs
 
 &lt;center&gt;
-&lt;a href="https://iinfer.tidymodels.org"&gt;
-&lt;img src="images/infer_ci.jpg" style = "width: 750px;"/&gt;
+&lt;a href="https://infer.tidymodels.org"&gt;
+&lt;img src="images/infer_ci.jpg" style = "width: 650px;"/&gt;
 &lt;/a&gt;
 &lt;/center&gt;
+
+
+
 
 ---
 
 ## {infer} verbs
 
 &lt;center&gt;
-&lt;a href="https://iinfer.tidymodels.org"&gt;
-&lt;img src="images/infer_ht.jpg" style = "width: 750px;"/&gt;
+&lt;a href="https://infer.tidymodels.org"&gt;
+&lt;img src="images/infer_ht.jpg" style = "width: 650px;"/&gt;
 &lt;/a&gt;
 &lt;/center&gt;
+
 
 
 ---
@@ -1270,9 +1278,12 @@ In an episode of the show *Mythbusters*, they tested the myth that yawning is co
 
 ### Data
 
-- 34 saw the confederate yawn ( *seed* )
-- 16 did not see the confederate yawn ( *control* )
-- `yawn`: `yes` - participant yawn, `no` - participant did not
+- `group`
+  - 34 saw the confederate yawn (`seed`)
+  - 16 did not see the confederate yawn (`control`)
+- `yawn`
+  - `yes` - participant yawned
+  - `no` - participant did not yawn
 
 --
 
@@ -1324,6 +1335,8 @@ mythbusters_yawn %&gt;%
 
 &gt; "Though that's not an enormous increase, since they tested 50 people in the field, the gap was still wide enough for the MythBusters to confirm that yawning is indeed contagious." &lt;sup&gt;1&lt;/sup&gt;
 
+&lt;br&gt;&lt;br&gt;
+
 .footnote[
 [1] http://www.discovery.com/tv-shows/mythbusters/mythbusters-database/yawning-contagious/]
 
@@ -1352,16 +1365,16 @@ Alternative hypothesis (directional):
 
 ## Test the hypothesis
 
-Which type of hypothesis test would you conduct here?
+**QUIZ**: Which type of hypothesis test would you conduct here?
 
 - A. Independent samples t-test  
 - B. Two proportion test  
 - C. Chi-square Goodness of Fit  
 - D. Analysis of Variance
 
---
-
-### B. Two proportion test
+&lt;!--
+## Answer: &lt;br&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp; B. Two proportion test
+--&gt;
 
 ---
 
@@ -1379,6 +1392,7 @@ Which type of hypothesis test would you conduct here?
 
 
 ```r
+library(infer)
 obs_diff &lt;- mythbusters_yawn %&gt;% 
   specify(yawn ~ group, success = "yes") %&gt;%
   calculate(
@@ -1439,7 +1453,77 @@ class: center, middle
 
 .pull-left[
 ### Original universe
-
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; subj &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; group &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; yawn &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; seed &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; yes &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; control &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; yes &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; seed &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; seed &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; yes &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; seed &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; control &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; seed &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; seed &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; seed &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; seed &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; control &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; yes &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; seed &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 ```
    group no yes Total
@@ -1453,24 +1537,77 @@ class: center, middle
 
 .pull-right[
 ### Parallel universe
-
-```
-# A tibble: 12 x 3
-    subj group   alt_yawn
-   &lt;int&gt; &lt;fct&gt;   &lt;fct&gt;   
- 1     1 seed    no      
- 2     2 control no      
- 3     3 seed    no      
- 4     4 seed    no      
- 5     5 seed    no      
- 6     6 control no      
- 7    15 seed    no      
- 8    16 seed    yes     
- 9    17 seed    no      
-10    18 seed    yes     
-11    19 control no      
-12    20 seed    yes     
-```
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; subj &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; group &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; alt_yawn &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; seed &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; control &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; seed &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; seed &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; seed &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; control &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; seed &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; seed &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; yes &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; seed &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; seed &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; yes &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; control &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; seed &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; yes &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 ```
    group no yes Total
@@ -1485,43 +1622,151 @@ class: center, middle
 # 1000 parallel universes
 
 .pull-left[
-
-```
-# A tibble: 10 x 2
-   replicate    stat
-       &lt;int&gt;   &lt;dbl&gt;
- 1         1  0.228 
- 2         2  0.412 
- 3         3  0.0441
- 4         4  0.0441
- 5         5 -0.0478
- 6         6  0.136 
- 7         7 -0.232 
- 8         8  0.228 
- 9         9 -0.0478
-10        10  0.0441
-```
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; replicate &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; stat &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.22794 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.41176 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.04412 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.04412 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.04779 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.13603 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.23162 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.22794 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.04779 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.04412 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.13603 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.04412 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.04412 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.04779 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.13971 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 ]
 
 --
 
 .pull-right[
-
-```
-# A tibble: 10 x 2
-   replicate    stat
-       &lt;int&gt;   &lt;dbl&gt;
- 1       991 -0.140 
- 2       992 -0.140 
- 3       993 -0.140 
- 4       994  0.0441
- 5       995 -0.140 
- 6       996 -0.232 
- 7       997  0.136 
- 8       998 -0.0478
- 9       999  0.0441
-10      1000  0.0441
-```
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; replicate &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; stat &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 986 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.04412 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 987 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.13971 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 988 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.04412 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 989 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.23162 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 990 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.04779 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 991 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.13971 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 992 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.13971 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 993 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.13971 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 994 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.04412 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 995 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.13971 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 996 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.23162 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 997 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.13603 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 998 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.04779 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 999 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.04412 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.04412 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 ]
 
 ---
@@ -1556,7 +1801,7 @@ null_distn %&gt;%
 # A tibble: 1 x 1
   p_value
     &lt;dbl&gt;
-1   0.525
+1   0.493
 ```
 
 ---
@@ -1644,10 +1889,16 @@ Five main functions:
 ```r
 set.seed(8)
 null_distn &lt;- mythbusters_yawn %&gt;%
-  specify(formula = yawn ~ group, success = "yes") %&gt;%
+  specify(
+    formula = yawn ~ group, 
+    success = "yes"
+  ) %&gt;%
   hypothesize(null = "independence") %&gt;%
   generate(reps = 1000, type = "permute") %&gt;%
-  calculate(stat = "diff in props", order = c("seed", "control"))
+  calculate(
+    stat = "diff in props", 
+    order = c("seed", "control")
+  )
 ```
 
 ---
@@ -1662,7 +1913,7 @@ null_distn &lt;- mythbusters_yawn %&gt;%
 
 ```r
 null_distn %&gt;%
-  visualize(bins = 10) +
+  visualize(bins = 8) +
   shade_p_value(obs_stat = obs_diff, direction = "right")
 ```
 
@@ -1680,13 +1931,14 @@ Rely on theory to tell us what the null distribution looks like.
 ```r
 obs_z &lt;- mythbusters_yawn %&gt;%
   specify(yawn ~ group, success = "yes") %&gt;%
-  calculate(stat = "z", order = c("seed", "control")) #&lt;&lt;
+  calculate(stat = "z", order = c("seed", "control")) 
+
 mythbusters_yawn %&gt;%
   specify(yawn ~ group, success = "yes") %&gt;%
   hypothesize(null = "independence") %&gt;%
   # generate() is not needed since we are not simulating
   calculate(stat = "z", order = c("seed", "control")) %&gt;%
-  visualize(method = "theoretical") + #&lt;&lt;
+  visualize(method = "theoretical") 
   shade_p_value(obs_stat = obs_z, direction = "right")
 ```
 
@@ -1697,7 +1949,8 @@ mythbusters_yawn %&gt;%
 
 ```
 Warning: Check to make sure the conditions have been met for the
-theoretical method. {infer} currently does not check these for you.
+theoretical method. {infer} currently does not check these for
+you.
 ```
 
 ![](slide_deck_files/figure-html/unnamed-chunk-70-1.png)&lt;!-- --&gt;
@@ -1713,13 +1966,8 @@ mythbusters_yawn %&gt;%
   hypothesize(null = "independence") %&gt;%
   generate(reps = 1000, type = "permute") %&gt;%
   calculate(stat = "z", order = c("seed", "control")) %&gt;%
-  visualize(method = "both", bins = 10) + #&lt;&lt;
+  visualize(method = "both", bins = 8) + 
   shade_p_value(obs_stat = obs_z, direction = "right")
-```
-
-```
-Warning: Check to make sure the conditions have been met for the
-theoretical method. {infer} currently does not check these for you.
 ```
 
 ![](slide_deck_files/figure-html/unnamed-chunk-71-1.png)&lt;!-- --&gt;
@@ -1857,43 +2105,6 @@ action | mac | windows/linux
 interrupt currently executing command | esc | esc
 in console, go to previously run code | up/down | up/down
 keyboard shortcut help | option + shift + k | alt + shift + k
-
-
-
----
-
-# Our environment info
-
-For error debugging purposes
-
-
-```r
-#install.packages("sessioninfo")
-sessioninfo::session_info()$platform
-```
-
-```
- setting  value                       
- version  R version 4.0.3 (2020-10-10)
- os       macOS Catalina 10.15.7      
- system   x86_64, darwin17.0          
- ui       RStudio                     
- language (EN)                        
- collate  en_US.UTF-8                 
- ctype    en_US.UTF-8                 
- tz       America/Los_Angeles         
- date     2021-02-03                  
-```
-
----
-
-
-```r
-#install.packages("rmarkdown")
-sessioninfo::session_info()$packages %&gt;% 
-  select(package, version = loadedversion, date, source) %&gt;% 
-  rmarkdown::paged_table()
-```
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
