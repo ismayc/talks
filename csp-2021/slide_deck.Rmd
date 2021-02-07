@@ -3,11 +3,11 @@ title: "Tidyverse Tools in R for Data Science and Statistical Inference"
 output: 
   xaringan::moon_reader:
     seal: false
-    chakra: remark-latest.min.js # https://remarkjs.com/downloads/remark-latest.min.js
+    chakra: https://remarkjs.com/downloads/remark-latest.min.js
     lib_dir: libs
     nature:
- #     highlightStyle: tomorrow-night-bright
-      highlightLines: true
+#      highlightStyle: tomorrow-night-bright
+#      highlightLines: true
       highlightLanguage: r
     includes:
       in_header: header.html      
@@ -19,9 +19,8 @@ output:
 ```{r include=FALSE, purl=TRUE}
 # specify the packages of interest
 pkgs <- c(
-  "tidyverse", "moderndive", "gapminder",
-  "nycflights13", "fivethirtyeight", "janitor",
-  "ggplot2movies", "remotes"
+  "tidyverse", "moderndive", "dslabs",
+  "infer", "janitor", "remotes", "knitr"
 )
 
 # use this function to check if each package is on the local machine
@@ -38,6 +37,11 @@ lapply(pkgs, pkg_check)
 if (!require("fontawesome")) {
   remotes::install_github("rstudio/fontawesome")
 }
+
+if (!require("countdown")) {
+  remotes::install_github("gadenbuie/countdown")
+}
+
 ```
 
 ```{r echo=FALSE, purl=FALSE}
@@ -48,8 +52,9 @@ knitr::opts_chunk$set(
   comment = NA, rows.print = 16
 )
 theme_set(theme_gray(base_size = 24))
-options(digits = 5, width = 70, knitr.table.format = "html",
+options(digits = 5, width = 65, knitr.table.format = "html",
         pillar.min_chars = 20, tibble.print_min = 5)
+library(fontawesome)
 
 img_link <- function(link, file, size) {
   knitr::asis_output(
@@ -62,15 +67,6 @@ img_link <- function(link, file, size) {
       size,
       'px;"/>\n</a>\n</center>'
     )
-  )
-}
-
-# To be added to {moderndive}!
-rep_slice_sample <- function(.data, n, #prop,
-                             replace = FALSE,
-                             reps = 1, prob = NULL) {
-  moderndive::rep_sample_n(
-    tbl = .data, size = n, replace = replace, reps = reps, prob = prob
   )
 }
 ```
@@ -178,16 +174,16 @@ rstudioapi::versionInfo()$version
 ```
 -->
 
+<br>
+
 - Run this in the RStudio Console
 
 ```{r, eval=FALSE, purl=FALSE}
 pkgs <- c(
-  "tidyverse", "moderndive", "gapminder", "nycflights13", 
-  "fivethirtyeight", "janitor", "ggplot2movies", "usethis",
-  "remotes"
-)
+  "tidyverse", "moderndive", "dslabs", 
+  "infer", "janitor"
+  )
 install.packages(pkgs)
-remotes::install_github("apreshill/bakeoff")
 ```
 
 
@@ -527,21 +523,32 @@ name: yourturnA
 counter <- 1
 ```
 
-## Exercise `r LETTERS[counter]`
-## 5:00 minutes
+## Exercise `r LETTERS[counter]` - 5 minutes
 
 ```{r echo=FALSE}
 counter <- counter + 1
 ```
 1. Filter observations from either Europe or Africa using the `|`.
-2. Filter observations from either Europe or Africa using `%in%`.
+2. Filter observations from either Africa or Asia using `%in%`.
 3. How many countries had life expectancy greater than 80 years in 1996?
 
 ```{r soln1, include = FALSE}
 gapminder %>% filter(continent=="Europe" | continent=="Africa")
-gapminder %>% filter(continent %in% c("Europe", "Africa"))
-gapminder %>% filter(life_expectancy > 80, year==1996)
+gapminder %>% filter(continent %in% c("Africa", "Asia"))
+gapminder %>% filter(life_expectancy > 80, year == 1996)
 ```
+```{r include=FALSE}
+# This code generates the HTML code that follows
+# to get a timer
+countdown::countdown(minutes = 5, 
+          left = 0, right = 0,
+          padding = "30px",
+          margin = "10%",
+          font_size = "5em")
+```
+<div class="countdown blink-colon" id="timer1" style="right:0;bottom:0;left:0;margin:10%;padding:5px;font-size:5em;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 ---
 
@@ -746,8 +753,7 @@ background-color: coral
 
 name: yourturnB
 
-## Exercise `r LETTERS[counter]`
-## 5 minutes
+## Exercise `r LETTERS[counter]` - 5 minutes
 
 ```{r echo=FALSE}
 counter <- counter + 1
@@ -766,6 +772,18 @@ lifeyear %>% arrange(med_exp)
 lifeyear %>% mutate(med_exp_round = round(med_exp)) %>% select(-med_exp)
 ```
 
+```{r include=FALSE}
+# This code generates the HTML code that follows
+# to get a timer
+countdown::countdown(minutes = 5, 
+          left = 0, right = 0,
+          padding = "30px",
+          margin = "10%",
+          font_size = "5em")
+```
+<div class="countdown blink-colon" id="timer1" style="right:0;bottom:0;left:0;margin:10%;padding:5px;font-size:5em;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 ---
 
@@ -875,6 +893,7 @@ jennys_sample %>%
 
 ```{r purl=TRUE, cache=TRUE}
 library(moderndive)
+library(infer)
 rep_bowl_samples <- bowl %>%
   rep_slice_sample(n = 50, reps = 10000)
 ```
@@ -1022,13 +1041,17 @@ mean(bowl$color == "red")
 
 ## {infer} verbs
 
-`r img_link("https://iinfer.tidymodels.org", "images/infer_ci.jpg", 750)`
+`r img_link("https://infer.tidymodels.org", "images/infer_ci.jpg", 650)`
+
+
+
 
 ---
 
 ## {infer} verbs
 
-`r img_link("https://iinfer.tidymodels.org", "images/infer_ht.jpg", 750)`
+`r img_link("https://infer.tidymodels.org", "images/infer_ht.jpg", 650)`
+
 
 
 ---
@@ -1073,9 +1096,12 @@ In an episode of the show *Mythbusters*, they tested the myth that yawning is co
 
 ### Data
 
-- 34 saw the confederate yawn ( *seed* )
-- 16 did not see the confederate yawn ( *control* )
-- `yawn`: `yes` - participant yawn, `no` - participant did not
+- `group`
+  - 34 saw the confederate yawn (`seed`)
+  - 16 did not see the confederate yawn (`control`)
+- `yawn`
+  - `yes` - participant yawned
+  - `no` - participant did not yawn
 
 --
 
@@ -1105,6 +1131,8 @@ mythbusters_yawn %>%
 
 > "Though that's not an enormous increase, since they tested 50 people in the field, the gap was still wide enough for the MythBusters to confirm that yawning is indeed contagious." <sup>1</sup>
 
+<br><br>
+
 .footnote[
 [1] http://www.discovery.com/tv-shows/mythbusters/mythbusters-database/yawning-contagious/]
 
@@ -1133,16 +1161,16 @@ Alternative hypothesis (directional):
 
 ## Test the hypothesis
 
-Which type of hypothesis test would you conduct here?
+**QUIZ**: Which type of hypothesis test would you conduct here?
 
 - A. Independent samples t-test  
 - B. Two proportion test  
 - C. Chi-square Goodness of Fit  
 - D. Analysis of Variance
 
---
-
-### B. Two proportion test
+<!--
+## Answer: <br> &nbsp;&nbsp;&nbsp; B. Two proportion test
+-->
 
 ---
 
@@ -1159,6 +1187,7 @@ $$H_A: p_{seed} - p_{control} > 0$$
 ## The observed difference
 
 ```{r purl=TRUE}
+library(infer)
 obs_diff <- mythbusters_yawn %>% 
   specify(yawn ~ group, success = "yes") %>%
   calculate(
@@ -1212,8 +1241,10 @@ class: center, middle
 
 .pull-left[
 ### Original universe
-
 ```{r echo=FALSE, purl=TRUE}
+mythbusters_yawn  %>%
+  slice(c(1:6, 15:20)) %>% 
+  knitr::kable()
 mythbusters_yawn %>%
   tabyl(group, yawn) %>%
   adorn_totals(where = c("row", "col"))
@@ -1237,7 +1268,8 @@ perm1 <- mythbusters_yawn %>%
   mutate(subj = seq(1, 50)) %>%
   select(subj, group, alt_yawn = yawn)
 perm1 %>%
-  slice(c(1:6, 15:20))
+  slice(c(1:6, 15:20)) %>% 
+  knitr::kable()
 perm1 %>%
   tabyl(group, alt_yawn) %>%
   adorn_totals(where = c("row", "col"))
@@ -1259,7 +1291,8 @@ yawn_universes <- mythbusters_yawn %>%
     order = c("seed", "control")
   )
 yawn_universes %>%
-  slice(1:10)
+  slice(1:15) %>% 
+  knitr::kable()
 ```
 ]
 
@@ -1268,7 +1301,8 @@ yawn_universes %>%
 .pull-right[
 ```{r echo=FALSE, purl=TRUE}
 yawn_universes %>%
-  slice(991:1000)
+  slice(986:1000) %>% 
+  knitr::kable()
 ```
 ]
 
@@ -1276,7 +1310,7 @@ yawn_universes %>%
 ## The parallel universe distribution
 
 ```{r echo=FALSE, purl=TRUE, cache=TRUE}
-set.seed(2)
+set.seed(8)
 null_distn <- mythbusters_yawn %>%
   specify(
     formula = yawn ~ group,
@@ -1289,7 +1323,7 @@ null_distn <- mythbusters_yawn %>%
     order = c("seed", "control")
   )
 null_plot <- null_distn %>%
-  visualize(bins = 10) +
+  visualize(bins = 8) +
   shade_p_value(obs_stat = obs_diff, direction = "right") +
   labs(x = "Difference in proportions")
 null_plot
@@ -1401,10 +1435,16 @@ Five main functions:
 ```{r eval=FALSE, purl=FALSE, cache=TRUE}
 set.seed(8)
 null_distn <- mythbusters_yawn %>%
-  specify(formula = yawn ~ group, success = "yes") %>%
+  specify(
+    formula = yawn ~ group, 
+    success = "yes"
+  ) %>%
   hypothesize(null = "independence") %>%
   generate(reps = 1000, type = "permute") %>%
-  calculate(stat = "diff in props", order = c("seed", "control"))
+  calculate(
+    stat = "diff in props", 
+    order = c("seed", "control")
+  )
 ```
 
 ---
@@ -1425,7 +1465,7 @@ null_distn <- mythbusters_yawn %>%
 
 ```{r purl=TRUE}
 null_distn %>%
-  visualize(bins = 10) +
+  visualize(bins = 8) +
   shade_p_value(obs_stat = obs_diff, direction = "right")
 ```
 
@@ -1450,13 +1490,14 @@ obs_z <- yz %>%
 ```{r eval=FALSE, purl=FALSE}
 obs_z <- mythbusters_yawn %>%
   specify(yawn ~ group, success = "yes") %>%
-  calculate(stat = "z", order = c("seed", "control")) #<<
+  calculate(stat = "z", order = c("seed", "control")) 
+
 mythbusters_yawn %>%
   specify(yawn ~ group, success = "yes") %>%
   hypothesize(null = "independence") %>%
   # generate() is not needed since we are not simulating
   calculate(stat = "z", order = c("seed", "control")) %>%
-  visualize(method = "theoretical") + #<<
+  visualize(method = "theoretical") 
   shade_p_value(obs_stat = obs_z, direction = "right")
 ```
 
@@ -1481,13 +1522,13 @@ mythbusters_yawn %>%
 
 # Simulation-based vs Classical (`stat = "z"`) 
 
-```{r fig.height=2.8, warning=TRUE, purl=TRUE, cache=TRUE}
+```{r warning=FALSE, purl=TRUE, cache=TRUE}
 mythbusters_yawn %>%
   specify(yawn ~ group, success = "yes") %>%
   hypothesize(null = "independence") %>%
   generate(reps = 1000, type = "permute") %>%
   calculate(stat = "z", order = c("seed", "control")) %>%
-  visualize(method = "both", bins = 10) + #<<
+  visualize(method = "both", bins = 8) + 
   shade_p_value(obs_stat = obs_z, direction = "right")
 ```
 
@@ -1520,6 +1561,28 @@ class: middle
 - Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
 - Slides' source code at <https://github.com/ismayc/talks/>
 - R code from throughout the slides as an R script [here](https://raw.githubusercontent.com/ismayc/talks/master/csp-2021/slide_code.R)
+
+---
+
+class: middle, center
+
+# Thanks!
+
+<img src="images/jessica_chester.jpg" width="600">
+
+.pull-left[
+  [`r fa(name = "twitter")` @datapointier](http://twitter.com/datapointier)  
+  [`r fa(name = "github")` @jminnier](http://github.com/jminnier)  
+  [`r fa(name = "link")` jessicaminnier.com](https:/jessicaminnier.com)  
+<!--  [`r fa(name = "paper-plane")` `minnier [at] ohsu [dot] edu`](mailto:minnier@ohsu.edu) -->
+]
+
+.pull-right[
+  [`r fa(name = "twitter")` @old_man_chester](http://twitter.com/old_man_chester)  
+  [`r fa(name = "github")` @ismayc](http://github.com/ismayc)  
+  [`r fa(name = "link")` chester.rbind.io](https://chester.rbind.io)  
+<!--  [`r fa(name = "paper-plane")` `chester [dot] ismay [at] datarobot [dot] com`](mailto:chester.ismay@datarobot.com) -->
+]
 
 ---
 class: inverse, center, middle
@@ -1597,46 +1660,4 @@ action | mac | windows/linux
 interrupt currently executing command | esc | esc
 in console, go to previously run code | up/down | up/down
 keyboard shortcut help | option + shift + k | alt + shift + k
-
----
-
-class: middle, center
-
-# Thanks!
-
-<img src="images/jessica_chester.jpg" width="600">
-
-.pull-left[
-  [`r fa(name = "twitter")` @datapointier](http://twitter.com/datapointier)  
-  [`r fa(name = "github")` @jminnier](http://github.com/jminnier)  
-  [`r fa(name = "link")` jessicaminnier.com](https:/jessicaminnier.com)  
-<!--  [`r fa(name = "paper-plane")` `minnier [at] ohsu [dot] edu`](mailto:minnier@ohsu.edu) -->
-]
-
-.pull-right[
-  [`r fa(name = "twitter")` @old_man_chester](http://twitter.com/old_man_chester)  
-  [`r fa(name = "github")` @ismayc](http://github.com/ismayc)  
-  [`r fa(name = "link")` chester.rbind.io](https://chester.rbind.io)  
-<!--  [`r fa(name = "paper-plane")` `chester [dot] ismay [at] datarobot [dot] com`](mailto:chester.ismay@datarobot.com) -->
-]
-
----
-
-# Our environment info
-
-For error debugging purposes
-
-```{r}
-#install.packages("sessioninfo")
-sessioninfo::session_info()$platform
-```
-
----
-
-```{r eval=FALSE}
-#install.packages("rmarkdown")
-sessioninfo::session_info()$packages %>% 
-  select(package, version, date, source) %>% 
-  rmarkdown::paged_table()
-```
 
