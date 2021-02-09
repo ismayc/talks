@@ -16,7 +16,7 @@
 #' ---
 #' 
 #' 
-## ----include=FALSE, purl=TRUE---------------------------------------------------------------------------------
+## ----include=FALSE, purl=TRUE-----------------------------------------------------
 # specify the packages of interest
 pkgs <- c(
   "tidyverse", "moderndive", "dslabs",
@@ -140,11 +140,11 @@ if (!require("countdown")) {
 #' <!--
 #' These slides were built using
 #' 
-## -------------------------------------------------------------------------------------------------------------
+## ---------------------------------------------------------------------------------
 R.version.string
 
 #' 
-## -------------------------------------------------------------------------------------------------------------
+## ---------------------------------------------------------------------------------
 rstudioapi::versionInfo()$version
 
 #' -->
@@ -163,7 +163,7 @@ rstudioapi::versionInfo()$version
 #' 
 #' # Getting started
 #' 
-#' 1. Open HTML slides: <https://bit.ly/csp-tidy>
+#' 1. Open HTML slides: <https://bit.ly/csp-tidy-slides>
 #' 1. Open RStudio  
 #' 1. Download course materials to your preferred location by running
 #'    this in the RStudio Console: 
@@ -206,7 +206,7 @@ rstudioapi::versionInfo()$version
 #' 
 #' --
 #' 
-## ----echo=FALSE, purl=TRUE------------------------------------------------------------------------------------
+## ----echo=FALSE, purl=TRUE--------------------------------------------------------
 library(tibble) # tibble is the tidyverse data.frame
 library(lubridate)
 ex1 <- tibble(
@@ -269,7 +269,7 @@ ex1
 #' The {tidyverse} is a collection of R packages that share common philosophies 
 #' and are designed to work together. <br><br> 
 #'   
-## ----echo=FALSE-----------------------------------------------------------------------------------------------
+## ----echo=FALSE-------------------------------------------------------------------
 img_link(
   link = "https://tidyverse.tidyverse.org",
   file = "images/tidyverse_hex.png",
@@ -281,7 +281,7 @@ img_link(
 #' 
 #' ## First motivating example for today
 #' 
-## ----echo=FALSE-----------------------------------------------------------------------------------------------
+## ----echo=FALSE-------------------------------------------------------------------
 img_link(
   link = "http://gitsense.github.io/images/wealth.gif",
   file = "images/wealth.gif",
@@ -296,7 +296,7 @@ img_link(
 #' 
 #' ## The `gapminder` data set in {dslabs}
 #' 
-## ---- purl=TRUE-----------------------------------------------------------------------------------------------
+## ---- purl=TRUE-------------------------------------------------------------------
 library(dslabs)
 library(dplyr)
 gapminder <- tibble(gapminder)
@@ -326,7 +326,7 @@ glimpse(gapminder)
 #' 
 #' <br>
 #' 
-## ----echo=FALSE-----------------------------------------------------------------------------------------------
+## ----echo=FALSE-------------------------------------------------------------------
 img_link(
   link = "https://r4ds.had.co.nz/introduction.html",
   file = "images/r4ds_tidyverse.png",
@@ -341,7 +341,7 @@ img_link(
 #' - The mean life expectancy across all years for Asia
 #' --
 #' 
-## ---- purl=TRUE-----------------------------------------------------------------------------------------------
+## ---- purl=TRUE-------------------------------------------------------------------
 # Base R
 asia <- gapminder[gapminder$continent == "Asia", ]
 mean(asia$life_expectancy)
@@ -369,7 +369,7 @@ mean(asia$life_expectancy)
 #' 
 #' ## `filter()` rows that satisfy specified conditions
 #' 
-## ----echo=FALSE-----------------------------------------------------------------------------------------------
+## ----echo=FALSE-------------------------------------------------------------------
 img_link(
   link = "https://github.com/allisonhorst/stats-illustrations",
   file = "images/dplyr_filter.jpg",
@@ -387,7 +387,7 @@ img_link(
 #' - Arguments are "filters" that you'd like to apply.
 #' --
 #' 
-## ---- purl=TRUE-----------------------------------------------------------------------------------------------
+## ---- purl=TRUE-------------------------------------------------------------------
 gap_2014 <- gapminder %>% filter(year == 2014)
 gap_2014
 
@@ -404,7 +404,7 @@ gap_2014
 
 #' --
 #' 
-## ----echo=FALSE, purl=TRUE------------------------------------------------------------------------------------
+## ----echo=FALSE, purl=TRUE--------------------------------------------------------
 set.seed(2018)
 gapminder %>%
   filter(life_expectancy < 50 | fertility > 4) %>%
@@ -420,7 +420,7 @@ gapminder %>%
 #' 
 
 #' 
-## ----echo=FALSE, purl=TRUE------------------------------------------------------------------------------------
+## ----echo=FALSE, purl=TRUE--------------------------------------------------------
 gapminder %>%
   filter(life_expectancy < 50, fertility > 4) %>%
   head(8)
@@ -436,7 +436,7 @@ gapminder %>%
 
 #' --
 #' 
-## ----echo=FALSE, purl=TRUE------------------------------------------------------------------------------------
+## ----echo=FALSE, purl=TRUE--------------------------------------------------------
 gapminder %>%
   filter(
     country %in% c("Argentina", "Belgium", "Mexico"),
@@ -455,25 +455,25 @@ gapminder %>%
 #' name: yourturnA
 #' 
 #' 
-## ----echo=FALSE-----------------------------------------------------------------------------------------------
+## ----echo=FALSE-------------------------------------------------------------------
 counter <- 1
 
 #' 
 #' ## Exercise `r LETTERS[counter]` - 5 minutes
 #' 
-## ----echo=FALSE-----------------------------------------------------------------------------------------------
+## ----echo=FALSE-------------------------------------------------------------------
 counter <- counter + 1
 
 #' 1. Filter observations from either Europe or Africa using the `|`.
 #' 2. Filter observations from either Africa or Asia using `%in%`.
 #' 3. How many countries had life expectancy greater than 80 years in 1996?
 #' 
-## ----soln1, include = FALSE-----------------------------------------------------------------------------------
+## ----soln1, include = FALSE-------------------------------------------------------
 gapminder %>% filter(continent=="Europe" | continent=="Africa")
-gapminder %>% filter(continent %in% c("Europe", "Africa"))
+gapminder %>% filter(continent %in% c("Africa", "Asia"))
 gapminder %>% filter(life_expectancy > 80, year == 1996)
 
-## ----include=FALSE--------------------------------------------------------------------------------------------
+## ----include=FALSE----------------------------------------------------------------
 # This code generates the HTML code that follows
 # to get a timer
 countdown::countdown(minutes = 5, 
@@ -504,7 +504,7 @@ countdown::countdown(minutes = 5,
 
 #' --
 #' 
-## ----echo=FALSE, purl=TRUE------------------------------------------------------------------------------------
+## ----echo=FALSE, purl=TRUE--------------------------------------------------------
 stats_2015 <- gapminder %>%
   filter(year == 2015) %>%
   summarize(
@@ -526,7 +526,7 @@ stats_2015
 
 #' 
 #' --
-## ----echo=FALSE, purl=TRUE------------------------------------------------------------------------------------
+## ----echo=FALSE, purl=TRUE--------------------------------------------------------
 max_exp_2015_by_cont <- gapminder %>%
   filter(year == 2015) %>%
   group_by(continent) %>%
@@ -541,7 +541,7 @@ max_exp_2015_by_cont
 #' 
 #' ## `mutate()` changes the data
 #' 
-## ----echo=FALSE-----------------------------------------------------------------------------------------------
+## ----echo=FALSE-------------------------------------------------------------------
 img_link(
   link = "https://github.com/allisonhorst/stats-illustrations",
   file = "images/dplyr_mutate.png",
@@ -559,7 +559,7 @@ img_link(
 #' 
 #' --
 #' 
-## ---- purl=TRUE-----------------------------------------------------------------------------------------------
+## ---- purl=TRUE-------------------------------------------------------------------
 gapminder_plus <- gapminder %>% 
   mutate(gdp_per_capita = gdp / population)
 slice_sample(gapminder_plus, n = 4)
@@ -571,7 +571,7 @@ slice_sample(gapminder_plus, n = 4)
 #' 
 #' <h5></h5>
 #' 
-## ----echo=FALSE-----------------------------------------------------------------------------------------------
+## ----echo=FALSE-------------------------------------------------------------------
 img_link(
   link = "https://github.com/allisonhorst/stats-illustrations",
   file = "images/tidydata_1.jpg",
@@ -585,7 +585,7 @@ img_link(
 #' 
 #' <h5></h5>
 #' 
-## ----echo=FALSE-----------------------------------------------------------------------------------------------
+## ----echo=FALSE-------------------------------------------------------------------
 img_link(
   link = "https://github.com/allisonhorst/stats-illustrations",
   file = "images/tidydata_2.jpg",
@@ -602,7 +602,7 @@ img_link(
 #' - Reorders the rows in a data frame based on the values of one or more variables
 #' --
 #' 
-## ---- purl=TRUE-----------------------------------------------------------------------------------------------
+## ---- purl=TRUE-------------------------------------------------------------------
 gapminder_plus %>%
   arrange(year, country)
 
@@ -614,7 +614,7 @@ gapminder_plus %>%
 #' - Can also put into descending order
 #' --
 #' 
-## ----desc, purl=TRUE------------------------------------------------------------------------------------------
+## ----desc, purl=TRUE--------------------------------------------------------------
 gapminder_plus %>%
   filter(year > 2000) %>%
   arrange(desc(life_expectancy))
@@ -635,7 +635,7 @@ gapminder_plus %>%
 #' 
 #' This doesn't really do anything useful by itself
 #' 
-## ----purl=TRUE------------------------------------------------------------------------------------------------
+## ----purl=TRUE--------------------------------------------------------------------
 gapminder %>% group_by(country)
 
 #' 
@@ -645,7 +645,7 @@ gapminder %>% group_by(country)
 #' 
 #' But this does
 #' 
-## ----purl=TRUE------------------------------------------------------------------------------------------------
+## ----purl=TRUE--------------------------------------------------------------------
 gapminder %>% arrange(country)
 
 #' 
@@ -657,7 +657,7 @@ gapminder %>% arrange(country)
 #' 
 #' - Chooses a subset of _columns_ (don't mix up with `filter()`)
 #' 
-## -------------------------------------------------------------------------------------------------------------
+## ---------------------------------------------------------------------------------
 gapminder_plus %>% 
   select(country, region, gdp_per_capita)
 
@@ -676,14 +676,14 @@ gapminder_plus %>%
 #' 
 #' ## Exercise `r LETTERS[counter]` - 5 minutes
 #' 
-## ----echo=FALSE-----------------------------------------------------------------------------------------------
+## ----echo=FALSE-------------------------------------------------------------------
 counter <- counter + 1
 
 #' 1. Create a data frame that has the median life expectancy by year.
 #' 2. Use `arrange()` on this data frame to see the top years with the highest median life expectancy. What about the year with the lowest median life expectancy?
 #' 3. Create a new column that is median life expectancy rounded to the nearest integer, and remove the original un-rounded column with `select()`.
 #' 
-## ----soln2, include=FALSE-------------------------------------------------------------------------------------
+## ----soln2, include=FALSE---------------------------------------------------------
 lifeyear <- gapminder %>%
   group_by(year) %>%
   summarize(med_exp = median(life_expectancy))
@@ -693,7 +693,7 @@ lifeyear %>% arrange(med_exp)
 lifeyear %>% mutate(med_exp_round = round(med_exp)) %>% select(-med_exp)
 
 #' 
-## ----include=FALSE--------------------------------------------------------------------------------------------
+## ----include=FALSE----------------------------------------------------------------
 # This code generates the HTML code that follows
 # to get a timer
 countdown::countdown(minutes = 5, 
@@ -741,7 +741,7 @@ countdown::countdown(minutes = 5,
 #' 
 #' class: center, middle
 #' 
-## ----echo=FALSE-----------------------------------------------------------------------------------------------
+## ----echo=FALSE-------------------------------------------------------------------
 img_link(
   link = "https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf",
   file = "images/ggplot_basics_from_ppt.png",
@@ -778,7 +778,7 @@ img_link(
 #' 
 #' class: middle
 #' 
-## ----purl=TRUE------------------------------------------------------------------------------------------------
+## ----purl=TRUE--------------------------------------------------------------------
 library(moderndive)
 bowl %>% slice_head(n = 15)
 
@@ -787,7 +787,7 @@ bowl %>% slice_head(n = 15)
 #' 
 #' ## One virtual scoop of 50 balls (one sample)
 #' 
-## ----purl=TRUE------------------------------------------------------------------------------------------------
+## ----purl=TRUE--------------------------------------------------------------------
 set.seed(8675309)
 (jennys_sample <- bowl %>% slice_sample(n = 50))
 
@@ -796,7 +796,7 @@ set.seed(8675309)
 #' 
 #' ## Proportion that are red
 #' 
-## ----purl=TRUE------------------------------------------------------------------------------------------------
+## ----purl=TRUE--------------------------------------------------------------------
 jennys_sample %>%
   summarize(prop_red = mean(color == "red")) %>%
   pull()
@@ -812,7 +812,7 @@ jennys_sample %>%
 #' 
 #' ### What does `rep_bowl_samples` look like?
 #' 
-## ----purl=TRUE, cache=TRUE------------------------------------------------------------------------------------
+## ----purl=TRUE, cache=TRUE--------------------------------------------------------
 library(moderndive)
 library(infer)
 rep_bowl_samples <- bowl %>%
@@ -823,7 +823,7 @@ rep_bowl_samples <- bowl %>%
 #' 
 #' ### How about `bowl_props`?
 #' 
-## ----purl=TRUE------------------------------------------------------------------------------------------------
+## ----purl=TRUE--------------------------------------------------------------------
 bowl_props <- rep_bowl_samples %>%
   group_by(replicate) %>%
   summarize(prop_red = mean(color == "red"))
@@ -834,7 +834,7 @@ bowl_props <- rep_bowl_samples %>%
 #' 
 #' ## The sampling distribution
 #' 
-## ----fig.height=4.7, purl=TRUE--------------------------------------------------------------------------------
+## ----fig.height=4.7, purl=TRUE----------------------------------------------------
 ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
   geom_histogram(binwidth = 0.02, color = "white")
 
@@ -845,7 +845,7 @@ ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
 #' 
 #' ### What about if all we had was the one sample of balls (not the whole bowl)?
 #' 
-## ----purl=TRUE------------------------------------------------------------------------------------------------
+## ----purl=TRUE--------------------------------------------------------------------
 jennys_sample %>% count(color)
 
 #' 
@@ -857,7 +857,7 @@ jennys_sample %>% count(color)
 #' 
 #' ## Building up to statistical inference!
 #' 
-## ----purl=TRUE------------------------------------------------------------------------------------------------
+## ----purl=TRUE--------------------------------------------------------------------
 library(infer)
 jennys_sample %>%
   specify(formula = color ~ NULL, success = "red")
@@ -867,7 +867,7 @@ jennys_sample %>%
 #' 
 #' ## Bootstrapping?
 #' 
-## ----purl=TRUE------------------------------------------------------------------------------------------------
+## ----purl=TRUE--------------------------------------------------------------------
 library(infer)
 (bootstrap_samples <- jennys_sample %>%
   specify(formula = color ~ NULL, success = "red") %>%
@@ -889,7 +889,7 @@ library(infer)
 #' 
 #' ## Bootstrap statistics
 #' 
-## ----purl=TRUE, cache=TRUE------------------------------------------------------------------------------------
+## ----purl=TRUE, cache=TRUE--------------------------------------------------------
 jennys_sample %>%
   specify(formula = color ~ NULL, success = "red") %>%
   generate(reps = 48, type = "bootstrap") %>%
@@ -902,7 +902,7 @@ jennys_sample %>%
 #' 
 #' ### Just as we did with the sampling distribution
 #' 
-## ----purl=TRUE, cache=TRUE------------------------------------------------------------------------------------
+## ----purl=TRUE, cache=TRUE--------------------------------------------------------
 bootstrap_stats <- jennys_sample %>%
   specify(formula = color ~ NULL, success = "red") %>%
   generate(reps = 10000, type = "bootstrap") %>%
@@ -913,7 +913,7 @@ bootstrap_stats <- jennys_sample %>%
 #' 
 #' ### The bootstrap distribution
 #' 
-## ----fig.height=2.7, echo=FALSE, purl=TRUE--------------------------------------------------------------------
+## ----fig.height=2.7, echo=FALSE, purl=TRUE----------------------------------------
 ggplot(data = bootstrap_stats, mapping = aes(x = stat)) +
   geom_histogram(binwidth = 0.02, color = "white") +
   geom_vline(
@@ -926,7 +926,7 @@ ggplot(data = bootstrap_stats, mapping = aes(x = stat)) +
 #' 
 #' ### The sampling distribution
 #' 
-## ----fig.height=2.7, echo=FALSE, purl=TRUE--------------------------------------------------------------------
+## ----fig.height=2.7, echo=FALSE, purl=TRUE----------------------------------------
 ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
   geom_histogram(binwidth = 0.02, color = "white") +
   geom_vline(
@@ -941,7 +941,7 @@ ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
 #' 
 #' ## Get a confidence interval
 #' 
-## -------------------------------------------------------------------------------------------------------------
+## ---------------------------------------------------------------------------------
 get_ci(bootstrap_stats, level = 0.95)
 
 #' 
@@ -953,7 +953,7 @@ get_ci(bootstrap_stats, level = 0.95)
 #' 
 #' - In the population:
 #' 
-## -------------------------------------------------------------------------------------------------------------
+## ---------------------------------------------------------------------------------
 mean(bowl$color == "red")
 
 #' 
@@ -962,13 +962,17 @@ mean(bowl$color == "red")
 #' 
 #' ## {infer} verbs
 #' 
-#' `r img_link("https://iinfer.tidymodels.org", "images/infer_ci.jpg", 750)`
+#' `r img_link("https://infer.tidymodels.org", "images/infer_ci.jpg", 650)`
+#' 
+#' 
+#' 
 #' 
 #' ---
 #' 
 #' ## {infer} verbs
 #' 
-#' `r img_link("https://iinfer.tidymodels.org", "images/infer_ht.jpg", 750)`
+#' `r img_link("https://infer.tidymodels.org", "images/infer_ht.jpg", 650)`
+#' 
 #' 
 #' 
 #' ---
@@ -1022,7 +1026,7 @@ mean(bowl$color == "red")
 #' 
 #' --
 #' 
-## ----purl=TRUE------------------------------------------------------------------------------------------------
+## ----purl=TRUE--------------------------------------------------------------------
 library(moderndive)
 mythbusters_yawn %>% slice(c(1, 3, 6, 19))
 
@@ -1033,7 +1037,7 @@ mythbusters_yawn %>% slice(c(1, 3, 6, 19))
 #' 
 #' `r img_link("https://github.com/sfirke/janitor", "images/janitor_hex.png", 150)`
 #' 
-## ----purl=TRUE------------------------------------------------------------------------------------------------
+## ----purl=TRUE--------------------------------------------------------------------
 library(janitor)
 mythbusters_yawn %>%
   tabyl(group, yawn) %>%
@@ -1103,7 +1107,7 @@ mythbusters_yawn %>%
 #' 
 #' ## The observed difference
 #' 
-## ----purl=TRUE------------------------------------------------------------------------------------------------
+## ----purl=TRUE--------------------------------------------------------------------
 library(infer)
 obs_diff <- mythbusters_yawn %>% 
   specify(yawn ~ group, success = "yes") %>%
@@ -1158,7 +1162,7 @@ obs_diff
 #' 
 #' .pull-left[
 #' ### Original universe
-## ----echo=FALSE, purl=TRUE------------------------------------------------------------------------------------
+## ----echo=FALSE, purl=TRUE--------------------------------------------------------
 mythbusters_yawn  %>%
   slice(c(1:6, 15:20)) %>% 
   knitr::kable()
@@ -1172,7 +1176,7 @@ mythbusters_yawn %>%
 #' 
 #' .pull-right[
 #' ### Parallel universe
-## ----echo=FALSE, purl=TRUE------------------------------------------------------------------------------------
+## ----echo=FALSE, purl=TRUE--------------------------------------------------------
 set.seed(2018)
 perm1 <- mythbusters_yawn %>%
   specify(
@@ -1198,7 +1202,7 @@ perm1 %>%
 #' # 1000 parallel universes
 #' 
 #' .pull-left[
-## ----echo=FALSE, purl=TRUE, cache=TRUE------------------------------------------------------------------------
+## ----echo=FALSE, purl=TRUE, cache=TRUE--------------------------------------------
 yawn_universes <- mythbusters_yawn %>%
   specify(yawn ~ group, success = "yes") %>%
   hypothesize(null = "independence") %>%
@@ -1216,7 +1220,7 @@ yawn_universes %>%
 #' --
 #' 
 #' .pull-right[
-## ----echo=FALSE, purl=TRUE------------------------------------------------------------------------------------
+## ----echo=FALSE, purl=TRUE--------------------------------------------------------
 yawn_universes %>%
   slice(986:1000) %>% 
   knitr::kable()
@@ -1226,7 +1230,7 @@ yawn_universes %>%
 #' ---
 #' ## The parallel universe distribution
 #' 
-## ----echo=FALSE, purl=TRUE, cache=TRUE------------------------------------------------------------------------
+## ----echo=FALSE, purl=TRUE, cache=TRUE--------------------------------------------
 set.seed(8)
 null_distn <- mythbusters_yawn %>%
   specify(
@@ -1263,7 +1267,7 @@ null_plot
 #' 
 #' The shaded proportion is the p-value!
 #' 
-## ----purl=TRUE------------------------------------------------------------------------------------------------
+## ----purl=TRUE--------------------------------------------------------------------
 null_distn %>% 
   get_p_value(obs_stat = obs_diff, direction = "right")
 
@@ -1357,7 +1361,7 @@ null_distn %>%
 #' 
 #' - `visualize()` the distribution of the `stat` <br> (here, `diff in props`)
 #' 
-## ----include=FALSE, purl=TRUE---------------------------------------------------------------------------------
+## ----include=FALSE, purl=TRUE-----------------------------------------------------
 set.seed(8)
 null_distn <- mythbusters_yawn %>%
   specify(formula = yawn ~ group, success = "yes") %>%
@@ -1367,7 +1371,7 @@ null_distn <- mythbusters_yawn %>%
 
 #' 
 #' 
-## ----purl=TRUE------------------------------------------------------------------------------------------------
+## ----purl=TRUE--------------------------------------------------------------------
 null_distn %>%
   visualize(bins = 8) +
   shade_p_value(obs_stat = obs_diff, direction = "right")
@@ -1387,7 +1391,7 @@ null_distn %>%
 #' 
 #' ## Classical inference
 #' 
-## ----echo=FALSE, purl=TRUE, warning=TRUE, fig.height=4.5------------------------------------------------------
+## ----echo=FALSE, purl=TRUE, warning=TRUE, fig.height=4.5--------------------------
 obs_z <- mythbusters_yawn %>%
   specify(yawn ~ group, success = "yes") %>%
   calculate(stat = "z", order = c("seed", "control"))
@@ -1404,7 +1408,7 @@ mythbusters_yawn %>%
 #' 
 #' # Simulation-based vs Classical (`stat = "z"`) 
 #' 
-## ----warning=FALSE, purl=TRUE, cache=TRUE---------------------------------------------------------------------
+## ----warning=FALSE, purl=TRUE, cache=TRUE-----------------------------------------
 mythbusters_yawn %>%
   specify(yawn ~ group, success = "yes") %>%
   hypothesize(null = "independence") %>%
@@ -1526,9 +1530,9 @@ mythbusters_yawn %>%
 #' 
 #' .pull-right[
 #' Try typing (with shortcut) and running
-## ---- eval=FALSE----------------------------------------------------------------------------------------------
-y <- 5
-y
+## ---- eval=FALSE------------------------------------------------------------------
+## y <- 5
+## y
 
 #' Now, in the console, press the up arrow.
 #' ]

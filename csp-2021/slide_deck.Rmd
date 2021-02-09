@@ -194,7 +194,7 @@ install.packages(pkgs)
 
 # Getting started
 
-1. Open HTML slides: <https://bit.ly/csp-tidy>
+1. Open HTML slides: <https://bit.ly/csp-tidy-slides>
 1. Open RStudio  
 1. Download course materials to your preferred location by running
    this in the RStudio Console: 
