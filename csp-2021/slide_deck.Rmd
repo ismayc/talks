@@ -205,7 +205,6 @@ install.packages(pkgs)
 
   <br>
 
-1. Open the Rproj file in the folder that just opened
 1. Edit Google Doc to ask and answer questions:
 [https://bit.ly/csp-tidy-doc](https://docs.google.com/document/d/1Qsf1-GNMkjkP7lQAdiuhuu-gEP2reS2vkxRwfdXdYUI/edit)
 
