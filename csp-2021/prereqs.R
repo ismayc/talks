@@ -20,4 +20,4 @@ pkgs <- c(
   "tidyverse", "moderndive", "dslabs", 
   "infer", "janitor"
 )
-install.packages(pkgs)
+install.packages(pkgs, repos = "https://cran.rstudio.org")
