@@ -127,7 +127,7 @@ rstudioapi::versionInfo()$version
 ```
 
 ```
-[1] '1.4.1103'
+[1] '1.4.461'
 ```
 --&gt;
 
@@ -1937,7 +1937,7 @@ mythbusters_yawn %&gt;%
   hypothesize(null = "independence") %&gt;%
   # generate() is not needed since we are not simulating
   calculate(stat = "z", order = c("seed", "control")) %&gt;%
-  visualize(method = "theoretical") 
+  visualize(method = "theoretical") +
   shade_p_value(obs_stat = obs_z, direction = "right")
 ```
 

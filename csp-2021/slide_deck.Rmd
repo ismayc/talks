@@ -1496,7 +1496,7 @@ mythbusters_yawn %>%
   hypothesize(null = "independence") %>%
   # generate() is not needed since we are not simulating
   calculate(stat = "z", order = c("seed", "control")) %>%
-  visualize(method = "theoretical") 
+  visualize(method = "theoretical") +
   shade_p_value(obs_stat = obs_z, direction = "right")
 ```
 
