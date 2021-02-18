@@ -259,6 +259,11 @@ class: inverse, center, middle
 
 # R Data Types
 
+
+???
+
+Great, so we are assuming you have some experience with R, and so hopefully you are familiar with the various data types in R. 
+
 ---
 
 ## Data types review
@@ -266,11 +271,16 @@ class: inverse, center, middle
 Vector/variable
   - Type of vector (`int`, `num` or `dbl`, `chr`, `lgl`, `date`)
 
+???
+
+- But just as a refresher, the main components we work with are called vectors, which store a certain variable type, either from our data, or for other computational uses. So we have integer and numeric, also called double, which store numbers, as well as character for letters or words etc, as well as logical for true/false or boolean data, and date. You will probably encounter numeric and character most often, and date is useful for timestamp tor dates.
+- Usually our data is basically a set of vectors or variables, and often of different types. In R, we store those in a data frame, which is essentially a rectangular data table or matrix, with information about different kinds of variables. We think of data frames as having observations usually by row, and so each vector in a data frame must have the same number of rows.
 --
 
 Data frame
   - Vectors of (potentially) different types
   - Each vector has the same number of rows
+
 
 ---
 
@@ -290,6 +300,11 @@ ex1 <- tibble(
 ex1
 ```
 
+???
+
+- So if you have worked in R, you should have worked with data frames, and when you made a new data frame by hand you likely used the function data.frame. In the tidyverse, we use a different flavor of data frame called a tibble. Basically, it is a  data frame with some extra information and features. We can use the function tibble to create it. 
+- Then, when we print out the new tibble, or fancy data frame, we can see the output tells us it is a tibble, it tells us the number of rows and columns, and we also see the variable or vector types at the top of the data frame. We don’t get this information automatically from a regular data frame. For all intents and purposes this acts like a data frame when doing analyses or data wrangling. The most noticable differences are usually in just how it is printed. Something you can’t see here is that if we had three thousand rows in this tibble, it would only print the top 10 or so. If you’ve ever accidentally printed a giant data frame in R, you know that the default way is to print all the rows, which is a bit annoying. So tibbles fix annoying things like that.
+- We show you this, because when using the tidyverse functions, the output is going to be a tibble. Also, when you use tidyverse functions to read in data, such as read underscore excel, or read underscore table, the resulting data frame is actually a tibble. So just something to be aware of.
 --
 
 ```{r echo=FALSE, purl=TRUE}
@@ -316,6 +331,10 @@ ex1
 - Discuss the power of "tidy data"
 - Develop an intuition behind {ggplot2} plotting syntax
 
+???
+
+Ok, so just a note about going forward and our goals for this super short introduction to tidyverse in the first hour. We want to talk about the differences between different tidyverse packages and look at different functions in the dplyr package for wrangling data. We will talk a bit about tidy data, and an extremely short intro to ggplot, really just a taste to get you interested in finding out more.
+
 ---
 
 class: center, middle
@@ -323,6 +342,11 @@ class: center, middle
 ### Shameless plug
 
 <img src="images/flowchart.png" style="width: 720px"/>
+
+???
+
+Ok this is Chester’s shameless plug in that most of what we are talking about today is in this awesome book that Chester and his colleagues wrote, called Modern Dive. It’s available freely online at this websote, and was also recently published in book form as well. So if you want to learn more through reading and exercises, I definitely recommend it, and I can say that because I had nothing to do with it.
+
 
 ---
 
@@ -346,6 +370,8 @@ class: center, middle, inverse
 [dplyr package](https://dplyr.tidyverse.org)
 ]
 
+???
+Now, the first main tidyverse package we will talk about is dplyr, which is mainly for what we call data wrangling. 
 ---
 
 class: center, middle  
@@ -363,6 +389,9 @@ img_link(
 )
 ```
 
+???
+
+We keep mentioning the tidyverse, but we haven’t actually defined that. So in general, the tidyverse refers to a collection of R packages that share common philosophies, mainly related to what we call tidy data and how functions are written, and they are designed to work together. The tidyverse became its own package somewhat recently, so that when you install the tidyverse package, it installs a small collection of packages. But there are many other packages that fit into the tidyverse universe, they just aren’t automatically installed with the tidyverse package. 
 ---
 
 ## First motivating example for today
@@ -378,6 +407,12 @@ img_link(
 
 - Inspired by the late, great [Hans Rosling](https://www.youtube.com/watch?v=jbkSRLYSojo)
 
+???
+
+
+- So before we talk about code, we want to motivate you with what we are trying to achieve with our data wrangling and visualization tools in the tidyverse. We won’t be able to get into detail on how to create a plot like this in an hour or two, but just know that once you have the foundation that we talk about today, it’s not too much more work to get to a pretty amazing visual like this. Here we have an animated visualization of income per capita vs life expectancy over the years from the gapminder data set which we will use today. This plot specifically is inspired by a talk the swedish physician Hans Rosling gave, and we recommend you spend some time watching his talks because he was a really great orator and conveyer of information with data and statistics.
+- So the ultimate goal is really to convey information with our data, in an intuitive way.
+
 ---
 
 ## The `gapminder` data set in {dslabs}
@@ -392,6 +427,10 @@ glimpse(gapminder)
 
 - Also check out [the {gapminder} package](https://github.com/jennybc/gapminder)
 
+???
+
+- So that visualization was from the gapminder data, which is a free public data set from the world bank. It’s very large and all of it is available on the gapminder website, but some of it has been packaged up into an R data set. Here we are using a relatively small subset of the data found in dslabs package, but more data can be found in the gapminder package. In this data, we have about 10 thousand rows where each row or observation is for a country for one year, and we have information about those countries’ population size, infant mortality and life expectancy, and fertility rates, as well as gdp and where in the world that country is located.
+- We are going to use this data for some exercises, so if you all could open an R script or R markdown or whatever you use in R and copy this code and run it right now, that will help for later.
 ---
 
 name: wrangling
@@ -420,11 +459,23 @@ img_link(
 )
 ```
 
+???
+
+- In this first hour we are mostly talking about data wrangling. By data wrangling, we mean anything we do to manipulate data to get it ready for analyses or visualization, whether that’s what we think of as data cleaning, or changing the shape or filtering of the data, or transforming or fixing up the data in some way. 
+- In this diagram we can see that data wrangling includes the import, tidying, and transformation of the data before the downstream visualize and model steps.  But we also might wrangle data that has been output from model steps, so it’s actually an integral step that happens throughout the entire data analysis process, and not just at the beginning.
+
 ---
 
 ## Base R versus the {tidyverse}
 
 - The mean life expectancy across all years for Asia
+
+???
+
+- Now, how does working in the tidyverse differ from working in base R.
+- CLICK: First let’s look at this simple example where we want to calculate the mean life expectancy across all years for the continent of Asia. In regular base R, we need to subset the data to get only rows where continent is equal to Asia, and the common way to do this is by putting a true false statement inside the bracket. Of course there are lots of ways to do this, maybe using the subset function, but I think this is probably the most common way we are taught. Since we are subsetting rows this goes in the first slot of the bracket, and we put a comma after and then a blank to get all the columns. Then, we need to calculate the mean of the column life expectancy. This works well.
+- However, we have to admit this is hard to read, and confusing for beginners because the bracket, comma thing is not so intuitive.
+- CLICK: In the tidy verse, using the dplyr package, we use what is called a pipe function, which is thisfunny symbol with percent greater than percent, to essentially chain together functions. We will explain this code in more detail, but this is what we’d do in the tidyverse, where we’d run this code to perform functions in order: first filtering rows where continent equals Asia, then summarizing to get the mean life expectancy. We end up with the same answer, though note the output is a tibble.
 --
 
 ```{r, purl=TRUE}
@@ -446,6 +497,14 @@ gapminder %>%
 ## The pipe `%>%`
 
 <img src="images/pipe.png" style="width: 240px;"/> &emsp; &emsp; &emsp; <img src="images/MagrittePipe.jpg" style="width: 300px;"/>
+
+
+???
+
+- let’s go through that code more in detail. first, what is this pipe? Like i mentioned, this is a way to chain together commands. In R, when running multiple functions, we often end up with a web of nested parantheses, or many rows where we save the output of one function and run a new function on it, and again and again. This is a way to do that just with one symbol, the pipe. When looking at code we read it as “and then”. 
+- CLICK So for this example, we use the gapminder data, and then we filter by continent, and then we summarize with mean life expectancy. So here we are able to separate out our steps using the pipe, in the order that we perform these wrangling steps.
+- If you’re in rstudio there’s also a keyboard shortcut, which is cmd-shift-m on a mac, or ctrl-shift-m on windows.
+
 --
 
 - A way to chain together commands
@@ -473,6 +532,9 @@ img_link(
 )
 ```
 
+???
+
+Digging deeper into that code, the first function we use (besides the pipe, which is technically a function in the same way the plus sign or bracket are functions), but the first data wrangling function we use is the filter function, which filters rows that satisfy specified conditions. We can have multiple conditions, strung together with logical operators like the & symbol, or or symbol, or other ways you might create a true false statement. This is similar to what you might put in the brackets using the base R way we showed earlier. We will talk a bit about these logical operators in the next slides.
 
 ---
 
@@ -481,6 +543,13 @@ name: filter
 ## `dplyr::filter()`
 
 - Arguments are "filters" that you'd like to apply.
+
+???
+
+- Here is an example where we want to filter on year. The arguments are going to be the filters that we want to apply.
+- CLICK  Note that we have to use the double equal sign to tell R we want a true/false statement. We can also see the output of the filter statement is again a tibble, this time with fewer rows because we’ve only taken the subset with year equal to 2014. Using the pipe however lets us easily keep going with our functions and we don’t really need to save this subset data to do our next step.
+
+
 --
 
 ```{r, purl=TRUE}
@@ -495,6 +564,13 @@ gap_2014
 ## Logical operators
 
 - Use `|` to check for any in multiple filters being true:
+
+???
+
+- We had an example using the & logical operator to string two logical statements together, but there is also the or operator which is this vertical line. 
+- CLICK: So we would check here whether life expectancy is less than 50 OR fertility is greater than 4, one or the other or both.
+- CLICK: And again we can see the tibble output, where some rows for instance the first one, does not meet the life expectancy criteria but it does meet the fertility >4 criteria.
+
 --
 
 ```{r eval=FALSE, purl=FALSE}
@@ -511,11 +587,20 @@ gapminder %>%
   slice_sample(n = 8)
 ```
 
+
+
 ---
 
 ## Logical operators
 
 - Use `,` to check for all of multiple filters being true:
+
+???
+
+- Instead of using &, we can also use commas in the filter function to check that all filters are true. 
+- CLICK So here the comma is like an and, so that we need life expectancy to be less than 50 AND fertility to be greater than 4.
+
+
 --
 
 ```{r eval=FALSE, purl=FALSE}
@@ -534,6 +619,14 @@ gapminder %>%
 ## Logical operators
 
 - Use `%in%` to check for any being true <br> (shortcut to using `|` repeatedly with `==`)
+
+???
+
+- Another useful operator is the in operator, which checks whether one thing is in a vector of things. 
+- CLICK: So here we want country to be in one of these countries, and year in one of these years. Note I said AND year in this set of years, because we have a comma. So we can have country equal to argentina but then we also need year to be either 2012 or 2015.
+- CLICK: And we can see the output is a pretty small tibble, with just 6 rows.
+
+
 --
 
 ```{r eval=FALSE, purl=FALSE}
@@ -593,6 +686,11 @@ countdown::countdown(minutes = 5,
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
+???
+
+Exercise 1,
+Ok so with that information about filtering, let’s have a bit of practice. We’ll just give you 5 minutes to work on this so don’t worry if you don’t get very far. We just want you to get into the data a bit if possible. If you don’t want to practice, feel free to take a break. If you haven’t been following along with your R code, it might take a bit to get the data up in Rstudio and everything (go back to slide 17 if you  need the code for the data), so at least try doing that so that for the next practice you’ll be ready. I’ll go over the answers when the timer is done.
+
 ---
 
 class: center, middle
@@ -608,6 +706,7 @@ name: summarize
 
 - Any numerical summary that you want to apply to a column of a data frame is specified within `summarize()`.
 
+
 ```{r eval=FALSE, purl=FALSE}
 stats_2015 <- gapminder %>%
   filter(year == 2015) %>%
@@ -617,6 +716,14 @@ stats_2015 <- gapminder %>%
   )
 stats_2015
 ```
+
+
+???
+
+- Ok the second useful tidyverse function we will talk about today is summarize. If you remember when we were using base R, we saved the subset of data, and then we used the mean function to calculate the mean of a vector, which we selected using the dollar sign operator. 
+- CLICK Here, we will use the pipe to chain together the filter and summarize functions. And summarize is a lot more powerful than just using individual functions like mean or sd or median. We can calculate the summary of several vectors of with multiple different summarization functions all at once. Here, we’ve filtered just for year 2015, and then we use summarize to output the max and standard deviation of life expectancy. 
+- What we get is another tibble, with two columns, one for each summary. We also named them, which is what this part on the left side of the equals sign is doing. You can imagine we can really go wild with this function, and could add in mean, median, min, whatever you like, and even use your own functions or calculations within summarize. It’s very flexible. We also could have used multiple variables in the same summarize function.
+
 --
 
 ```{r echo=FALSE, purl=TRUE}
@@ -647,6 +754,11 @@ max_exp_2015_by_cont <- gapminder %>%
 max_exp_2015_by_cont
 ```
 
+???
+
+- A very powerful way to use summarize is in conjunction with the group_by() function. This is a common task in data summarization where we want to know for example the mean of a variable stratified by another factor. In this case, we have continent as a grouping variable, so it’s a categorical factor where we have a finite number of continents, and we want to know the max and standard deviation of life expectancy within each continent. So all we need to do is add this one line, group_by(continent).
+- CLICK: Now we see the output is still a tibble, but instead of just one row with the summairzation for the whole data set, we have 5 rows for each of the five continents in the data. This makes it easy to compare across continents. We also see that the continent has been kept as a column in this tibble. This really helps with downstream visualizations and so on. I think this is one of those things that is super annoying to do in base R, but extremely easy to do in tidyverse. The group_by() function is used in a lot of different ways to do things in parallel essentially across different categorical variables.
+
 --
 ```{r echo=FALSE, purl=TRUE}
 max_exp_2015_by_cont <- gapminder %>%
@@ -671,6 +783,10 @@ img_link(
 )
 ```
 
+???
+
+Ok, so moving a bit away from summarization and filtering, and now we want to talk about adding variables or changing them in some way. This is where the mutate function comes in. 
+
 ---
 
 name: mutate
@@ -678,6 +794,12 @@ name: mutate
 ## `mutate()`
 
 - Most importantly, allows you to create a new variable based on other variables
+
+???
+
+- In base R, we could add or change variables in a data frame using the $ operator, where we save each new variable individually. With mutate, we can make that code a bit more intutive and readable.
+- CLICK So for adding a new variable based on existing variables, like in this example, we we want to have gdp per capita, so we want gdp which is already a column, divided by the population column, we just have mutate with gdp_per_capita the name of the new varaible on the left of hte equal sign, and on the right of the equal sign we have hte code to create it, using existing variable names. We don’t need to use dollar signs or anything here. We can see the a random subset of 4 rows of the output tibble with this slice_sample function here. 
+- Since we can’t see the column though, the slide is too small, I’ll go into R really quick just to show you what it looks like. I’m going to use a function View which shows us the tibble nicely in Rstudio. SHOW R CODE.
 
 --
 
@@ -701,6 +823,14 @@ img_link(
 )
 ```
 
+???
+
+- Ok, so we have been using the tidyverse package and functions, and I mentioned that all of these packages follow the same principles, and that mainly is to create and use what we call tidy data. Tidy data is just data that is built in a standard way that is easy to analyze and visualize. 
+- In tidy data, we want each variable to form a column, and essentially have no combined information within a column that you need to do data gymnastics to extract. For example, if we have a medication in a column, we don’t want to to be something like the string advil 400 mg, because that is actually two pieces of information, the name of the medication and the dose. We’d want that to be two separate columns. 
+- Second, we want each observation to form a row. That nuance can be seen most when using longitudinal data, so if we have multiple observations on one person, we want each of their observation to be a row, not in multiple columns. This is what we might call “long” data, as opposed to wide data. When you start working with ggplot, you’ll see why this format is especially useful, because we can plot each observation more easily with a column that specifies were all that information is, and a categorical visit number or time variable.
+- Lastly, we want each cell to be a single measurement. This goes back to my advil mg example, because that is two pieces of information. So if every cell is just one piece of information it’s much easier to analyze and plot. 
+- So that is the foundation of the tidyverse, in that we want all of our data to be tidy and ready for analysis. Often it takes a bit of wrangling and cleaning to get it there.
+
 ---
 
 class: center, middle
@@ -715,6 +845,11 @@ img_link(
 )
 ```
 
+???
+
+
+The other benefit of tidy data is that tidy datasets are all alike. We don’t need to think too hard about the structure of the data when we are modeling with it. Though this is easier said than done sometimes, and I’m sure you’ve all had to deal with some absurdly messy or strangely formatted data sets. But hopefully these tidyverse functions will help you get your data in a tidy data format more easily.
+
 ---
 
 name: arrange
@@ -722,6 +857,12 @@ name: arrange
 ## `arrange()`
 
 - Reorders the rows in a data frame based on the values of one or more variables
+
+???
+
+- All of the functions so far have significantly changed the data in some way, through subsetting or summarizing, or mutating. But sometimes you just want to sort your data. Rather than opening it in excel, an easy way in the tidyverse is just using the arrange function. We can arrange or sort based on one or multiple variables, or even functions of variables.
+- CLICK: Here’s a simple example where we sort first on year and then within the same year we sort on country. The default is to use an ascending sort .
+
 --
 
 ```{r, purl=TRUE}
@@ -734,6 +875,11 @@ gapminder_plus %>%
 ## `arrange()`
 
 - Can also put into descending order
+
+???
+
+If we want descending arrangement, we can use this desc function. Pretty simple.
+
 --
 
 ```{r desc, purl=TRUE}
@@ -751,6 +897,10 @@ over groups
 
 - `arrange()` is used for sorting
 
+???
+
+Ok just an aside, that arrange can sort the data for you, and you can save the output so now your data has been changed in the sense that the order of the rows is now different. However, this is not the same thing as group_by. Group_by is mostly a helper function that can be used with summarize to compute data summaries by a factor. If you use group_by() on a data set, the attributes actually change behind the scenes, but you won’t see any difference in the order it is printed. 
+
 ---
 
 ## Don't mix up `arrange()` and `group_by()`
@@ -761,6 +911,11 @@ This doesn't really do anything useful by itself
 gapminder %>% group_by(country)
 ```
 
+???
+
+
+You can try it by using group_by() instead of arrange and printing the resulting tibble. It won’t look any different, but R will tell you that it has been grouped.
+
 ---
 
 ## Don't mix up `arrange()` and `group_by()`
@@ -770,6 +925,11 @@ But this does
 ```{r purl=TRUE}
 gapminder %>% arrange(country)
 ```
+
+???
+
+Here, we use arrange instead, and we can see the output has changed.
+
 
 ---
 
@@ -783,6 +943,11 @@ name: select
 gapminder_plus %>% 
   select(country, region, gdp_per_capita)
 ```
+
+???
+
+- This is our last function we want to talk about, which is select. This essentially replaces the bracket and dollar sign game completely when we just want to subset or remove some columns. Just remember that filter which we learned earlier is for subsetting rows, and now we have select which is for subsetting columns. In this example, we are selecting country, region, and gdp per capita. The output is a tibble with just those 3 columns. 
+- The select function is a lot more flexible than this, and we recommend reading about it more in Modern Dive or in the help documents to see all the ways you can use it. You can select by a condition like, contains the string gdp, for example, or select all numeric columns, or use the negative sign to remove columns, and so on. It’s super handy.
 
 ---
 
@@ -828,6 +993,10 @@ countdown::countdown(minutes = 5,
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
+???
+
+Ok one more exercise now, before we get to our ggplot intro and then inference section. We will give you five minutes to work on these and then come back to the solutions together. Don’t worry if you don’t get through it all, or don’t know some of the helper functions, though as a hint, one of them for question 3 is the function round().
+
 ---
 
 class: center, middle
@@ -859,6 +1028,10 @@ class: center, middle, inverse
 [ggplot2 package](https://ggplot2.tidyverse.org)
 ]
 
+???
+
+Alright, with this being a tutorial, we really don’t have much time to get into details of the tidyverse, and ggplot really takes probably a couple hours to learn the fundamentals of ggplot. So we just want to basically show you that it fits in to the tidyverse universe, and there are a lot of resources out there to learn more. I know ggplot can be really intimidating if you haven’t used it before, but I’ll just say that once you get over the initial hump it really isn’t hard to use. 
+
 ---
 
 class: center, middle
@@ -871,6 +1044,13 @@ img_link(
 )
 ```
 
+
+???
+
+
+- This is our one slide on ggplot. Ggplot has three main components, at least that’s the bare minimum you need to make a plot. Here we see we use the ggplot function which  names the data set we are using, in this case gapminder filtered to have just data from 2011, and then the aesthetic, which maps variables to plot elements. Here we map food supply to the x axis, life expectancy to the y axis, the four region categorical variable to the color, and the population number to the size of the point. 
+- We lastly need to tell ggplot what kind of plot we want ot make, which is the geometry component. Here we use geom_point to say we want the point or scatterplot geometry. All ggplots are variations on this format, we might have geom_boxplot or histogram or all the other common types of plots. But we always need to specify the data, and the aesthetic with the geometry. We also need the data to be tidy, so that each row and column denote separate observations and variables that we want to plot. 
+- I wish we had more time to get into the details here, but really there are a ton of resources out there so if you don’t use ggplot, it’s worth giving it a try.
 
 
 ---
@@ -885,6 +1065,8 @@ img_link(
 - Perform tidy hypothesis testing using the {infer} package
 
 ???
+- Alright before we get to part 2, we will take a short break to have a bit of a rest or whatever you need. 
+Feel free to ask questions in the google doc or in chat during break. We will come back at XXXX.
 - Welcome to Part 2 of the class. Here I'll introduce some statistical ideas
 but we'll take a computational approach using the tidyverse framework you've
 seen so far.
