@@ -181,7 +181,7 @@ rstudioapi::versionInfo()$version
 ```{r, eval=FALSE, purl=FALSE}
 pkgs <- c(
   "tidyverse", "moderndive", "dslabs", 
-  "infer", "janitor"
+  "infer", "janitor", "usethis"
   )
 install.packages(pkgs)
 ```
