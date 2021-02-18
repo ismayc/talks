@@ -20,3 +20,5 @@ lubridate
 gridExtra
 infer
 dslabs
+countdown
+knitr
