@@ -15,7 +15,6 @@ utils::zip(
   zipfile = "materials.zip",
   files = c("prereqs.R",
             "slide_code.R",
-            "slide_deck.html",
             "slide_deck.pdf",
             "tidyverse-tools.Rproj")
   )
