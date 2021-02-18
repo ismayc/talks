@@ -759,7 +759,7 @@ img_link(
 #' 
 #' - Build a sampling distribution by repeatedly sampling from a population using the {moderndive} package
 #' - Compose a visualization of a sampling distribution
-#' - Construct a bootstrap distributions for a basic confidence interval of a statistic
+#' - Construct a bootstrap distribution for a basic confidence interval of a statistic
 #' - Perform tidy hypothesis testing using the {infer} package
 #' 
 #' ---
