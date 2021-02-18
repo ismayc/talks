@@ -3,7 +3,7 @@
   <head>
     <title>Tidyverse Tools in R for Data Science and Statistical Inference</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs-2.5/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.6/header-attrs.js"></script>
     <link href="libs/countdown-0.3.5/countdown.css" rel="stylesheet" />
     <script src="libs/countdown-0.3.5/countdown.js"></script>
     <script src="https://use.fontawesome.com/5235085b15.js"></script>
@@ -118,7 +118,7 @@ R.version.string
 ```
 
 ```
-[1] "R version 4.0.2 (2020-06-22)"
+[1] "R version 4.0.3 (2020-10-10)"
 ```
 
 
@@ -127,7 +127,7 @@ rstudioapi::versionInfo()$version
 ```
 
 ```
-[1] '1.4.904'
+[1] '1.4.461'
 ```
 --&gt;
 
@@ -152,18 +152,19 @@ install.packages(pkgs)
 
 # Getting started
 
-1. Open HTML slides: &lt;https://bit.ly/csp-tidy-slides&gt;
-1. Open RStudio  
-1. Download course materials to your preferred location by running
-   this in the RStudio Console: 
-   
-   &lt;br&gt;
-   
-  `usethis::use_course("bit.ly/csp-tidy")`
+**1.** Open HTML slides: &lt;https://bit.ly/csp-tidy-slides&gt;
 
-  &lt;br&gt;
+**2.** Open RStudio  
 
-1. Edit Google Doc to ask and answer questions:
+**3.** Download course materials to your preferred location by copying this
+and running it in the RStudio Console: 
+   
+
+```r
+usethis::use_course("https://csp2021.netlify.app/materials.zip")
+```
+
+**4.** Edit Google Doc to ask and answer questions:
 [https://bit.ly/csp-tidy-doc](https://docs.google.com/document/d/1Qsf1-GNMkjkP7lQAdiuhuu-gEP2reS2vkxRwfdXdYUI/edit)
 
 
@@ -615,7 +616,7 @@ max_exp_2015_by_cont
 ```
 # A tibble: 5 x 3
   continent max_exp sd_exp
-  &lt;fct&gt;       &lt;dbl&gt;  &lt;dbl&gt;
+* &lt;fct&gt;       &lt;dbl&gt;  &lt;dbl&gt;
 1 Africa       77.6   6.52
 2 Americas     81.7   3.58
 3 Asia         83.7   5.12
@@ -907,7 +908,7 @@ class: center, middle
 
 - Build a sampling distribution by repeatedly sampling from a population using the {moderndive} package
 - Compose a visualization of a sampling distribution
-- Construct a bootstrap distributions for a basic confidence interval of a statistic
+- Construct a bootstrap distribution for a basic confidence interval of a statistic
 - Perform tidy hypothesis testing using the {infer} package
 
 ---
@@ -1034,7 +1035,7 @@ ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
   geom_histogram(binwidth = 0.02, color = "white")
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-47-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -1050,7 +1051,7 @@ jennys_sample %&gt;% count(color)
 ```
 # A tibble: 2 x 2
   color     n
-  &lt;chr&gt; &lt;int&gt;
+* &lt;chr&gt; &lt;int&gt;
 1 red      16
 2 white    34
 ```
@@ -1166,11 +1167,11 @@ bootstrap_stats &lt;- jennys_sample %&gt;%
 
 ### The bootstrap distribution
 
-![](slide_deck_files/figure-html/unnamed-chunk-52-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-53-1.png)&lt;!-- --&gt;
 
 ### The sampling distribution
 
-![](slide_deck_files/figure-html/unnamed-chunk-53-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-54-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -1771,7 +1772,7 @@ class: center, middle
 ---
 ## The parallel universe distribution
 
-![](slide_deck_files/figure-html/unnamed-chunk-63-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-64-1.png)&lt;!-- --&gt;
 
 
 The distribution of 1000 differences in proportions, if the null hypothesis were *true* and yawning was not contagious. 
@@ -1916,7 +1917,7 @@ null_distn %&gt;%
   shade_p_value(obs_stat = obs_diff, direction = "right")
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-67-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-68-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -1952,7 +1953,7 @@ theoretical method. {infer} currently does not check these for
 you.
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-70-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-71-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -1969,7 +1970,7 @@ mythbusters_yawn %&gt;%
   shade_p_value(obs_stat = obs_z, direction = "right")
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-71-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-72-1.png)&lt;!-- --&gt;
 
 ---
 

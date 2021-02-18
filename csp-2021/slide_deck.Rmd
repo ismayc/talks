@@ -20,7 +20,8 @@ output:
 # specify the packages of interest
 pkgs <- c(
   "tidyverse", "moderndive", "dslabs",
-  "infer", "janitor", "remotes", "knitr"
+  "infer", "janitor", "remotes", "knitr",
+  "usethis"
 )
 
 # use this function to check if each package is on the local machine
@@ -194,18 +195,18 @@ install.packages(pkgs)
 
 # Getting started
 
-1. Open HTML slides: <https://bit.ly/csp-tidy-slides>
-1. Open RStudio  
-1. Download course materials to your preferred location by running
-   this in the RStudio Console: 
-   
-   <br>
-   
-  `usethis::use_course("bit.ly/csp-tidy")`
+**1.** Open HTML slides: <https://bit.ly/csp-tidy-slides>
 
-  <br>
+**2.** Open RStudio  
 
-1. Edit Google Doc to ask and answer questions:
+**3.** Download course materials to your preferred location by copying this
+and running it in the RStudio Console: 
+   
+```{r eval=FALSE}
+usethis::use_course("https://csp2021.netlify.app/materials.zip")
+```
+
+**4.** Edit Google Doc to ask and answer questions:
 [https://bit.ly/csp-tidy-doc](https://docs.google.com/document/d/1Qsf1-GNMkjkP7lQAdiuhuu-gEP2reS2vkxRwfdXdYUI/edit)
 
 
@@ -837,7 +838,7 @@ img_link(
 
 - Build a sampling distribution by repeatedly sampling from a population using the {moderndive} package
 - Compose a visualization of a sampling distribution
-- Construct a bootstrap distributions for a basic confidence interval of a statistic
+- Construct a bootstrap distribution for a basic confidence interval of a statistic
 - Perform tidy hypothesis testing using the {infer} package
 
 ---
