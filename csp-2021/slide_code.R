@@ -9,14 +9,15 @@
 #' #      highlightStyle: tomorrow-night-bright
 #' #      highlightLines: true
 #'       highlightLanguage: r
+#'       includePresenterNotes: true
+#' #      countIncrementalSlides: false
 #'     includes:
 #'       in_header: header.html      
-#'     countIncrementalSlides: false
 #'     css: css/xaringan.css
 #' ---
 #' 
 #' 
-## ----include=FALSE, purl=TRUE----------------------------------------------------
+## ----include=FALSE, purl=TRUE----------------------------------
 # specify the packages of interest
 pkgs <- c(
   "tidyverse", "moderndive", "dslabs",
@@ -59,6 +60,12 @@ if (!require("countdown")) {
 #' 
 #' ### PDF slides at <http://bit.ly/csp-tidy-pdf>
 #' 
+#' ???
+#' 
+#' Welcome to our course! You can find the link to the HTML version of our slides
+#' as well as the PDF version here. We'll give you a few minutes to get these
+#' loaded and then start with introductions of your presenters.
+#' 
 #' ---
 #' 
 #' name: our-info
@@ -98,6 +105,13 @@ if (!require("countdown")) {
 #' <!--  [`r fa(name = "paper-plane")` `chester [dot] ismay [at] datarobot [dot] com`](mailto:chester.ismay@datarobot.com) -->
 #' ]
 #' 
+#' ???
+#' 
+#' Hello. My name is Chester and I lead data science and machine learning courses
+#' for DataRobot. I'm based in Portland, Oregon. I'm next going to give you an
+#' overview of the content of this course and review R prerequisites to follow
+#' along with us before I turn it back over to Jessica
+#' to lead you through the first part of the course.
 #' 
 #' ---
 #' 
@@ -114,6 +128,10 @@ if (!require("countdown")) {
 #' - [Sampling](#sampling)
 #' - [Inference](#inference)
 #' 
+#' ???
+#' The first part of the course is focused on exploratory data analysis in
+#' the tidyverse and the second part is about statistical inference using
+#' data science principles you'll learn about in the first part.
 #' ---
 #' 
 #' layout: true
@@ -129,6 +147,12 @@ if (!require("countdown")) {
 #' Make sure you have the current R, RStudio, & R packages
 #' - [Novice's Guide](https://moderndive.com/1-getting-started.html) on ModernDive.com
 #' 
+#' ???
+#' We recommend that you have the following versions of R, RStudio, and some R
+#' packages downloaded. If you are having issues getting these things going right
+#' now, we recommend you just follow along with the slides and work to get the
+#' installations working during exercises and our break about halfway through.
+#' 
 #' --
 #' 
 #' ***
@@ -141,11 +165,11 @@ if (!require("countdown")) {
 #' <!--
 #' These slides were built using
 #' 
-## --------------------------------------------------------------------------------
+## --------------------------------------------------------------
 R.version.string
 
 #' 
-## --------------------------------------------------------------------------------
+## --------------------------------------------------------------
 rstudioapi::versionInfo()$version
 
 #' -->
@@ -156,7 +180,11 @@ rstudioapi::versionInfo()$version
 #' 
 
 #' 
-#' 
+#' ???
+#' If you already downloaded the course materials and already ran the prereqs.R,
+#' you can skip running this code again. After you've run these commands to get the packages installed, please follow
+#' the steps on the next slide. I'll leave this up for a little bit to make sure
+#' those following along can copy the code into RStudio and run it.
 #' 
 #' ---
 #' 
@@ -171,14 +199,29 @@ rstudioapi::versionInfo()$version
 #' **3.** Download course materials to your preferred location by copying this
 #' and running it in the RStudio Console: 
 #'    
-## ----eval=FALSE------------------------------------------------------------------
+## ----eval=FALSE------------------------------------------------
 ## usethis::use_course("https://csp2021.netlify.app/materials.zip")
 
 #' 
 #' **4.** Edit Google Doc to ask and answer questions:
 #' [https://bit.ly/csp-tidy-doc](https://docs.google.com/document/d/1Qsf1-GNMkjkP7lQAdiuhuu-gEP2reS2vkxRwfdXdYUI/edit)
 #' 
+#' ???
+#' - Just a reminder here on the HTML slides link if you missed it at the beginning.
+#' It will also be available at the bottom of the slides as you can see here
+#' throughout the presentation.
 #' 
+#' - Please follow steps 2 and 3 next including copying the code in step 3 and
+#' running in RStudio. This will start up a new RStudio project and make sure
+#' you have the code available that we will go over.
+#' 
+#' - Lastly please open up the Google Doc linked here. You can add your questions
+#' and any issues you are having here. We'll be keeping an eye on it. Help out
+#' your fellow participants as well if you are able to answer questions before
+#' Jessica or I can. 
+#' 
+#' - I'm going to turn it over to Jessica now to get us going
+#' on the content.
 #' ---
 #' 
 #' class: inverse, center, middle
@@ -206,7 +249,7 @@ rstudioapi::versionInfo()$version
 #' 
 #' --
 #' 
-## ----echo=FALSE, purl=TRUE-------------------------------------------------------
+## ----echo=FALSE, purl=TRUE-------------------------------------
 library(tibble) # tibble is the tidyverse data.frame
 library(lubridate)
 ex1 <- tibble(
@@ -269,7 +312,7 @@ ex1
 #' The {tidyverse} is a collection of R packages that share common philosophies 
 #' and are designed to work together. <br><br> 
 #'   
-## ----echo=FALSE------------------------------------------------------------------
+## ----echo=FALSE------------------------------------------------
 img_link(
   link = "https://tidyverse.tidyverse.org",
   file = "images/tidyverse_hex.png",
@@ -281,7 +324,7 @@ img_link(
 #' 
 #' ## First motivating example for today
 #' 
-## ----echo=FALSE------------------------------------------------------------------
+## ----echo=FALSE------------------------------------------------
 img_link(
   link = "http://gitsense.github.io/images/wealth.gif",
   file = "images/wealth.gif",
@@ -296,7 +339,7 @@ img_link(
 #' 
 #' ## The `gapminder` data set in {dslabs}
 #' 
-## ---- purl=TRUE------------------------------------------------------------------
+## ---- purl=TRUE------------------------------------------------
 library(dslabs)
 library(dplyr)
 gapminder <- tibble(gapminder)
@@ -326,7 +369,7 @@ glimpse(gapminder)
 #' 
 #' <br>
 #' 
-## ----echo=FALSE------------------------------------------------------------------
+## ----echo=FALSE------------------------------------------------
 img_link(
   link = "https://r4ds.had.co.nz/introduction.html",
   file = "images/r4ds_tidyverse.png",
@@ -341,7 +384,7 @@ img_link(
 #' - The mean life expectancy across all years for Asia
 #' --
 #' 
-## ---- purl=TRUE------------------------------------------------------------------
+## ---- purl=TRUE------------------------------------------------
 # Base R
 asia <- gapminder[gapminder$continent == "Asia", ]
 mean(asia$life_expectancy)
@@ -369,7 +412,7 @@ mean(asia$life_expectancy)
 #' 
 #' ## `filter()` rows that satisfy specified conditions
 #' 
-## ----echo=FALSE------------------------------------------------------------------
+## ----echo=FALSE------------------------------------------------
 img_link(
   link = "https://github.com/allisonhorst/stats-illustrations",
   file = "images/dplyr_filter.jpg",
@@ -387,7 +430,7 @@ img_link(
 #' - Arguments are "filters" that you'd like to apply.
 #' --
 #' 
-## ---- purl=TRUE------------------------------------------------------------------
+## ---- purl=TRUE------------------------------------------------
 gap_2014 <- gapminder %>% filter(year == 2014)
 gap_2014
 
@@ -404,7 +447,7 @@ gap_2014
 
 #' --
 #' 
-## ----echo=FALSE, purl=TRUE-------------------------------------------------------
+## ----echo=FALSE, purl=TRUE-------------------------------------
 set.seed(2018)
 gapminder %>%
   filter(life_expectancy < 50 | fertility > 4) %>%
@@ -420,7 +463,7 @@ gapminder %>%
 #' 
 
 #' 
-## ----echo=FALSE, purl=TRUE-------------------------------------------------------
+## ----echo=FALSE, purl=TRUE-------------------------------------
 gapminder %>%
   filter(life_expectancy < 50, fertility > 4) %>%
   head(8)
@@ -436,7 +479,7 @@ gapminder %>%
 
 #' --
 #' 
-## ----echo=FALSE, purl=TRUE-------------------------------------------------------
+## ----echo=FALSE, purl=TRUE-------------------------------------
 gapminder %>%
   filter(
     country %in% c("Argentina", "Belgium", "Mexico"),
@@ -455,25 +498,25 @@ gapminder %>%
 #' name: yourturnA
 #' 
 #' 
-## ----echo=FALSE------------------------------------------------------------------
+## ----echo=FALSE------------------------------------------------
 counter <- 1
 
 #' 
 #' ## Exercise `r LETTERS[counter]` - 5 minutes
 #' 
-## ----echo=FALSE------------------------------------------------------------------
+## ----echo=FALSE------------------------------------------------
 counter <- counter + 1
 
 #' 1. Filter observations from either Europe or Africa using the `|`.
 #' 2. Filter observations from either Africa or Asia using `%in%`.
 #' 3. How many countries had life expectancy greater than 80 years in 1996?
 #' 
-## ----soln1, include = FALSE------------------------------------------------------
+## ----soln1, include = FALSE------------------------------------
 gapminder %>% filter(continent == "Europe" | continent == "Africa")
 gapminder %>% filter(continent %in% c("Africa", "Asia"))
 gapminder %>% filter(life_expectancy > 80, year == 1996)
 
-## ----include=FALSE---------------------------------------------------------------
+## ----include=FALSE---------------------------------------------
 # This code generates the HTML code that follows
 # to get a timer
 countdown::countdown(minutes = 5, 
@@ -504,7 +547,7 @@ countdown::countdown(minutes = 5,
 
 #' --
 #' 
-## ----echo=FALSE, purl=TRUE-------------------------------------------------------
+## ----echo=FALSE, purl=TRUE-------------------------------------
 stats_2015 <- gapminder %>%
   filter(year == 2015) %>%
   summarize(
@@ -526,7 +569,7 @@ stats_2015
 
 #' 
 #' --
-## ----echo=FALSE, purl=TRUE-------------------------------------------------------
+## ----echo=FALSE, purl=TRUE-------------------------------------
 max_exp_2015_by_cont <- gapminder %>%
   filter(year == 2015) %>%
   group_by(continent) %>%
@@ -541,7 +584,7 @@ max_exp_2015_by_cont
 #' 
 #' ## `mutate()` changes the data
 #' 
-## ----echo=FALSE------------------------------------------------------------------
+## ----echo=FALSE------------------------------------------------
 img_link(
   link = "https://github.com/allisonhorst/stats-illustrations",
   file = "images/dplyr_mutate.png",
@@ -559,7 +602,7 @@ img_link(
 #' 
 #' --
 #' 
-## ---- purl=TRUE------------------------------------------------------------------
+## ---- purl=TRUE------------------------------------------------
 gapminder_plus <- gapminder %>% 
   mutate(gdp_per_capita = gdp / population)
 slice_sample(gapminder_plus, n = 4)
@@ -571,7 +614,7 @@ slice_sample(gapminder_plus, n = 4)
 #' 
 #' <h5></h5>
 #' 
-## ----echo=FALSE------------------------------------------------------------------
+## ----echo=FALSE------------------------------------------------
 img_link(
   link = "https://github.com/allisonhorst/stats-illustrations",
   file = "images/tidydata_1.jpg",
@@ -585,7 +628,7 @@ img_link(
 #' 
 #' <h5></h5>
 #' 
-## ----echo=FALSE------------------------------------------------------------------
+## ----echo=FALSE------------------------------------------------
 img_link(
   link = "https://github.com/allisonhorst/stats-illustrations",
   file = "images/tidydata_2.jpg",
@@ -602,7 +645,7 @@ img_link(
 #' - Reorders the rows in a data frame based on the values of one or more variables
 #' --
 #' 
-## ---- purl=TRUE------------------------------------------------------------------
+## ---- purl=TRUE------------------------------------------------
 gapminder_plus %>%
   arrange(year, country)
 
@@ -614,7 +657,7 @@ gapminder_plus %>%
 #' - Can also put into descending order
 #' --
 #' 
-## ----desc, purl=TRUE-------------------------------------------------------------
+## ----desc, purl=TRUE-------------------------------------------
 gapminder_plus %>%
   filter(year > 2000) %>%
   arrange(desc(life_expectancy))
@@ -635,7 +678,7 @@ gapminder_plus %>%
 #' 
 #' This doesn't really do anything useful by itself
 #' 
-## ----purl=TRUE-------------------------------------------------------------------
+## ----purl=TRUE-------------------------------------------------
 gapminder %>% group_by(country)
 
 #' 
@@ -645,7 +688,7 @@ gapminder %>% group_by(country)
 #' 
 #' But this does
 #' 
-## ----purl=TRUE-------------------------------------------------------------------
+## ----purl=TRUE-------------------------------------------------
 gapminder %>% arrange(country)
 
 #' 
@@ -657,7 +700,7 @@ gapminder %>% arrange(country)
 #' 
 #' - Chooses a subset of _columns_ (don't mix up with `filter()`)
 #' 
-## --------------------------------------------------------------------------------
+## --------------------------------------------------------------
 gapminder_plus %>% 
   select(country, region, gdp_per_capita)
 
@@ -676,14 +719,14 @@ gapminder_plus %>%
 #' 
 #' ## Exercise `r LETTERS[counter]` - 5 minutes
 #' 
-## ----echo=FALSE------------------------------------------------------------------
+## ----echo=FALSE------------------------------------------------
 counter <- counter + 1
 
 #' 1. Create a data frame that has the median life expectancy by year.
 #' 2. Use `arrange()` on this data frame to see the top years with the highest median life expectancy. What about the year with the lowest median life expectancy?
 #' 3. Create a new column that is median life expectancy rounded to the nearest integer, and remove the original un-rounded column with `select()`.
 #' 
-## ----soln2, include=FALSE--------------------------------------------------------
+## ----soln2, include=FALSE--------------------------------------
 lifeyear <- gapminder %>%
   group_by(year) %>%
   summarize(med_exp = median(life_expectancy))
@@ -693,7 +736,7 @@ lifeyear %>% arrange(med_exp)
 lifeyear %>% mutate(med_exp_round = round(med_exp)) %>% select(-med_exp)
 
 #' 
-## ----include=FALSE---------------------------------------------------------------
+## ----include=FALSE---------------------------------------------
 # This code generates the HTML code that follows
 # to get a timer
 countdown::countdown(minutes = 5, 
@@ -741,7 +784,7 @@ countdown::countdown(minutes = 5,
 #' 
 #' class: center, middle
 #' 
-## ----echo=FALSE------------------------------------------------------------------
+## ----echo=FALSE------------------------------------------------
 img_link(
   link = "https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf",
   file = "images/ggplot_basics_from_ppt.png",
@@ -762,6 +805,12 @@ img_link(
 #' - Construct a bootstrap distribution for a basic confidence interval of a statistic
 #' - Perform tidy hypothesis testing using the {infer} package
 #' 
+#' ???
+#' - Welcome to Part 2 of the class. Here I'll introduce some statistical ideas
+#' but we'll take a computational approach using the tidyverse framework you've
+#' seen so far.
+#' - We'll finish Part 2 by using the infer package for tidy statistical inference.
+#' 
 #' ---
 #' 
 #' name: sampling
@@ -774,37 +823,68 @@ img_link(
 #' 
 #' `r img_link("https://moderndive.com/7-sampling.html", "images/sampling_bowl.jpeg", 380)`
 #' 
+#' ???
+#' Let's say we were interested in the proportion of balls in this bin that were
+#' red. Instead of taking all the balls out of the hopper, we could take a sample
+#' using a shovel to get an estimate as to that proportion.
+#' 
 #' ---
 #' 
 #' class: middle
 #' 
-## ----purl=TRUE-------------------------------------------------------------------
+## ----purl=TRUE-------------------------------------------------
 library(moderndive)
 bowl %>% slice_head(n = 15)
 
+#' 
+#' ???
+#' The moderndive package includes a tibble called bowl that represents
+#' all of the balls in this hopper. The first 15 rows of this tibble are shown.
 #' 
 #' ---
 #' 
 #' ## One virtual scoop of 50 balls (one sample)
 #' 
-## ----purl=TRUE-------------------------------------------------------------------
+## ----purl=TRUE-------------------------------------------------
 set.seed(8675309)
 (jennys_sample <- bowl %>% slice_sample(n = 50))
 
+#' 
+#' ???
+#' Let's say our friend Jenny wants to take a sample of the entries in bowl.
+#' We can do that programmatically using the slice_sample function from dplyr
+#' after setting Jenny's seed value.
 #' 
 #' ---
 #' 
 #' ## Proportion that are red
 #' 
-## ----purl=TRUE-------------------------------------------------------------------
+## ----purl=TRUE-------------------------------------------------
 jennys_sample %>%
   summarize(prop_red = mean(color == "red")) %>%
   pull()
 
 #' 
+## ----echo=FALSE------------------------------------------------
+jenny_prop <- jennys_sample %>%
+  summarize(prop_red = mean(color == "red")) %>%
+  pull()
+
+#' 
+#' 
+#' ???
+#' - In this particular sample, we can see that Jenny had `r jenny_prop * 100`%
+#' red balls.
+#' 
 #' --
 #' 
 #' ## Is this how many are in the full bowl?
+#' 
+#' ???
+#' - Are we guaranteed that is the same proportion that are in the full bowl?
+#' - No, different samples will lead to different proportions of red balls.
+#' - If we repeated the process of sampling many times, we could then
+#' get a sense for the variation in the proportion of red balls across samples.
 #' 
 #' ---
 #' 
@@ -812,67 +892,97 @@ jennys_sample %>%
 #' 
 #' ### What does `rep_bowl_samples` look like?
 #' 
-## ----purl=TRUE, cache=TRUE-------------------------------------------------------
+## ----purl=TRUE, cache=TRUE-------------------------------------
 library(moderndive)
 library(infer)
 rep_bowl_samples <- bowl %>%
   rep_slice_sample(n = 50, reps = 10000)
 
 #' 
+#' ???
+#' - That's exactly what is done here. The rep_slice_sample function repeatedly
+#' samples from a data frame and then stacks the resulting rows on top of each
+#' other.
+#' 
 #' --
 #' 
 #' ### How about `bowl_props`?
 #' 
-## ----purl=TRUE-------------------------------------------------------------------
+## ----purl=TRUE-------------------------------------------------
 bowl_props <- rep_bowl_samples %>%
   group_by(replicate) %>%
   summarize(prop_red = mean(color == "red"))
 
 #' 
-#' 
+#' ???
+#' - The last step here is to group based on each of the ten thousand replicates
+#' to get the proportion of red balls in each sample.
 #' ---
 #' 
 #' ## The sampling distribution
 #' 
-## ----fig.height=4.7, purl=TRUE---------------------------------------------------
+## ----fig.height=4.7, purl=TRUE---------------------------------
 ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
   geom_histogram(binwidth = 0.02, color = "white")
 
 #' 
+#' ???
+#' If we visualize the proportion of red variable, we can see how the
+#' sample statistic varies from one sample to another for samples of size 50.
 #' ---
 #' 
 #' ## Shifting focus
 #' 
 #' ### What about if all we had was the one sample of balls (not the whole bowl)?
 #' 
-## ----purl=TRUE-------------------------------------------------------------------
+## ----purl=TRUE-------------------------------------------------
 jennys_sample %>% count(color)
 
 #' 
+#' ???
+#' - In reality, we don't usually have the population of interest like we did here
+#' with the `bowl` tibble.
+#' - Rather we have only one sample and would like to understand the variability
+#' we might expect from one sample to another.
 #' --
 #' 
 #' ### How could we use this sample to make a guess about the sampling variability from other samples?
 #' 
+#' ???
+#' - So how can we do this?
 #' ---
 #' 
 #' ## Building up to statistical inference!
 #' 
-## ----purl=TRUE-------------------------------------------------------------------
+## ----purl=TRUE-------------------------------------------------
 library(infer)
 jennys_sample %>%
   specify(formula = color ~ NULL, success = "red")
 
 #' 
+#' ???
+#' - The infer package provides a way for us to do just this.
+#' - We'll formalize the different functions in a bit but I want to first walk
+#' through our example to help you get a feel for the syntax.
+#' - First we specify that we are interested in looking for red balls with
+#' a response variable set to color.
+#' 
 #' ---
 #' 
 #' ## Bootstrapping?
 #' 
-## ----purl=TRUE-------------------------------------------------------------------
+## ----purl=TRUE-------------------------------------------------
 library(infer)
 (bootstrap_samples <- jennys_sample %>%
   specify(formula = color ~ NULL, success = "red") %>%
-  generate(reps = 48, type = "bootstrap"))
+  generate(reps = 5, type = "bootstrap"))
 
+#' 
+#' ???
+#' - We can use sampling with replacement from the color variable to create
+#' bootstrap samples from our original sample of Jenny's.
+#' - Five is chosen for the number of reps here just to help you see what is
+#' going on initially.
 #' 
 #' ---
 #' 
@@ -881,20 +991,29 @@ library(infer)
 #' - Remember we assumed that all we had was the original sample of 19 red and 31 white to start.
 #' --
 #' 
-#' - Hope each selection in `bootstrap_samples` is similar to:
+#' - Hope each of the five sample selections in `bootstrap_samples` is similar to:
 #' 
 #' `r img_link("http://moderndive.netlify.com/images/sampling_bowl.jpeg", "images/big_sampling_bowl.jpeg", 500)`
+#' 
+#' ???
+#' One way I like to think about bootstrap sampling is that each bootstrap sample
+#' is an attempt to guess at what the population might look like, using the 
+#' original single sample as a guide.
 #' 
 #' ---
 #' 
 #' ## Bootstrap statistics
 #' 
-## ----purl=TRUE, cache=TRUE-------------------------------------------------------
+## ----purl=TRUE, cache=TRUE-------------------------------------
 jennys_sample %>%
   specify(formula = color ~ NULL, success = "red") %>%
-  generate(reps = 48, type = "bootstrap") %>%
+  generate(reps = 5, type = "bootstrap") %>%
   calculate(stat = "prop")
 
+#' 
+#' ???
+#' After collecting the samples, we last calculate the proportion of red balls
+#' in each bootstrap sample to obtain five different bootstrap statistics.
 #' 
 #' ---
 #' 
@@ -902,18 +1021,23 @@ jennys_sample %>%
 #' 
 #' ### Just as we did with the sampling distribution
 #' 
-## ----purl=TRUE, cache=TRUE-------------------------------------------------------
+## ----purl=TRUE, cache=TRUE-------------------------------------
 bootstrap_stats <- jennys_sample %>%
   specify(formula = color ~ NULL, success = "red") %>%
   generate(reps = 10000, type = "bootstrap") %>%
   calculate(stat = "prop")
 
 #' 
+#' ???
+#' - Lastly, we can go a step further and repeat this bootstrapping process many
+#' times, say ten thousand.
+#' - And then visualize it which we'll see next.
+#' 
 #' ---
 #' 
 #' ### The bootstrap distribution
 #' 
-## ----fig.height=2.7, echo=FALSE, purl=TRUE---------------------------------------
+## ----fig.height=2.7, echo=FALSE, purl=TRUE---------------------
 ggplot(data = bootstrap_stats, mapping = aes(x = stat)) +
   geom_histogram(binwidth = 0.02, color = "white") +
   geom_vline(
@@ -921,12 +1045,22 @@ ggplot(data = bootstrap_stats, mapping = aes(x = stat)) +
     size = 2
   ) +
   xlim(0.15, 0.55) +
-  geom_vline(xintercept = c(mean(bootstrap_stats$stat) - sd(bootstrap_stats$stat), mean(bootstrap_stats$stat) + sd(bootstrap_stats$stat)), color = "red", size = 1.5)
+  geom_vline(
+    xintercept = c(mean(bootstrap_stats$stat) - sd(bootstrap_stats$stat),
+                   mean(bootstrap_stats$stat) + sd(bootstrap_stats$stat)), 
+    color = "red", size = 1.5)
 
+#' 
+#' ???
+#' - I've added in some bars here corresponding to the mean of the distribution
+#' as well as one standard deviation in both directions.
+#' - This can provide a way to get a sense for sampling variability using
+#' only a single sample.
+#' --
 #' 
 #' ### The sampling distribution
 #' 
-## ----fig.height=2.7, echo=FALSE, purl=TRUE---------------------------------------
+## ----fig.height=2.7, echo=FALSE, purl=TRUE---------------------
 ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
   geom_histogram(binwidth = 0.02, color = "white") +
   geom_vline(
@@ -937,27 +1071,45 @@ ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
   geom_vline(xintercept = c(mean(bowl_props$prop_red) - sd(bowl_props$prop_red), mean(bowl_props$prop_red) + sd(bowl_props$prop_red)), color = "red", size = 1.5)
 
 #' 
+#' ???
+#' - If you compare this to the actual sampling distribution we calculated before,
+#' you can see that the variation in the two plots is similar.
+#' - Thus, assuming you have a random sample from the population to start (and it
+#' is of reasonable size---whatever that may mean for your problem), bootstrapping
+#' can be a nice way to estimate the variability from one sample to another based
+#' on your statistic of interest.
+#' 
 #' ---
 #' 
 #' ## Get a confidence interval
 #' 
-## --------------------------------------------------------------------------------
+## --------------------------------------------------------------
 get_ci(bootstrap_stats, level = 0.95)
 
 #' 
 #' - We are 95% "confident" the true proportion of red balls in the hopper/bowl is
 #' between `r get_ci(bootstrap_stats, level = 0.95)[1]` and `r get_ci(bootstrap_stats, level = 0.95)[2]`.
 #' 
+#' ???
+#' - The infer package also includes a get_ci function, which you can use
+#' to return the appropriate percentiles of the bootstrap distribution
+#' corresponding to the level given.
+#' 
 #' --
 #' ***
 #' 
 #' - In the population:
 #' 
-## --------------------------------------------------------------------------------
+## --------------------------------------------------------------
 mean(bowl$color == "red")
 
 #' 
-#' 
+#' ???
+#' - In this case, we expect about 95 confidence intervals out of 100 to include
+#' the true value from the population and that's why we put confident in quotes.
+#' - As a check since we know the population, we can calculate this proportion.
+#' - Here we see that Jenny's sample would be one of the 95% of intervals that
+#' includes the true population parameter of red balls.
 #' ---
 #' 
 #' ## {infer} verbs
@@ -965,7 +1117,16 @@ mean(bowl$color == "red")
 #' `r img_link("https://infer.tidymodels.org", "images/infer_ci.jpg", 650)`
 #' 
 #' 
-#' 
+#' ???
+#' - You've seen these verbs now via example but I'd like to walk through them
+#' again now with a diagram.
+#' - First, you specify which columns you'd like to work with. You've seen so far
+#' only choosing one variable but you'll see soon that you can select a response
+#' variable and an explanatory variable.
+#' - Then, you can generate bootstrap samples.
+#' - And calculate the appropriate statistic of interest from each sample.
+#' - Looking at the standard deviation of these statistics provides as estimate
+#' for the standard error denoted as SE here.
 #' 
 #' ---
 #' 
@@ -973,6 +1134,14 @@ mean(bowl$color == "red")
 #' 
 #' `r img_link("https://infer.tidymodels.org", "images/infer_ht.jpg", 650)`
 #' 
+#' ???
+#' - The infer package was designed to also help with hypothesis testing.
+#' - There is only one additional function there with `hypothesize()`.
+#' - That allows you to denote what type of hypothesis test you are wanting to
+#' perform as well as any other null values as needed.
+#' - The `visualize()` function is a wrapper around ggplot2 to provide a quick
+#' way to look at the statistics that have been produced.
+#' - We'll see this further in our next example.
 #' 
 #' 
 #' ---
@@ -986,6 +1155,11 @@ mean(bowl$color == "red")
 #' <br>
 #' 
 #' .footnote[{infer} hex sticker designs kindly created by [Thomas Mock](https://www.linkedin.com/in/jthomasmock/)]
+#' 
+#' ???
+#' Thomas Mock was kind enough to produce a few different options for the
+#' {infer} package hex sticker. My personal favorite is here with the gnome
+#' learning about the unknown mu parameter from being in the fir tree.
 #' 
 #' ---
 #' 
@@ -1011,7 +1185,13 @@ mean(bowl$color == "red")
 #' 
 #' - While in the van, the Mythbusters watched to see if the unaware participants yawned.
 #' 
-#' 
+#' ???
+#' - Next, I'd walk through another example that lends itself nicely to a hypothesis
+#' testing framework.
+#' - The TV show Mythbusters wanted to test if yawning is contagious.
+#' - They selected 50 adults and split them into two groups.
+#' - Some were shown a yawn and some weren't.
+#' - They they observed whether each participant also yawned.
 #' 
 #' ---
 #' 
@@ -1026,10 +1206,14 @@ mean(bowl$color == "red")
 #' 
 #' --
 #' 
-## ----purl=TRUE-------------------------------------------------------------------
+## ----purl=TRUE-------------------------------------------------
 library(moderndive)
 mythbusters_yawn %>% slice(c(1, 3, 6, 19))
 
+#' 
+#' ???
+#' In the moderndive package, we've included a tibble based on the data presented.
+#' Here are what a few rows of that data looks like.
 #' 
 #' ---
 #' 
@@ -1037,7 +1221,7 @@ mythbusters_yawn %>% slice(c(1, 3, 6, 19))
 #' 
 #' `r img_link("https://github.com/sfirke/janitor", "images/janitor_hex.png", 150)`
 #' 
-## ----purl=TRUE-------------------------------------------------------------------
+## ----purl=TRUE-------------------------------------------------
 library(janitor)
 mythbusters_yawn %>%
   tabyl(group, yawn) %>%
@@ -1046,6 +1230,11 @@ mythbusters_yawn %>%
   adorn_ns()
 
 #' 
+#' ???
+#' - The janitor package provides some tools for looking at the table of yawn versus
+#' group.
+#' - We can see that those who were shown a yawn tended to also yawn more than
+#' those that weren't shown a yawn.
 #' ---
 #' 
 #' ## *Finding: CONFIRMED*
@@ -1057,7 +1246,9 @@ mythbusters_yawn %>%
 #' .footnote[
 #' [1] http://www.discovery.com/tv-shows/mythbusters/mythbusters-database/yawning-contagious/]
 #' 
-#' 
+#' ???
+#' Mythbusters said this statement on the show. Do you think they did the 
+#' hypothesis test needed to check to see if that claim is appropriate?
 #' ---
 #' 
 #' ## Really? Let's formally check this
@@ -1107,7 +1298,7 @@ mythbusters_yawn %>%
 #' 
 #' ## The observed difference
 #' 
-## ----purl=TRUE-------------------------------------------------------------------
+## ----purl=TRUE-------------------------------------------------
 library(infer)
 obs_diff <- mythbusters_yawn %>% 
   specify(yawn ~ group, success = "yes") %>%
@@ -1117,6 +1308,11 @@ obs_diff <- mythbusters_yawn %>%
   )
 obs_diff
 
+#' 
+#' ???
+#' We've added a shortcut into infer for calculating the observed statistic using
+#' just specify and calculate. We'll add more verbs to this when we get to doing
+#' the hypothesis test with infer.
 #' 
 #' ---
 #' class: middle, center
@@ -1151,18 +1347,25 @@ obs_diff
 #' 
 #' In other words, there is no association between exposure and yawning.
 #' 
+#' ???
+#' We can test for independence between the group and yawn variables.
 #' 
 #' ---
 #' class: center, middle
 #' 
 #' ![](http://directorsnotes.com/wp-content/uploads/2011/11/another_earth_03.jpg)
+#' ???
+#' One way to think about this framework of hypothesis testing is by
+#' creating parallel universes where the null hypothesis is true and then
+#' see where what we observed falls in relation to that.
+#' 
 #' ---
 #' 
 #' 
 #' 
 #' .pull-left[
 #' ### Original universe
-## ----echo=FALSE, purl=TRUE-------------------------------------------------------
+## ----echo=FALSE, purl=TRUE-------------------------------------
 mythbusters_yawn  %>%
   slice(c(1:6, 15:20)) %>% 
   knitr::kable()
@@ -1172,12 +1375,15 @@ mythbusters_yawn %>%
 
 #' ]
 #' 
+#' ???
+#' Our original universe looks like this.
+#' 
 #' --
 #' 
 #' .pull-right[
 #' ### Parallel universe
-## ----echo=FALSE, purl=TRUE-------------------------------------------------------
-set.seed(2018)
+## ----echo=FALSE, purl=TRUE-------------------------------------
+set.seed(201)
 perm1 <- mythbusters_yawn %>%
   specify(
     formula = yawn ~ group,
@@ -1197,12 +1403,17 @@ perm1 %>%
 
 #' ]
 #' 
+#' ???
+#' One parallel universe looks like this. Notice that the overall Totals in the 
+#' table at the bottom stays the same, but the values of the response variable have
+#' been shuffled.
+#' 
 #' ---
 #' 
 #' # 1000 parallel universes
 #' 
 #' .pull-left[
-## ----echo=FALSE, purl=TRUE, cache=TRUE-------------------------------------------
+## ----echo=FALSE, purl=TRUE, cache=TRUE-------------------------
 yawn_universes <- mythbusters_yawn %>%
   specify(yawn ~ group, success = "yes") %>%
   hypothesize(null = "independence") %>%
@@ -1217,20 +1428,22 @@ yawn_universes %>%
 
 #' ]
 #' 
-#' --
-#' 
 #' .pull-right[
-## ----echo=FALSE, purl=TRUE-------------------------------------------------------
+## ----echo=FALSE, purl=TRUE-------------------------------------
 yawn_universes %>%
   slice(986:1000) %>% 
   knitr::kable()
 
 #' ]
 #' 
+#' ???
+#' We can next think about 1000 such parallel universes as well as the difference
+#' in proportions for each of those replicates.
+#' 
 #' ---
 #' ## The parallel universe distribution
 #' 
-## ----echo=FALSE, purl=TRUE, cache=TRUE-------------------------------------------
+## ----echo=FALSE, purl=TRUE, cache=TRUE-------------------------
 set.seed(8)
 null_distn <- mythbusters_yawn %>%
   specify(
@@ -1253,6 +1466,10 @@ null_plot
 #' 
 #' The distribution of 1000 differences in proportions, if the null hypothesis were *true* and yawning was not contagious. 
 #' 
+#' ???
+#' It's always a little weird shading a histogram but you can see that around
+#' 40-50% of the values in this null distribution are greater than what we 
+#' observed.
 #' 
 #' ---
 #' ## Calculating the p-value
@@ -1267,10 +1484,15 @@ null_plot
 #' 
 #' The shaded proportion is the p-value!
 #' 
-## ----purl=TRUE-------------------------------------------------------------------
+## ----purl=TRUE-------------------------------------------------
 null_distn %>% 
   get_p_value(obs_stat = obs_diff, direction = "right")
 
+#' 
+#' ???
+#' - We can calculate this value directly using the get_p_value function from infer.
+#' - This determines the proportion of statistics that are as extreme or more
+#' extreme than what was observed in our sample.
 #' 
 #' ---
 #' class: middle, center
@@ -1279,6 +1501,11 @@ null_distn %>%
 #' ## There is Only One Test!
 #' 
 #' [![Only One Test](images/downey.png)](http://allendowney.blogspot.com/2016/06/there-is-still-only-one-test.html)
+#' 
+#' ???
+#' This framework for thinking about hypothesis testing was inspired by
+#' Allen Downey and his "There is Only One Test!" blogpost. If you click on the
+#' diagram here it will send you to this webpage.
 #' 
 #' ---
 #' 
@@ -1349,11 +1576,20 @@ null_distn %>%
 #' - `calculate()` the statistic (`stat = "diff in props"`) for each of the `reps`
 #' </small>
 #' 
+#' ???
+#' This slide gives you more details on what each step in the process looks like
+#' for this example.
+#' 
 #' ---
 #' 
 #' ## {infer} example
 #' 
 
+#' 
+#' ???
+#' The infer pipeline is verbose but it is designed to help beginners understand
+#' simulation-based inference via the code written. It helps remind them of how
+#' the problem is set up as well as the steps in Allen Downey's framework.
 #' 
 #' ---
 #' 
@@ -1361,7 +1597,7 @@ null_distn %>%
 #' 
 #' - `visualize()` the distribution of the `stat` <br> (here, `diff in props`)
 #' 
-## ----include=FALSE, purl=TRUE----------------------------------------------------
+## ----include=FALSE, purl=TRUE----------------------------------
 set.seed(8)
 null_distn <- mythbusters_yawn %>%
   specify(formula = yawn ~ group, success = "yes") %>%
@@ -1371,11 +1607,15 @@ null_distn <- mythbusters_yawn %>%
 
 #' 
 #' 
-## ----purl=TRUE-------------------------------------------------------------------
+## ----purl=TRUE-------------------------------------------------
 null_distn %>%
   visualize(bins = 8) +
   shade_p_value(obs_stat = obs_diff, direction = "right")
 
+#' 
+#' ???
+#' Lastly, we can visualize and shade in the p-value to get a sense for its value
+#' as well as a conceptual understanding of what it represents for this problem.
 #' 
 #' ---
 #' 
@@ -1387,11 +1627,18 @@ null_distn %>%
 #' 
 
 #' 
+#' ???
+#' - infer also works for many of the common traditional classical inference
+#' techniques like performing a z test here.
+#' - The syntax is much the same except now we are calculating a z statistic
+#' and we don't need to use generate since the normal distribution will be
+#' used directly.
+#' 
 #' ---
 #' 
 #' ## Classical inference
 #' 
-## ----echo=FALSE, purl=TRUE, warning=TRUE, fig.height=4.5-------------------------
+## ----echo=FALSE, purl=TRUE, warning=TRUE, fig.height=4.5-------
 obs_z <- mythbusters_yawn %>%
   specify(yawn ~ group, success = "yes") %>%
   calculate(stat = "z", order = c("seed", "control"))
@@ -1404,11 +1651,16 @@ mythbusters_yawn %>%
   shade_p_value(obs_stat = obs_z, direction = "right")
 
 #' 
+#' ???
+#' infer also gives a warning here that the assumptions behind a traditional
+#' hypothesis test such as sample size and independence of observations have
+#' not been checked.
+#' 
 #' ---
 #' 
 #' # Simulation-based vs Classical (`stat = "z"`) 
 #' 
-## ----warning=FALSE, purl=TRUE, cache=TRUE----------------------------------------
+## ----warning=FALSE, purl=TRUE, cache=TRUE----------------------
 mythbusters_yawn %>%
   specify(yawn ~ group, success = "yes") %>%
   hypothesize(null = "independence") %>%
@@ -1417,6 +1669,10 @@ mythbusters_yawn %>%
   visualize(method = "both", bins = 8) + 
   shade_p_value(obs_stat = obs_z, direction = "right")
 
+#' 
+#' ???
+#' Lastly, you can do both simulation and classical types of inference at the same
+#' time using `visualize(method = "both)`.
 #' 
 #' ---
 #' 
@@ -1440,13 +1696,13 @@ mythbusters_yawn %>%
 #' <img src="https://github.com/moderndive/moderndive/blob/master/images/hex_blue_text.png?raw=true" style="width: 200px;"/></a>&emsp;&emsp;<a href="https://infer.tidymodels.org"> 
 #' <img src="images/infer_oregon3.png" style="width: 200px;"/></a></center>
 #' 
-#' ## Any questions?
+#' ## Any further questions?
 #' 
 #' <!-- - Special thanks to -->
 #' 
 #' - Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
 #' - Slides' source code at <https://github.com/ismayc/talks/>
-#' - R code from throughout the slides as an R script [here](https://raw.githubusercontent.com/ismayc/talks/master/csp-2021/slide_code.R)
+#' - R code from throughout the slides as an R script as [slide_code.R](https://raw.githubusercontent.com/ismayc/talks/master/csp-2021/slide_code.R)
 #' 
 #' ---
 #' 
@@ -1469,6 +1725,9 @@ mythbusters_yawn %>%
 #'   [`r fa(name = "link")` chester.rbind.io](https://chester.rbind.io)  
 #' <!--  [`r fa(name = "paper-plane")` `chester [dot] ismay [at] datarobot [dot] com`](mailto:chester.ismay@datarobot.com) -->
 #' ]
+#' 
+#' ???
+#' We've also included some tips in the Appendix that follows.
 #' 
 #' ---
 #' class: inverse, center, middle
@@ -1530,7 +1789,7 @@ mythbusters_yawn %>%
 #' 
 #' .pull-right[
 #' Try typing (with shortcut) and running
-## ---- eval=FALSE-----------------------------------------------------------------
+## ---- eval=FALSE-----------------------------------------------
 ## y <- 5
 ## y
 

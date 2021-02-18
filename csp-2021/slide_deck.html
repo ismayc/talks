@@ -30,6 +30,12 @@ class: middle, center
 
 ### PDF slides at &lt;http://bit.ly/csp-tidy-pdf&gt;
 
+???
+
+Welcome to our course! You can find the link to the HTML version of our slides
+as well as the PDF version here. We'll give you a few minutes to get these
+loaded and then start with introductions of your presenters.
+
 ---
 
 name: our-info
@@ -69,6 +75,13 @@ class: middle
 &lt;!--  [&lt;svg style="height:0.8em;top:.04em;position:relative;" viewBox="0 0 512 512"&gt;&lt;path d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/&gt;&lt;/svg&gt; `chester [dot] ismay [at] datarobot [dot] com`](mailto:chester.ismay@datarobot.com) --&gt;
 ]
 
+???
+
+Hello. My name is Chester and I lead data science and machine learning courses
+for DataRobot. I'm based in Portland, Oregon. I'm next going to give you an
+overview of the content of this course and review R prerequisites to follow
+along with us before I turn it back over to Jessica
+to lead you through the first part of the course.
 
 ---
 
@@ -85,6 +98,10 @@ Part 2
 - [Sampling](#sampling)
 - [Inference](#inference)
 
+???
+The first part of the course is focused on exploratory data analysis in
+the tidyverse and the second part is about statistical inference using
+data science principles you'll learn about in the first part.
 ---
 
 layout: true
@@ -99,6 +116,12 @@ name:getting-started
 
 Make sure you have the current R, RStudio, &amp; R packages
 - [Novice's Guide](https://moderndive.com/1-getting-started.html) on ModernDive.com
+
+???
+We recommend that you have the following versions of R, RStudio, and some R
+packages downloaded. If you are having issues getting these things going right
+now, we recommend you just follow along with the slides and work to get the
+installations working during exercises and our break about halfway through.
 
 --
 
@@ -144,7 +167,11 @@ pkgs &lt;- c(
 install.packages(pkgs)
 ```
 
-
+???
+If you already downloaded the course materials and already ran the prereqs.R,
+you can skip running this code again. After you've run these commands to get the packages installed, please follow
+the steps on the next slide. I'll leave this up for a little bit to make sure
+those following along can copy the code into RStudio and run it.
 
 ---
 
@@ -167,7 +194,22 @@ usethis::use_course("https://csp2021.netlify.app/materials.zip")
 **4.** Edit Google Doc to ask and answer questions:
 [https://bit.ly/csp-tidy-doc](https://docs.google.com/document/d/1Qsf1-GNMkjkP7lQAdiuhuu-gEP2reS2vkxRwfdXdYUI/edit)
 
+???
+- Just a reminder here on the HTML slides link if you missed it at the beginning.
+It will also be available at the bottom of the slides as you can see here
+throughout the presentation.
 
+- Please follow steps 2 and 3 next including copying the code in step 3 and
+running in RStudio. This will start up a new RStudio project and make sure
+you have the code available that we will go over.
+
+- Lastly please open up the Google Doc linked here. You can add your questions
+and any issues you are having here. We'll be keeping an eye on it. Help out
+your fellow participants as well if you are able to answer questions before
+Jessica or I can. 
+
+- I'm going to turn it over to Jessica now to get us going
+on the content.
 ---
 
 class: inverse, center, middle
@@ -1092,10 +1134,12 @@ class: center, middle
 - Perform tidy hypothesis testing using the {infer} package
 
 ???
-
-Alright before we get to part 2, we will take a short break to have a bit of a rest or whatever you need. Feel free to ask questions in the google doc or in chat during break. We will come back at XXXX.
-
-
+- Alright before we get to part 2, we will take a short break to have a bit of a rest or whatever you need. 
+Feel free to ask questions in the google doc or in chat during break. We will come back at XXXX.
+- Welcome to Part 2 of the class. Here I'll introduce some statistical ideas
+but we'll take a computational approach using the tidyverse framework you've
+seen so far.
+- We'll finish Part 2 by using the infer package for tidy statistical inference.
 
 ---
 
@@ -1112,6 +1156,11 @@ name: sampling
 &lt;img src="images/sampling_bowl.jpeg" style = "width: 380px;"/&gt;
 &lt;/a&gt;
 &lt;/center&gt;
+
+???
+Let's say we were interested in the proportion of balls in this bin that were
+red. Instead of taking all the balls out of the hopper, we could take a sample
+using a shovel to get an estimate as to that proportion.
 
 ---
 
@@ -1144,6 +1193,10 @@ bowl %&gt;% slice_head(n = 15)
 15      15 red  
 ```
 
+???
+The moderndive package includes a tibble called bowl that represents
+all of the balls in this hopper. The first 15 rows of this tibble are shown.
+
 ---
 
 ## One virtual scoop of 50 balls (one sample)
@@ -1166,6 +1219,11 @@ set.seed(8675309)
 # … with 45 more rows
 ```
 
+???
+Let's say our friend Jenny wants to take a sample of the entries in bowl.
+We can do that programmatically using the slice_sample function from dplyr
+after setting Jenny's seed value.
+
 ---
 
 ## Proportion that are red
@@ -1181,9 +1239,22 @@ jennys_sample %&gt;%
 [1] 0.32
 ```
 
+
+
+
+???
+- In this particular sample, we can see that Jenny had 32%
+red balls.
+
 --
 
 ## Is this how many are in the full bowl?
+
+???
+- Are we guaranteed that is the same proportion that are in the full bowl?
+- No, different samples will lead to different proportions of red balls.
+- If we repeated the process of sampling many times, we could then
+get a sense for the variation in the proportion of red balls across samples.
 
 ---
 
@@ -1199,6 +1270,11 @@ rep_bowl_samples &lt;- bowl %&gt;%
   rep_slice_sample(n = 50, reps = 10000)
 ```
 
+???
+- That's exactly what is done here. The rep_slice_sample function repeatedly
+samples from a data frame and then stacks the resulting rows on top of each
+other.
+
 --
 
 ### How about `bowl_props`?
@@ -1210,7 +1286,9 @@ bowl_props &lt;- rep_bowl_samples %&gt;%
   summarize(prop_red = mean(color == "red"))
 ```
 
-
+???
+- The last step here is to group based on each of the ten thousand replicates
+to get the proportion of red balls in each sample.
 ---
 
 ## The sampling distribution
@@ -1221,8 +1299,11 @@ ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
   geom_histogram(binwidth = 0.02, color = "white")
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-47-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-48-1.png)&lt;!-- --&gt;
 
+???
+If we visualize the proportion of red variable, we can see how the
+sample statistic varies from one sample to another for samples of size 50.
 ---
 
 ## Shifting focus
@@ -1242,10 +1323,17 @@ jennys_sample %&gt;% count(color)
 2 white    34
 ```
 
+???
+- In reality, we don't usually have the population of interest like we did here
+with the `bowl` tibble.
+- Rather we have only one sample and would like to understand the variability
+we might expect from one sample to another.
 --
 
 ### How could we use this sample to make a guess about the sampling variability from other samples?
 
+???
+- So how can we do this?
 ---
 
 ## Building up to statistical inference!
@@ -1270,6 +1358,13 @@ Response: color (factor)
 # … with 45 more rows
 ```
 
+???
+- The infer package provides a way for us to do just this.
+- We'll formalize the different functions in a bit but I want to first walk
+through our example to help you get a feel for the syntax.
+- First we specify that we are interested in looking for red balls with
+a response variable set to color.
+
 ---
 
 ## Bootstrapping?
@@ -1279,13 +1374,13 @@ Response: color (factor)
 library(infer)
 (bootstrap_samples &lt;- jennys_sample %&gt;%
   specify(formula = color ~ NULL, success = "red") %&gt;%
-  generate(reps = 48, type = "bootstrap"))
+  generate(reps = 5, type = "bootstrap"))
 ```
 
 ```
 Response: color (factor)
-# A tibble: 2,400 x 2
-# Groups:   replicate [48]
+# A tibble: 250 x 2
+# Groups:   replicate [5]
   replicate color
       &lt;int&gt; &lt;fct&gt;
 1         1 red  
@@ -1293,8 +1388,14 @@ Response: color (factor)
 3         1 white
 4         1 white
 5         1 white
-# … with 2,395 more rows
+# … with 245 more rows
 ```
+
+???
+- We can use sampling with replacement from the color variable to create
+bootstrap samples from our original sample of Jenny's.
+- Five is chosen for the number of reps here just to help you see what is
+going on initially.
 
 ---
 
@@ -1303,13 +1404,18 @@ Response: color (factor)
 - Remember we assumed that all we had was the original sample of 19 red and 31 white to start.
 --
 
-- Hope each selection in `bootstrap_samples` is similar to:
+- Hope each of the five sample selections in `bootstrap_samples` is similar to:
 
 &lt;center&gt;
 &lt;a href="http://moderndive.netlify.com/images/sampling_bowl.jpeg"&gt;
 &lt;img src="images/big_sampling_bowl.jpeg" style = "width: 500px;"/&gt;
 &lt;/a&gt;
 &lt;/center&gt;
+
+???
+One way I like to think about bootstrap sampling is that each bootstrap sample
+is an attempt to guess at what the population might look like, using the 
+original single sample as a guide.
 
 ---
 
@@ -1319,21 +1425,24 @@ Response: color (factor)
 ```r
 jennys_sample %&gt;%
   specify(formula = color ~ NULL, success = "red") %&gt;%
-  generate(reps = 48, type = "bootstrap") %&gt;%
+  generate(reps = 5, type = "bootstrap") %&gt;%
   calculate(stat = "prop")
 ```
 
 ```
-# A tibble: 48 x 2
+# A tibble: 5 x 2
   replicate  stat
 *     &lt;int&gt; &lt;dbl&gt;
-1         1  0.24
-2         2  0.34
-3         3  0.34
-4         4  0.4 
-5         5  0.28
-# … with 43 more rows
+1         1  0.4 
+2         2  0.32
+3         3  0.3 
+4         4  0.24
+5         5  0.44
 ```
+
+???
+After collecting the samples, we last calculate the proportion of red balls
+in each bootstrap sample to obtain five different bootstrap statistics.
 
 ---
 
@@ -1349,15 +1458,35 @@ bootstrap_stats &lt;- jennys_sample %&gt;%
   calculate(stat = "prop")
 ```
 
+???
+- Lastly, we can go a step further and repeat this bootstrapping process many
+times, say ten thousand.
+- And then visualize it which we'll see next.
+
 ---
 
 ### The bootstrap distribution
 
-![](slide_deck_files/figure-html/unnamed-chunk-53-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-54-1.png)&lt;!-- --&gt;
+
+???
+- I've added in some bars here corresponding to the mean of the distribution
+as well as one standard deviation in both directions.
+- This can provide a way to get a sense for sampling variability using
+only a single sample.
+--
 
 ### The sampling distribution
 
-![](slide_deck_files/figure-html/unnamed-chunk-54-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-55-1.png)&lt;!-- --&gt;
+
+???
+- If you compare this to the actual sampling distribution we calculated before,
+you can see that the variation in the two plots is similar.
+- Thus, assuming you have a random sample from the population to start (and it
+is of reasonable size---whatever that may mean for your problem), bootstrapping
+can be a nice way to estimate the variability from one sample to another based
+on your statistic of interest.
 
 ---
 
@@ -1378,6 +1507,11 @@ get_ci(bootstrap_stats, level = 0.95)
 - We are 95% "confident" the true proportion of red balls in the hopper/bowl is
 between 0.2 and 0.44.
 
+???
+- The infer package also includes a get_ci function, which you can use
+to return the appropriate percentiles of the bootstrap distribution
+corresponding to the level given.
+
 --
 ***
 
@@ -1392,7 +1526,12 @@ mean(bowl$color == "red")
 [1] 0.375
 ```
 
-
+???
+- In this case, we expect about 95 confidence intervals out of 100 to include
+the true value from the population and that's why we put confident in quotes.
+- As a check since we know the population, we can calculate this proportion.
+- Here we see that Jenny's sample would be one of the 95% of intervals that
+includes the true population parameter of red balls.
 ---
 
 ## {infer} verbs
@@ -1404,7 +1543,16 @@ mean(bowl$color == "red")
 &lt;/center&gt;
 
 
-
+???
+- You've seen these verbs now via example but I'd like to walk through them
+again now with a diagram.
+- First, you specify which columns you'd like to work with. You've seen so far
+only choosing one variable but you'll see soon that you can select a response
+variable and an explanatory variable.
+- Then, you can generate bootstrap samples.
+- And calculate the appropriate statistic of interest from each sample.
+- Looking at the standard deviation of these statistics provides as estimate
+for the standard error denoted as SE here.
 
 ---
 
@@ -1416,6 +1564,14 @@ mean(bowl$color == "red")
 &lt;/a&gt;
 &lt;/center&gt;
 
+???
+- The infer package was designed to also help with hypothesis testing.
+- There is only one additional function there with `hypothesize()`.
+- That allows you to denote what type of hypothesis test you are wanting to
+perform as well as any other null values as needed.
+- The `visualize()` function is a wrapper around ggplot2 to provide a quick
+way to look at the statistics that have been produced.
+- We'll see this further in our next example.
 
 
 ---
@@ -1433,6 +1589,11 @@ class: middle, center
 &lt;br&gt;
 
 .footnote[{infer} hex sticker designs kindly created by [Thomas Mock](https://www.linkedin.com/in/jthomasmock/)]
+
+???
+Thomas Mock was kind enough to produce a few different options for the
+{infer} package hex sticker. My personal favorite is here with the gnome
+learning about the unknown mu parameter from being in the fir tree.
 
 ---
 
@@ -1458,7 +1619,13 @@ In an episode of the show *Mythbusters*, they tested the myth that yawning is co
 
 - While in the van, the Mythbusters watched to see if the unaware participants yawned.
 
-
+???
+- Next, I'd walk through another example that lends itself nicely to a hypothesis
+testing framework.
+- The TV show Mythbusters wanted to test if yawning is contagious.
+- They selected 50 adults and split them into two groups.
+- Some were shown a yawn and some weren't.
+- They they observed whether each participant also yawned.
 
 ---
 
@@ -1489,6 +1656,10 @@ mythbusters_yawn %&gt;% slice(c(1, 3, 6, 19))
 4    19 control yes  
 ```
 
+???
+In the moderndive package, we've included a tibble based on the data presented.
+Here are what a few rows of that data looks like.
+
 ---
 
 # Results
@@ -1515,6 +1686,11 @@ mythbusters_yawn %&gt;%
     seed 70.6% (24) 29.4% (10)
 ```
 
+???
+- The janitor package provides some tools for looking at the table of yawn versus
+group.
+- We can see that those who were shown a yawn tended to also yawn more than
+those that weren't shown a yawn.
 ---
 
 ## *Finding: CONFIRMED*
@@ -1526,7 +1702,9 @@ mythbusters_yawn %&gt;%
 .footnote[
 [1] http://www.discovery.com/tv-shows/mythbusters/mythbusters-database/yawning-contagious/]
 
-
+???
+Mythbusters said this statement on the show. Do you think they did the 
+hypothesis test needed to check to see if that claim is appropriate?
 ---
 
 ## Really? Let's formally check this
@@ -1595,6 +1773,11 @@ obs_diff
 1 0.0441
 ```
 
+???
+We've added a shortcut into infer for calculating the observed statistic using
+just specify and calculate. We'll add more verbs to this when we get to doing
+the hypothesis test with infer.
+
 ---
 class: middle, center
 
@@ -1628,11 +1811,18 @@ is true, then whether or not the participant saw someone else yawn does not matt
 
 In other words, there is no association between exposure and yawning.
 
+???
+We can test for independence between the group and yawn variables.
 
 ---
 class: center, middle
 
 ![](http://directorsnotes.com/wp-content/uploads/2011/11/another_earth_03.jpg)
+???
+One way to think about this framework of hypothesis testing is by
+creating parallel universes where the null hypothesis is true and then
+see where what we observed falls in relation to that.
+
 ---
 
 
@@ -1719,6 +1909,9 @@ class: center, middle
 ```
 ]
 
+???
+Our original universe looks like this.
+
 --
 
 .pull-right[
@@ -1735,7 +1928,7 @@ class: center, middle
   &lt;tr&gt;
    &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; seed &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; yes &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
@@ -1755,12 +1948,12 @@ class: center, middle
   &lt;tr&gt;
    &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; seed &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; yes &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; control &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; yes &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
@@ -1770,7 +1963,7 @@ class: center, middle
   &lt;tr&gt;
    &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; seed &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; yes &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; no &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
@@ -1797,11 +1990,16 @@ class: center, middle
 
 ```
    group no yes Total
- control 12   4    16
-    seed 24  10    34
+ control 10   6    16
+    seed 26   8    34
    Total 36  14    50
 ```
 ]
+
+???
+One parallel universe looks like this. Notice that the overall Totals in the 
+table at the bottom stays the same, but the values of the response variable have
+been shuffled.
 
 ---
 
@@ -1880,8 +2078,6 @@ class: center, middle
 &lt;/table&gt;
 ]
 
---
-
 .pull-right[
 &lt;table&gt;
  &lt;thead&gt;
@@ -1955,14 +2151,22 @@ class: center, middle
 &lt;/table&gt;
 ]
 
+???
+We can next think about 1000 such parallel universes as well as the difference
+in proportions for each of those replicates.
+
 ---
 ## The parallel universe distribution
 
-![](slide_deck_files/figure-html/unnamed-chunk-64-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-65-1.png)&lt;!-- --&gt;
 
 
 The distribution of 1000 differences in proportions, if the null hypothesis were *true* and yawning was not contagious. 
 
+???
+It's always a little weird shading a histogram but you can see that around
+40-50% of the values in this null distribution are greater than what we 
+observed.
 
 ---
 ## Calculating the p-value
@@ -1990,6 +2194,11 @@ null_distn %&gt;%
 1   0.493
 ```
 
+???
+- We can calculate this value directly using the get_p_value function from infer.
+- This determines the proportion of statistics that are as extreme or more
+extreme than what was observed in our sample.
+
 ---
 class: middle, center
 layout: false
@@ -1997,6 +2206,11 @@ layout: false
 ## There is Only One Test!
 
 [![Only One Test](images/downey.png)](http://allendowney.blogspot.com/2016/06/there-is-still-only-one-test.html)
+
+???
+This framework for thinking about hypothesis testing was inspired by
+Allen Downey and his "There is Only One Test!" blogpost. If you click on the
+diagram here it will send you to this webpage.
 
 ---
 
@@ -2067,6 +2281,10 @@ Five main functions:
 - `calculate()` the statistic (`stat = "diff in props"`) for each of the `reps`
 &lt;/small&gt;
 
+???
+This slide gives you more details on what each step in the process looks like
+for this example.
+
 ---
 
 ## {infer} example
@@ -2087,6 +2305,11 @@ null_distn &lt;- mythbusters_yawn %&gt;%
   )
 ```
 
+???
+The infer pipeline is verbose but it is designed to help beginners understand
+simulation-based inference via the code written. It helps remind them of how
+the problem is set up as well as the steps in Allen Downey's framework.
+
 ---
 
 ## Visualize the null distribution
@@ -2103,7 +2326,11 @@ null_distn %&gt;%
   shade_p_value(obs_stat = obs_diff, direction = "right")
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-68-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-69-1.png)&lt;!-- --&gt;
+
+???
+Lastly, we can visualize and shade in the p-value to get a sense for its value
+as well as a conceptual understanding of what it represents for this problem.
 
 ---
 
@@ -2128,6 +2355,13 @@ mythbusters_yawn %&gt;%
   shade_p_value(obs_stat = obs_z, direction = "right")
 ```
 
+???
+- infer also works for many of the common traditional classical inference
+techniques like performing a z test here.
+- The syntax is much the same except now we are calculating a z statistic
+and we don't need to use generate since the normal distribution will be
+used directly.
+
 ---
 
 ## Classical inference
@@ -2139,7 +2373,12 @@ theoretical method. {infer} currently does not check these for
 you.
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-71-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-72-1.png)&lt;!-- --&gt;
+
+???
+infer also gives a warning here that the assumptions behind a traditional
+hypothesis test such as sample size and independence of observations have
+not been checked.
 
 ---
 
@@ -2156,7 +2395,11 @@ mythbusters_yawn %&gt;%
   shade_p_value(obs_stat = obs_z, direction = "right")
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-72-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-73-1.png)&lt;!-- --&gt;
+
+???
+Lastly, you can do both simulation and classical types of inference at the same
+time using `visualize(method = "both)`.
 
 ---
 
@@ -2180,13 +2423,13 @@ class: middle
 &lt;img src="https://github.com/moderndive/moderndive/blob/master/images/hex_blue_text.png?raw=true" style="width: 200px;"/&gt;&lt;/a&gt;&amp;emsp;&amp;emsp;&lt;a href="https://infer.tidymodels.org"&gt; 
 &lt;img src="images/infer_oregon3.png" style="width: 200px;"/&gt;&lt;/a&gt;&lt;/center&gt;
 
-## Any questions?
+## Any further questions?
 
 &lt;!-- - Special thanks to --&gt;
 
 - Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
 - Slides' source code at &lt;https://github.com/ismayc/talks/&gt;
-- R code from throughout the slides as an R script [here](https://raw.githubusercontent.com/ismayc/talks/master/csp-2021/slide_code.R)
+- R code from throughout the slides as an R script as [slide_code.R](https://raw.githubusercontent.com/ismayc/talks/master/csp-2021/slide_code.R)
 
 ---
 
@@ -2209,6 +2452,9 @@ class: middle, center
   [&lt;svg style="height:0.8em;top:.04em;position:relative;" viewBox="0 0 512 512"&gt;&lt;path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/&gt;&lt;/svg&gt; chester.rbind.io](https://chester.rbind.io)  
 &lt;!--  [&lt;svg style="height:0.8em;top:.04em;position:relative;" viewBox="0 0 512 512"&gt;&lt;path d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/&gt;&lt;/svg&gt; `chester [dot] ismay [at] datarobot [dot] com`](mailto:chester.ismay@datarobot.com) --&gt;
 ]
+
+???
+We've also included some tips in the Appendix that follows.
 
 ---
 class: inverse, center, middle
@@ -2296,7 +2542,8 @@ keyboard shortcut help | option + shift + k | alt + shift + k
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-"highlightLanguage": "r"
+"highlightLanguage": "r",
+"includePresenterNotes": true
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
