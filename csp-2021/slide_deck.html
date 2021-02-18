@@ -152,18 +152,19 @@ install.packages(pkgs)
 
 # Getting started
 
-1. Open HTML slides: &lt;https://bit.ly/csp-tidy-slides&gt;
-1. Open RStudio  
-1. Download course materials to your preferred location by running
-   this in the RStudio Console: 
-   
-   &lt;br&gt;
-   
-  `usethis::use_course("bit.ly/csp-tidy")`
+**1.** Open HTML slides: &lt;https://bit.ly/csp-tidy-slides&gt;
 
-  &lt;br&gt;
+**2.** Open RStudio  
 
-1. Edit Google Doc to ask and answer questions:
+**3.** Download course materials to your preferred location by copying this
+and running it in the RStudio Console: 
+   
+
+```r
+usethis::use_course("https://csp2021.netlify.app/materials.zip")
+```
+
+**4.** Edit Google Doc to ask and answer questions:
 [https://bit.ly/csp-tidy-doc](https://docs.google.com/document/d/1Qsf1-GNMkjkP7lQAdiuhuu-gEP2reS2vkxRwfdXdYUI/edit)
 
 
@@ -1034,7 +1035,7 @@ ggplot(data = bowl_props, mapping = aes(x = prop_red)) +
   geom_histogram(binwidth = 0.02, color = "white")
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-47-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -1166,11 +1167,11 @@ bootstrap_stats &lt;- jennys_sample %&gt;%
 
 ### The bootstrap distribution
 
-![](slide_deck_files/figure-html/unnamed-chunk-52-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-53-1.png)&lt;!-- --&gt;
 
 ### The sampling distribution
 
-![](slide_deck_files/figure-html/unnamed-chunk-53-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-54-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -1771,7 +1772,7 @@ class: center, middle
 ---
 ## The parallel universe distribution
 
-![](slide_deck_files/figure-html/unnamed-chunk-63-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-64-1.png)&lt;!-- --&gt;
 
 
 The distribution of 1000 differences in proportions, if the null hypothesis were *true* and yawning was not contagious. 
@@ -1916,7 +1917,7 @@ null_distn %&gt;%
   shade_p_value(obs_stat = obs_diff, direction = "right")
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-67-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-68-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -1952,7 +1953,7 @@ theoretical method. {infer} currently does not check these for
 you.
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-70-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-71-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -1969,7 +1970,7 @@ mythbusters_yawn %&gt;%
   shade_p_value(obs_stat = obs_z, direction = "right")
 ```
 
-![](slide_deck_files/figure-html/unnamed-chunk-71-1.png)&lt;!-- --&gt;
+![](slide_deck_files/figure-html/unnamed-chunk-72-1.png)&lt;!-- --&gt;
 
 ---
 
