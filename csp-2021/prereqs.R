@@ -18,6 +18,6 @@ rstudioapi::versionInfo()$version
 # R packages needed for the course
 pkgs <- c(
   "tidyverse", "moderndive", "dslabs", 
-  "infer", "janitor"
+  "infer", "janitor", "usethis"
 )
 install.packages(pkgs, repos = "https://cran.rstudio.org")

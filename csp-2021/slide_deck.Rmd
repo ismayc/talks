@@ -20,7 +20,8 @@ output:
 # specify the packages of interest
 pkgs <- c(
   "tidyverse", "moderndive", "dslabs",
-  "infer", "janitor", "remotes", "knitr"
+  "infer", "janitor", "remotes", "knitr",
+  "usethis"
 )
 
 # use this function to check if each package is on the local machine
